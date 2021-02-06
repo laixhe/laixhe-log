@@ -275,6 +275,7 @@ github.com/kr/text v0.2.0/go.mod h1:eLer722TekiGuMkidMxC/pM04lWEeraHUUmBw8l2grE=
 github.com/laixhe/goutil v0.2.5 h1:gx4hRzNOrl+7o9oDAJhTVfxwSBg9bGvGgGVRVjSgnd8=
 github.com/laixhe/goutil v0.2.5/go.mod h1:ZHjdx41BcnoDAF7Rcp3TVvbZeXXnRd6I6oX3gitxT2M=
 github.com/laixhe/goutil v0.2.9/go.mod h1:nursn+Uy6CR5e2IF3x7lvq2EPqtMlBp4NXvsBLmpXug=
+github.com/laixhe/goutil v0.3.0/go.mod h1:T/NQMGlPLt/Ytk0OMmQ/ASMqpq50WEHerPAhujfbHiQ=
 github.com/leodido/go-urn v1.2.0 h1:hpXL4XnriNwQ/ABnpepYM/1vCLWNDfUNts8dX3xTG6Y=
 github.com/leodido/go-urn v1.2.0/go.mod h1:+8+nEpDfqqsY+g338gtMEUOtuK+4dEMhiQEgxpxOKII=
 github.com/lib/pq v1.0.0 h1:X5PMW56eZitiTeO7tKzZxFCSpbFZJtkMMooicw2us9A=
