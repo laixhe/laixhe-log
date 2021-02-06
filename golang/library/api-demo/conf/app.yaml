@@ -1,0 +1,50 @@
+app:
+  # 项目名
+  name: api-demo
+  # debug release
+  mode: debug
+  port: 8088
+  pid: api-demo.pid
+
+mysql:
+  dsn: root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+  maxIdleConn: 10
+  maxOpenConn: 150
+
+redis:
+  # 运行类型：1=单机 2=哨兵主从 3=分布式集群
+  runType: 1
+  dbNum: 0
+  password:
+  single:
+    node: 127.0.0.1:6379
+  sentinel:
+    master: masquerade
+    nodes:
+      - 127.0.0.1:8001
+      - 127.0.0.1:8002
+      - 127.0.0.1:8003
+  cluster:
+    nodes:
+      - 127.0.0.1:8001
+      - 127.0.0.1:8002
+      - 127.0.0.1:8003
+      - 127.0.0.1:8004
+      - 127.0.0.1:8005
+      - 127.0.0.1:8006
+
+logs:
+  # 日志文件路径: 【当为 console 是控制台输出】【当为 ./logs/logs.log 是文件输出】
+  path: console
+  # 日志级别 debug  info  error
+  logLevel: debug
+  # 每个日志文件保存大小 20M
+  maxSize: 20
+  # 保留 N 个备份
+  maxBackup: 20
+  # 保留 N 天
+  maxAge: 7
+
+jwt:
+  secretKey: W6VjDud2W1kMG3BicbMNlGgI4ZfcoHtMGLWr
+  expTime: 2592000
