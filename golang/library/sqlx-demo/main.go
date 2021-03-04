@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -21,8 +22,9 @@ func initDb() *SQLXDB {
 		log.Fatal("Connect:", err)
 	}
 
-	db.SetMaxIdleConns(10)  // 设置闲置的连接数
-	db.SetMaxOpenConns(100) // 设置最大打开的连接数
+	db.SetMaxIdleConns(10)                 // 设置闲置的连接数
+	db.SetMaxOpenConns(100)                // 设置最大打开的连接数
+	db.SetConnMaxLifetime(5 * time.Minute) // 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)
 
 	// 验证数据库连接是否正常
 	err = db.Ping()
@@ -31,7 +33,7 @@ func initDb() *SQLXDB {
 	}
 
 	return &SQLXDB{
-		X:db,
+		X: db,
 	}
 }
 
@@ -82,7 +84,7 @@ func (this *SQLXDB) Select() {
 }
 
 // 插入、更新、删除
-func (this *SQLXDB) Exec(name string, age int){
+func (this *SQLXDB) Exec(name string, age int) {
 
 	query := "INSERT INTO `user`(`name`,`age`) VALUES(?,?)"
 
@@ -107,7 +109,7 @@ func (this *SQLXDB) Exec(name string, age int){
 }
 
 // IN语句的支持处理
-func (this *SQLXDB) In(names []string){
+func (this *SQLXDB) In(names []string) {
 
 	var users []User
 

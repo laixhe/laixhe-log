@@ -25,7 +25,6 @@ require (
 	go.mongodb.org/mongo-driver v1.4.5
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee
-	golang.org/x/image v0.0.0-20201208152932-35266b937fa6
 	google.golang.org/protobuf v1.25.0
 	gorm.io/driver/mysql v1.0.3
 	gorm.io/gorm v1.20.11

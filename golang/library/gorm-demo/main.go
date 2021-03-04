@@ -35,8 +35,8 @@ func initDb() {
 	// SetMaxOpenConns 设置打开数据库连接的最大数量
 	sqlDB.SetMaxOpenConns(100)
 
-	// SetConnMaxLifetime 设置了连接可复用的最大时间
-	sqlDB.SetConnMaxLifetime(time.Hour)
+	// SetConnMaxLifetime 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)
+	sqlDB.SetConnMaxLifetime(5 * time.Minute)
 
 	// 验证数据库连接是否正常
 	err = sqlDB.Ping()
@@ -120,7 +120,7 @@ func Update(u *User) error {
 // Updates 修改多例结构体
 // UPDATE `user` SET `name`=?,`age`=? WHERE `id` = ?
 func Updates(u *User) error {
-	return db.Select("name","age").Updates(u).Error
+	return db.Select("name", "age").Updates(u).Error
 }
 
 // Save 修改或新增

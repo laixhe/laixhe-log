@@ -3,7 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	
+	"time"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -41,6 +42,8 @@ func initDb() error {
 	DB.SetMaxOpenConns(100)
 	// 设置最大-空闲的连接数
 	DB.SetMaxIdleConns(10)
+	// 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)
+	DB.SetConnMaxLifetime(5 * time.Minute)
 
 	// 验证数据库连接是否正常
 	err = DB.Ping()
@@ -100,7 +103,7 @@ func Select(id int) {
 
 	var users = make([]User, 0, 5)
 
-	for rows.Next()  {
+	for rows.Next() {
 
 		var user User
 
@@ -120,7 +123,7 @@ func Select(id int) {
 }
 
 // 插入、更新、删除
-func Exec(){
+func Exec() {
 
 	query := "INSERT INTO `user`(`name`,`age`) VALUES(?,?)"
 
@@ -146,7 +149,7 @@ func Exec(){
 // 预处理
 
 // 查询-预处理
-func SelectPrepare(id int){
+func SelectPrepare(id int) {
 
 	query := "SELECT `id`,`name`,`age` FROM `user` WHERE `id`>?"
 
@@ -168,7 +171,7 @@ func SelectPrepare(id int){
 
 	var users = make([]User, 0, 5)
 
-	for rows.Next()  {
+	for rows.Next() {
 
 		var user User
 
@@ -188,7 +191,7 @@ func SelectPrepare(id int){
 }
 
 // 修改-预处理
-func UpdatePrepare(id int){
+func UpdatePrepare(id int) {
 
 	query := "UPDATE `user` SET `name`=? WHERE `id`=?"
 
@@ -215,12 +218,11 @@ func UpdatePrepare(id int){
 
 	fmt.Printf("UpdatePrepare Exec affected=%d\n", affected)
 
-
 }
 
 // 事务
 
-func Trans(){
+func Trans() {
 
 	// 开启事务
 	conn, err := DB.Begin()
