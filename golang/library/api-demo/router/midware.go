@@ -33,8 +33,8 @@ const (
 	BearerLen = len(Bearer)
 )
 
-// Auth 鉴权
-func Auth() gin.HandlerFunc {
+// JwtAuth 鉴权
+func JwtAuth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var errs error
 		token := ctx.Request.Header.Get("Authorization")

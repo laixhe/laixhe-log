@@ -8,8 +8,12 @@ app:
 
 mysql:
   dsn: root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+  # 设置空闲连接池中连接的最大数量
   maxIdleConn: 10
+  # 设置打开数据库连接的最大数量
   maxOpenConn: 150
+  # 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)(单位秒)
+  maxLifeTime: 300
 
 redis:
   # 运行类型：1=单机 2=哨兵主从 3=分布式集群
@@ -47,4 +51,5 @@ logs:
 
 jwt:
   secretKey: W6VjDud2W1kMG3BicbMNlGgI4ZfcoHtMGLWr
+  # 过期时长(单位秒)
   expTime: 2592000

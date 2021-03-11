@@ -1,13 +1,15 @@
 package dbx
 
 import (
-	"golang_log/library/api-demo/config"
+	"time"
 
 	"github.com/laixhe/goutil/zaplog"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
+
+	"golang_log/library/api-demo/config"
 )
 
 var (
@@ -26,6 +28,9 @@ func init() {
 	var err error
 	db, err = gorm.Open(mysql.Open(config.DBDsn()), &gorm.Config{
 		Logger: logger.Default.LogMode(logMode),
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true, // 使用单数表名，启用该选项后，`User` 表将是`user`
+		},
 	})
 	if err != nil {
 		panic(err)
@@ -41,6 +46,9 @@ func init() {
 
 	// 设置打开数据库连接的最大数量
 	sqlDB.SetMaxOpenConns(config.DBMaxOpenConn())
+
+	// 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)
+	sqlDB.SetConnMaxLifetime(time.Duration(config.DBMaxLifeTime()) * time.Second)
 
 	// 验证数据库连接是否正常
 	err = sqlDB.Ping()

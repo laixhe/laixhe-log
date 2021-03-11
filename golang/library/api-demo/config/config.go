@@ -3,6 +3,8 @@ package config
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"os"
 
 	"github.com/laixhe/goutil/zaplog"
 	"github.com/spf13/viper"
@@ -21,6 +23,7 @@ type MysqlConfig struct {
 	Dsn         string // 连接地址
 	MaxIdleConn int    // 设置空闲连接池中连接的最大数量
 	MaxOpenConn int    // 设置打开数据库连接的最大数量
+	MaxLifeTime int    // 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)(单位秒)
 }
 
 // RedisConfig redis
@@ -54,8 +57,8 @@ type LogsConfig struct {
 
 // JwtConfig jwt
 type JwtConfig struct {
-	SecretKey string
-	ExpTime   int // 过期时长 秒
+	SecretKey string // jwt secret key
+	ExpTime   int    // 过期时长(单位秒)
 }
 
 // Config 总配置
@@ -104,6 +107,15 @@ func DBMaxOpenConn() int {
 	}
 
 	return conf.Mysql.MaxOpenConn
+}
+
+// DBMaxLifeTime 获取数据库-设置了连接可复用的最大时间(要比数据库设置连接超时时间少)(单位秒)
+func DBMaxLifeTime() int {
+	if conf.Mysql.MaxLifeTime <= 0 {
+		conf.Mysql.MaxLifeTime = 300
+	}
+
+	return conf.Mysql.MaxLifeTime
 }
 
 // RedisRunType 获取 redis 运行模式
@@ -170,18 +182,23 @@ func init() {
 	v.AddConfigPath("./conf")
 	// 设置配置文件类型
 	v.SetConfigType("yaml")
-	err := v.ReadInConfig()
-	if err != nil {
+	if err := v.ReadInConfig(); err != nil {
 		panic(err)
 	}
 
 	conf = new(Config)
-	err = v.Unmarshal(conf)
-	if err != nil {
+	if err := v.Unmarshal(conf); err != nil {
 		panic(err)
 	}
 
 	initLog()
+
+	if Pid() != "" {
+		pid := os.Getpid()
+		if err := ioutil.WriteFile(Pid(), []byte(fmt.Sprintf("%d", pid)), 0666); err != nil {
+			panic(err)
+		}
+	}
 
 	zaplog.Debug("配置与日志初始化完毕...")
 }

@@ -16,5 +16,5 @@ func UserRouter(rf *gin.RouterGroup) {
 	r.POST("/login", controllers.UserLogin)     // 53.登陆
 
 	// token
-	//ru := r.Use(Auth())
+	//ru := r.Use(JwtAuth())
 }
