@@ -1,11 +1,11 @@
 
-### Mutex 提供了两个方法
+### Mutex 互斥锁 - 提供了两个方法
 ```
 func (*Mutex) Lock    // 锁定
 func (*Mutex) Unlock  // 解锁
 ```
 
-### RWMutex 提供了四个方法
+### RWMutex 读写锁 - 提供了四个方法
 ```
 func (*RWMutex) Lock    // 写锁定
 func (*RWMutex) Unlock  // 写解锁
@@ -13,7 +13,7 @@ func (*RWMutex) RLock   // 读锁定
 func (*RWMutex) RUnlock // 读解锁
 ```
 
-### Cond 提供了三个方法
+### Cond 条件等待 - 提供了三个方法
 ```
 // 唤醒所有等待的 Wait，建议在“更改条件”时锁定 c.L，更改完毕再解锁
 func (*Cond) Broadcast()
@@ -23,7 +23,7 @@ func (*Cond) Signal()
 func (*Cond) Wait()
 ```
 
-### WaitGroup 提供了三个方法
+### WaitGroup 等待组 - 提供了三个方法
 ```
 // 计数器增加 delta，delta 可以是负数
 func (*WaitGroup) Add(delta int)
@@ -33,27 +33,9 @@ func (*WaitGroup) Done()
 func (*WaitGroup) Wait()
 ```
 
-#### 互斥锁
+### Pool 临时对象池 - 提供了两个方法
 ```
-Mutex()
-```
-
-#### 读写锁
-```
-RWMutex()
-```
-
-#### 条件等待
-```
-Cond()
-```
-
-#### 组等待
-```
-WaitGroup()
-```
-
-#### 单例(只执行一次以后不再触发)
-```
-Once()
+New func() interface{}
+func (*Pool).Put(x interface{})
+func (*Pool).Get()
 ```
