@@ -1,22 +1,14 @@
+import uvicorn
 from fastapi import FastAPI
+
+from controllers.cuser import user_api
+
 
 # 创建实例
 app = FastAPI()
 
+# 加载 user 路由
+app.include_router(user_api, prefix='/user')
 
-# http://127.0.0.1:8000/items/123
-@app.get("/items/{item_id}")
-async def items(item_id: int):
-    return {"item_id": item_id}
-
-
-# http://127.0.0.1:8000/get?uid=123&name=laixhe
-@app.get("/get")
-async def get(uid: int = 0, name: str = ""):
-    return {"id": uid, "name": name}
-
-
-# http://127.0.0.1:8000/
-@app.get("/")
-async def index():
-    return {"Hello": "World"}
+if __name__ == '__main__':
+    uvicorn.run('main:app', host='0.0.0.0', port=8000, reload=True, debug=True)
