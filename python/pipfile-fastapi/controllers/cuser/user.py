@@ -8,8 +8,7 @@ user_api = APIRouter()
 # http://127.0.0.1:8000/user/1234
 @user_api.get("/{uid}")
 async def get_user(
-        uid: int = Path(default=0, ge=1, le=10, description='用户ID')
-):
+        uid: int = Path(default=0, ge=1, le=10, description='用户ID')):
     return {"uid": uid, "name": "get user laixhe"}
 
 
@@ -21,11 +20,11 @@ async def user_get(
     return {"id": uid, "name": name}
 
 
-@user_api.get("/users")
+# http://127.0.0.1:8000/user/users/?uids=123&uids=456
+@user_api.get("/users/")
 async def get_users(
-        uids: List[int] = Query(default=[], description='多个用户ID')
-):
-    return uids
+        uids: List[int] = Query(default=[], description='多个用户ID')):
+    return {"uids": uids}
 
 
 class PostUser(BaseModel):
