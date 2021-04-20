@@ -1,3 +1,19 @@
+#### 安装 vite
+```
+npm install -g vite
+```
+
+#### 创建项目
+```
+npm init @vitejs/app
+```
+#### 运行
+```
+npm run dev
+```
+
+---
+
 #### 安装 vue 的手脚架
 ```
 npm install -g @vue/cli
