@@ -1,10 +1,13 @@
-import * as _ from 'lodash';
+import template from 'lodash/template';
 
-function component() {
-    const element = document.createElement('div');
-
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-    return element;
+const outputElement = document.getElementById('app');
+if (outputElement) {
+  var compiled = template(`
+    <h1><%- heading %></h1>
+    Current date and time: <%- dateTimeString %>
+  `.trim());
+  outputElement.innerHTML = compiled({
+    heading: 'ts-demo-webpack',
+    dateTimeString: new Date().toISOString(),
+  });
 }
-document.body.appendChild(component());
