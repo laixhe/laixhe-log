@@ -11,12 +11,21 @@
     <h4>{{user.wife}}</h4>
     <button @click="updateUser">更新数据</button>
   </div>
+
+  <div id="nav">
+    <router-link to="/">Home</router-link> | 
+    <router-link to="/todo-list">TodoList</router-link>
+  </div>
+
+  <router-view/>
   
 </template>
 
 <script lang="ts">
 // 导入需要的组件
 import { defineComponent, ref, reactive } from 'vue';
+
+import axios from './utils/axios'
 
 // 自定义组件并导出
 export default defineComponent({
@@ -46,6 +55,15 @@ export default defineComponent({
         user.name = '..小明..';
     }
 
+    axios
+        .get('/users/XPoet')
+        .then((res) => {
+          console.log('res: ', res)
+        })
+        .catch((err) => {
+          console.log('err: ', err)
+        })
+
     return {
       count,
       updateCount,
@@ -59,3 +77,26 @@ export default defineComponent({
 
 });
 </script>
+
+<style lang="scss">
+  #app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>
