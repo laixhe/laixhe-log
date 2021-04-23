@@ -56,6 +56,11 @@ func JwtDecode(token string) (*jwt.StandardClaims, error) {
 
 // JwtToken 获取
 func JwtToken(id, mobile string) (string, error) {
-	claims := jwt.StandardClaims{Id: id, Audience: mobile, ExpiresAt: int64(config.Get().Jwt.ExpTime) + time.Now().Unix()}
+	claims := jwt.StandardClaims{
+		Id:        id,
+		Audience:  mobile,
+		IssuedAt:  time.Now().Unix(),                                   // 发布时间
+		ExpiresAt: int64(config.Get().Jwt.ExpTime) + time.Now().Unix(), // 过期时间
+	}
 	return JwtCreate(claims)
 }

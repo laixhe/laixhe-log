@@ -168,9 +168,19 @@ func initLog() {
 	}
 
 	if conf.Logs.Path == LogRunType {
-		zaplog.InitConsole(conf.App.Name, conf.Logs.LogLevel, 1)
+		zaplog.InitConsole(zaplog.Config{
+			ServiceName: conf.App.Name,
+			LogLevel:    conf.Logs.LogLevel,
+		})
 	} else {
-		zaplog.InitSizeFile(conf.App.Name, conf.Logs.Path, conf.Logs.LogLevel, conf.Logs.MaxSize, conf.Logs.MaxBackup, conf.Logs.MaxAge, 1)
+		zaplog.InitSizeFile(zaplog.Config{
+			ServiceName: conf.App.Name,
+			LogPath:     conf.Logs.Path,
+			LogLevel:    conf.Logs.LogLevel,
+			MaxSize:     conf.Logs.MaxSize,
+			MaxBackups:  conf.Logs.MaxBackup,
+			MaxAge:      conf.Logs.MaxAge,
+		})
 	}
 }
 func init() {
