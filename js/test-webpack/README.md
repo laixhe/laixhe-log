@@ -16,12 +16,19 @@ npm install --save-dev webpack-dev-server
 
 #### 安装 typescript 相关
 ```
-npm install --save-dev typescript ts-loader
+npm install --save-dev typescript @types/node
+npm install --save-dev ts-loader
 ```
 
 #### 安装工具库
 ```
-npm install --save lodas @types/lodash
+npm install --save lodash @types/lodash
+```
+
+#### 安装 express 库
+```
+npm install --save express
+npm install --save-dev @types/express
 ```
 
 #### 打包

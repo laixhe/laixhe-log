@@ -1,12 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "outDir": "./dist/",
-    "strict": true,
-    //"sourceMap": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    "target": "es5",         // 指定 ECMAScript 目标版本 es5 esnext
+    "module": "commonjs",    // 指定使用模块 commonjs esnext
+    "moduleResolution": "node", // 决定如何处理模块
+    "baseUrl": "./",         // 定义 ts 项目的根目录
+    "outDir": "dist",        // 编译输出目录
+    "strict": true,          // 启用严格类型检查
+    //"sourceMap": true,       // 生成相应的 .map 文件，用于浏览器调试
+    //"allowJs": true,         // 允许编译 javascript 文件
+    "esModuleInterop": true, // 是否将 cjs 转为 esm
+    // 开启 esModuleInterop 后会默认开启 allowSyntheticDefaultImports 选项
+    //"allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入
+    "skipLibCheck": true,    // 忽略所有的声明文件（*.d.ts）的类型检查
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "include": ["src/**/*.ts"]  // 需要编译的 ts 文件，这里设置为 src 目录下的所有文件
 }
+// 如不设置 esModuleInterop: true
+// 有类型声明文件：导入由：import fs from 'fs'
+//                     转换为
+//                     import * as fs from 'fs'
+//                     或
+//                     import fs = require('fs')
+//
+// 无类型声明文件：导入由：const cjs = require('cjs')
