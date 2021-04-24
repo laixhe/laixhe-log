@@ -12,6 +12,11 @@
     <button @click="updateUser">更新数据</button>
   </div>
 
+  <div>
+    <!-- 给子组件传属性 -->
+    <HelloWorld msg="Vue 3 + TypeScript + Vite" />
+  </div>
+
   <div id="nav">
     <router-link to="/">Home</router-link> | 
     <router-link to="/todo-list">TodoList</router-link>
@@ -24,6 +29,9 @@
 <script lang="ts">
 // 导入需要的组件
 import { defineComponent, ref, reactive } from 'vue';
+
+// 导入自定义组件
+import HelloWorld from 'comps/HelloWorld.vue'
 
 import axios from './utils/axios'
 
@@ -73,6 +81,7 @@ export default defineComponent({
   },
   // 注册其它组件
   components: {
+    HelloWorld
   }
 
 });

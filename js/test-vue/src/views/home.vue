@@ -10,10 +10,9 @@ import { ref, watch } from 'vue';
 export default {
   name: 'about',
   setup() {
-    const name = ref('王大合出品');
+    const name = ref('Home...');
     return {
       name,
-     
     };
   }
 };

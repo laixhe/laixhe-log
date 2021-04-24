@@ -30,26 +30,26 @@ import { useStore } from "vuex";
 export default {
   
   setup() {
-    const store = useStore()
+    const store = useStore();
     const taskList = computed(() => store.state.taskList);
     const inputValue = ref('');
     const addTask = () => {
       store.commit('createTask', {
         lable: inputValue.value,
         isfinished: false
-      })
+      });
 
-      inputValue.value = ''
+      inputValue.value = '';
     }
 
-    const updateStatus = (index, status) => {
+    const updateStatus = (index: number, status: boolean) => {
       store.commit('updateStatus', {
         index,
         status
-      })
+      });
     }
 
-    const deleteTask = (index) => {
+    const deleteTask = (index: number) => {
       store.commit('deleteTask', index)
     }
 

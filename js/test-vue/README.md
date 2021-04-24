@@ -38,7 +38,7 @@ npm install element-plus
 npm install axios
 ```
 
-#### 安装CSS预编译器 sass less stylus 
+#### 安装CSS预编译器 sass stylus less less-loader
 ```
 npm install --save-dev sass
 ```
