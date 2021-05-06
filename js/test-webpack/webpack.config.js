@@ -8,9 +8,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,  // 匹配哪些文件
-        use: 'ts-loader', // 使用哪些 loader 进行处理，多个用数组
-        exclude: /node_modules/,
+        test: /\.tsx?$/,          // 匹配哪些文件
+        use: 'ts-loader',         // 使用哪些 loader 进行处理，多个用数组
+        exclude: /node_modules/,  // 忽略需要编译的 ts 目录
       },
     ],
   },
