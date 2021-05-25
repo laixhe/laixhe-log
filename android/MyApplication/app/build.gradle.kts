@@ -13,8 +13,6 @@ android {
         targetSdk = 30
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -25,6 +23,11 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    // 开启视图绑定
+    buildFeatures {
+        viewBinding = true
     }
 
     compileOptions {
@@ -42,4 +45,9 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.recyclerview:recyclerview:1.2.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 }
