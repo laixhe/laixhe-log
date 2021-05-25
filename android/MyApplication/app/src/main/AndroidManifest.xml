@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication" >
+    package="com.example.myapplication">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication" >
+        android:supportsRtl="false"
+        android:theme="@style/Theme.MyApplication">
 
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- ListView 简单 -->
         <activity android:name=".MainListViewSimpleActivity" />
-        <activity android:name=".MainRecyclerViewSimpleActivity"/>
-
+        <!-- RecyclerView 简单 -->
+        <activity android:name=".MainRecyclerViewSimpleActivity" />
+        <!-- ProgressBar 进度条 -->
+        <activity android:name=".ProgressBarActivity" />
+        <!-- Notification 通知 -->
+        <activity android:name=".NotificationSimpleActivity" />
+        <!-- Toolbar 操作(标题)栏 -->
+        <activity android:name=".ToolbarActivity" />
+        <!-- AlertDialog 对话框 -->
+        <activity android:name=".AlertDialogActivity" />
+        <!-- PopupWindow 悬浮框 -->
+        <activity android:name=".PopupWindowActivity" />
     </application>
 
 </manifest>

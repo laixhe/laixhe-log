@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +12,21 @@ class MainActivity : AppCompatActivity() {
         // 加载布局文件
         setContentView(R.layout.activity_main)
 
-        // ListView简单
+        // ProgressBar 进度条
+        val mainProgressBar = findViewById<Button>(R.id.main_progress_bar)
+        mainProgressBar.setOnClickListener {
+            val intent = Intent(this, ProgressBarActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Toolbar 操作(标题)栏
+        val mainToolbar = findViewById<Button>(R.id.main_toolbar)
+        mainToolbar.setOnClickListener {
+            val intent = Intent(this, ToolbarActivity::class.java)
+            startActivity(intent)
+        }
+
+        // ListView 简单
         // 获取布局的按钮
         val mainListViewSimple = findViewById<Button>(R.id.main_list_view_simple)
         // 点击事件
@@ -28,5 +43,24 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Notification 通知栏
+        val mainNotificationSimple = findViewById<Button>(R.id.main_notification_simple)
+        mainNotificationSimple.setOnClickListener {
+            val intent = Intent(this, NotificationSimpleActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    // AlertDialog 对话框 的 点击事件
+    fun MainAlertDialog(view: View) {
+        val intent = Intent(this, AlertDialogActivity::class.java)
+        startActivity(intent)
+    }
+
+    // PopupWindow 悬浮框 的 点击事件
+    fun MainPopupWindow(view: View) {
+        val intent = Intent(this, PopupWindowActivity::class.java)
+        startActivity(intent)
     }
 }
