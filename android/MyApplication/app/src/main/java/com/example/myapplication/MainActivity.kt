@@ -76,4 +76,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    // Fragment 简单使用
+    fun MainFragmentSimple(view: View) {
+        val intent = Intent(this, FragmentSimpleActivity::class.java)
+        startActivity(intent)
+    }
+
+
 }

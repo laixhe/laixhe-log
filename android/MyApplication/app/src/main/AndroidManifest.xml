@@ -37,6 +37,8 @@
         <activity android:name=".AnimationActivity" />
         <!-- ViewPager 多页面切换 -->
         <activity android:name=".ViewPagerActivity" />
+        <!-- Fragment 简单使用 -->
+        <activity android:name=".FragmentSimpleActivity" />
     </application>
 
 </manifest>

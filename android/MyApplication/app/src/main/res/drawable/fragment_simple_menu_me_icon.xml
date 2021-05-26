@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fragment 简单使用 -->
+
+    <!-- android:state_pressed="true" 选中的 -->
+    <!-- android:state_selected="true" 选中的 -->
+    <item android:drawable="@drawable/nav_me_click" android:state_selected="true"></item>
+    <!-- 默认 -->
+    <item android:drawable="@drawable/nav_me_normal"></item>
+
+</selector>
