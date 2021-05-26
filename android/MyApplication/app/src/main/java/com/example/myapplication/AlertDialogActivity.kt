@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityAlertDialogBinding
@@ -27,8 +29,8 @@ class AlertDialogActivity: AppCompatActivity() {
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setIcon(R.mipmap.ic_launcher)
 
-            alertDialog.setTitle("对话标题")
-            alertDialog.setMessage("对话框内容...")
+            //alertDialog.setTitle("对话标题")
+            //alertDialog.setMessage("对话框内容...")
 
             //val dialogView = layoutInflater.inflate(R.layout.activity_alert_dialog_view, null)
             alertDialog.setView(R.layout.activity_alert_dialog_view)
@@ -43,6 +45,13 @@ class AlertDialogActivity: AppCompatActivity() {
             alertDialog.create()
             alertDialog.show()
         }
+    }
+
+    fun progressDialogCode(view: View) {
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("标题")
+        progressDialog.setMessage("内容...")
+        progressDialog.show()
     }
 
 }

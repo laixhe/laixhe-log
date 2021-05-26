@@ -39,6 +39,8 @@
         <activity android:name=".ViewPagerActivity" />
         <!-- Fragment 简单使用 -->
         <activity android:name=".FragmentSimpleActivity" />
+        <!-- Menu 简单使用 -->
+        <activity android:name=".MenuSimpleActivity" />
     </application>
 
 </manifest>

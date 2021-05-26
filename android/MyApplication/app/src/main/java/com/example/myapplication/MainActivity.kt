@@ -64,6 +64,12 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    // Menu 简单使用
+    fun MainMenu(view: View) {
+        val intent = Intent(this, MenuSimpleActivity::class.java)
+        startActivity(intent)
+    }
+
     // animation 动画
     fun MainAnimation(view: View) {
         val intent = Intent(this, AnimationActivity::class.java)
@@ -81,6 +87,8 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, FragmentSimpleActivity::class.java)
         startActivity(intent)
     }
+
+
 
 
 }
