@@ -71,5 +71,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_alert_dialog" />
 
+    <Button
+        android:id="@+id/main_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="animation 动画"
+        android:onClick="MainAnimation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_popup_window" />
+
+    <Button
+        android:id="@+id/main_view_pager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="MainViewPager"
+        android:text="ViewPager 多页面切换 1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_animation" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

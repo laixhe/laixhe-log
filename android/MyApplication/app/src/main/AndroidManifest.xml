@@ -33,6 +33,10 @@
         <activity android:name=".AlertDialogActivity" />
         <!-- PopupWindow 悬浮框 -->
         <activity android:name=".PopupWindowActivity" />
+        <!-- Animation 动画 -->
+        <activity android:name=".AnimationActivity" />
+        <!-- ViewPager 多页面切换 -->
+        <activity android:name=".ViewPagerActivity" />
     </application>
 
 </manifest>

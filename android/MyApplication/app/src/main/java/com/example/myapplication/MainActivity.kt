@@ -63,4 +63,17 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, PopupWindowActivity::class.java)
         startActivity(intent)
     }
+
+    // animation 动画
+    fun MainAnimation(view: View) {
+        val intent = Intent(this, AnimationActivity::class.java)
+        startActivity(intent)
+    }
+
+    // ViewPager 多页面切换 1
+    fun MainViewPager(view: View) {
+        val intent = Intent(this, ViewPagerActivity::class.java)
+        startActivity(intent)
+    }
+
 }
