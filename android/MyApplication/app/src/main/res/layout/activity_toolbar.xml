@@ -17,23 +17,4 @@
         app:logo="@mipmap/ic_launcher"
         android:background="#ffff00"/>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_simple_code"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#007BFF"/>
-
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#F44336">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="标题"/>
-
-    </androidx.appcompat.widget.Toolbar>
-
 </LinearLayout>

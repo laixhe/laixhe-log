@@ -37,10 +37,18 @@
         <activity android:name=".AnimationActivity" />
         <!-- ViewPager 多页面切换 -->
         <activity android:name=".ViewPagerActivity" />
-        <!-- Fragment 简单使用 -->
+        <!-- Fragment 简单应用 -->
         <activity android:name=".FragmentSimpleActivity" />
         <!-- Menu 简单使用 -->
         <activity android:name=".MenuSimpleActivity" />
+        <!-- 读写内部存储-简单使用 -->
+        <activity android:name=".FileSimpleActivity" />
+        <!-- SharedPreferences 存储 -->
+        <activity android:name=".SharedPreferencesActivity" />
+        <!-- SQLite 数据库-简单使用 -->
+        <activity android:name=".SQLiteSimpleActivity" />
+        <!-- DrawerLayout 侧滑菜单-简单使用 -->
+        <activity android:name=".DrawerLayoutSimpleActivity" />
     </application>
 
 </manifest>

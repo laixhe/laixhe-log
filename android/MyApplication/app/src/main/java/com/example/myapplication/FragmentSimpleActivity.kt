@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityFragmentSimpleBinding
 
-// Fragment 简单使用
+// Fragment 简单应用
 class FragmentSimpleActivity: AppCompatActivity() {
 
     private val mainFragment = FragmentSimpleMain() // 首页 Fragment

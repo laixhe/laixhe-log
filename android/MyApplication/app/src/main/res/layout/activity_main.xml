@@ -79,7 +79,7 @@
         android:onClick="MainMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_alert_dialog" />
+        app:layout_constraintTop_toBottomOf="@+id/main_popup_window" />
 
     <Button
         android:id="@+id/main_animation"
@@ -106,9 +106,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="MainFragmentSimple"
-        android:text="Fragment 简单使用"
+        android:text="Fragment 简单应用"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_view_pager" />
+
+    <Button
+        android:id="@+id/main_file_simple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="MainFileSimple"
+        android:text="读写内部文件存储-简单使用"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_fragment_simple" />
+
+    <Button
+        android:id="@+id/main_shared_preferences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="MainSharedPreferences"
+        android:text="SharedPreferences 存储"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_file_simple" />
+
+    <Button
+        android:id="@+id/main_sqlite_simple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="MainSQLiteSimple"
+        android:text="SQLite 数据库-简单使用"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_shared_preferences" />
+
+    <Button
+        android:id="@+id/main_drawer_layout_simple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="MainDrawerLayoutSimple"
+        android:text="DrawerLayout 侧滑菜单-简单使用"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_sqlite_simple" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

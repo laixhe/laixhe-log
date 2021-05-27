@@ -82,13 +82,35 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // Fragment 简单使用
+    // Fragment 简单应用
     fun MainFragmentSimple(view: View) {
         val intent = Intent(this, FragmentSimpleActivity::class.java)
         startActivity(intent)
     }
 
+    // 读写内部文件存储-简单使用
+    fun MainFileSimple(view: View) {
+        val intent = Intent(this, FileSimpleActivity::class.java)
+        startActivity(intent)
+    }
 
+    // SharedPreferences 存储
+    fun MainSharedPreferences(view: View) {
+        val intent = Intent(this, SharedPreferencesActivity::class.java)
+        startActivity(intent)
+    }
+
+    // SQLite 数据库-简单使用
+    fun MainSQLiteSimple(view: View) {
+        val intent = Intent(this, SQLiteSimpleActivity::class.java)
+        startActivity(intent)
+    }
+
+    // DrawerLayout 侧滑菜单-简单使用
+    fun MainDrawerLayoutSimple(view: View) {
+        val intent = Intent(this, DrawerLayoutSimpleActivity::class.java)
+        startActivity(intent)
+    }
 
 
 }
