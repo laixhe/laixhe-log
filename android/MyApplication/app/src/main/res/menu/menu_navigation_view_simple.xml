@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/menu_navigation_view_simple_call"
+            android:icon="@drawable/allnote"
+            android:title="Call"/>
+        <item android:id="@+id/menu_navigation_view_simple_friends"
+            android:icon="@drawable/edit_square"
+            android:title="Friends"/>
+    </group>
+</menu>

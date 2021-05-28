@@ -4,9 +4,11 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityAlertDialogBinding
+import com.google.android.material.snackbar.Snackbar
 
 // AlertDialog 对话框
 class AlertDialogActivity: AppCompatActivity() {
@@ -54,4 +56,14 @@ class AlertDialogActivity: AppCompatActivity() {
         progressDialog.show()
     }
 
+    fun showToast(view: View) {
+        Toast.makeText(this, "显示提示 Toast", Toast.LENGTH_LONG).show()
+    }
+
+    fun showSnackbar(view: View) {
+        Snackbar.make(view, "显示提示 Snackbar", Snackbar.LENGTH_SHORT)
+            .setAction("确定") {
+                Toast.makeText(this, "显示提示 Snackbar Toast", Toast.LENGTH_LONG).show()
+            }.show()
+    }
 }

@@ -58,4 +58,5 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }

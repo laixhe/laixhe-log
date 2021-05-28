@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/abc_vector_test"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="@color/purple_700"
         app:title="操作(标题)栏"
         app:titleTextColor="#ff0000"
         app:titleMarginStart="30dp"
         app:subtitle="子标题"
-        app:logo="@mipmap/ic_launcher"
-        android:background="#ffff00"/>
+        app:logo="@mipmap/ic_launcher"/>
 
 </LinearLayout>

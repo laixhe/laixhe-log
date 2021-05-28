@@ -25,6 +25,7 @@ class ToolbarActivity : AppCompatActivity() {
         }
     }
 
+    // 创建菜单
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_simple, menu)
         return true

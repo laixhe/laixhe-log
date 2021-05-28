@@ -19,6 +19,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Button 按钮
+        val mainButtonSimple = findViewById<Button>(R.id.main_button_simple)
+        mainButtonSimple.setOnClickListener {
+            val intent = Intent(this, ButtonSimpleActivity::class.java)
+            startActivity(intent)
+        }
+
         // Toolbar 操作(标题)栏
         val mainToolbar = findViewById<Button>(R.id.main_toolbar)
         mainToolbar.setOnClickListener {
@@ -109,6 +116,12 @@ class MainActivity : AppCompatActivity() {
     // DrawerLayout 侧滑菜单-简单使用
     fun MainDrawerLayoutSimple(view: View) {
         val intent = Intent(this, DrawerLayoutSimpleActivity::class.java)
+        startActivity(intent)
+    }
+
+    // NavigationView 侧滑菜单-简单使用
+    fun MainNavigationViewSimple(view: View) {
+        val intent = Intent(this, NavigationViewSimpleActivity::class.java)
         startActivity(intent)
     }
 

@@ -6,149 +6,179 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/main_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ProgressBar 进度条"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- 垂直滚动控件 ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/main_toolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Toolbar 操作(标题)栏"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_progress_bar" />
+            <Button
+                android:id="@+id/main_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ProgressBar 进度条"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/main_list_view_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ListView 简单"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
+            <Button
+                android:id="@+id/main_button_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button 按钮"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_progress_bar" />
 
-    <Button
-        android:id="@+id/main_recycler_view_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RecyclerView 简单"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_list_view_simple" />
+            <Button
+                android:id="@+id/main_toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Toolbar 操作(标题)栏"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_button_simple" />
 
-    <Button
-        android:id="@+id/main_notification_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notification 通知栏"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_recycler_view_simple" />
+            <Button
+                android:id="@+id/main_list_view_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ListView 简单"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
 
-    <Button
-        android:id="@+id/main_alert_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AlertDialog 对话框"
-        android:onClick="MainAlertDialog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_notification_simple" />
+            <Button
+                android:id="@+id/main_recycler_view_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RecyclerView 简单"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_list_view_simple" />
 
-    <Button
-        android:id="@+id/main_popup_window"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PopupWindow 悬浮框"
-        android:onClick="MainPopupWindow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_alert_dialog" />
+            <Button
+                android:id="@+id/main_notification_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification 通知栏"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_recycler_view_simple" />
 
-    <Button
-        android:id="@+id/main_menu_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Menu 简单使用"
-        android:onClick="MainMenu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_popup_window" />
+            <Button
+                android:id="@+id/main_alert_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AlertDialog 对话框"
+                android:onClick="MainAlertDialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_notification_simple" />
 
-    <Button
-        android:id="@+id/main_animation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="animation 动画"
-        android:onClick="MainAnimation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_popup_window" />
+            <Button
+                android:id="@+id/main_popup_window"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PopupWindow 悬浮框"
+                android:onClick="MainPopupWindow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_alert_dialog" />
 
-    <Button
-        android:id="@+id/main_view_pager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="MainViewPager"
-        android:text="ViewPager 多页面切换 1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_animation" />
+            <Button
+                android:id="@+id/main_menu_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menu 简单使用"
+                android:onClick="MainMenu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_popup_window" />
 
-    <Button
-        android:id="@+id/main_fragment_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="MainFragmentSimple"
-        android:text="Fragment 简单应用"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_view_pager" />
+            <Button
+                android:id="@+id/main_animation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="animation 动画"
+                android:onClick="MainAnimation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_menu_simple" />
 
-    <Button
-        android:id="@+id/main_file_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="MainFileSimple"
-        android:text="读写内部文件存储-简单使用"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_fragment_simple" />
+            <Button
+                android:id="@+id/main_view_pager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="MainViewPager"
+                android:text="ViewPager 多页面切换 1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_animation" />
 
-    <Button
-        android:id="@+id/main_shared_preferences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="MainSharedPreferences"
-        android:text="SharedPreferences 存储"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_file_simple" />
+            <Button
+                android:id="@+id/main_fragment_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="MainFragmentSimple"
+                android:text="Fragment 简单应用"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_view_pager" />
 
-    <Button
-        android:id="@+id/main_sqlite_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="MainSQLiteSimple"
-        android:text="SQLite 数据库-简单使用"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_shared_preferences" />
+            <Button
+                android:id="@+id/main_file_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="MainFileSimple"
+                android:text="读写内部文件存储-简单使用"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_fragment_simple" />
 
-    <Button
-        android:id="@+id/main_drawer_layout_simple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="MainDrawerLayoutSimple"
-        android:text="DrawerLayout 侧滑菜单-简单使用"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_sqlite_simple" />
+            <Button
+                android:id="@+id/main_shared_preferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="MainSharedPreferences"
+                android:text="SharedPreferences 存储"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_file_simple" />
 
+            <Button
+                android:id="@+id/main_sqlite_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="MainSQLiteSimple"
+                android:text="SQLite 数据库-简单使用"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_shared_preferences" />
+
+            <Button
+                android:id="@+id/main_drawer_layout_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="MainDrawerLayoutSimple"
+                android:text="DrawerLayout 侧滑菜单-简单使用"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_sqlite_simple" />
+
+            <Button
+                android:id="@+id/main_navigation_view_simple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="MainNavigationViewSimple"
+                android:text="NavigationView 侧滑菜单-简单使用"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_drawer_layout_simple" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

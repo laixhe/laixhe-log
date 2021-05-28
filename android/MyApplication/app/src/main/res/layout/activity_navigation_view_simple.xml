@@ -3,35 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout_simple_id">
+    android:id="@+id/navigation_view_simple_id">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/drawer_layout_simple_toolbar"
+            android:id="@+id/navigation_view_simple_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ih_more"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:background="@color/purple_700"
-            app:title="操作(标题)栏"
-            app:titleTextColor="#ff0000"
-            app:titleMarginStart="30dp"
-            app:subtitle="子标题"
-            app:logo="@mipmap/ic_launcher"/>
+            android:background="@color/purple_700" />
     </FrameLayout>
 
     <!--
     android:layout_gravity="left" 指定 侧滑菜单 显示的位置
     -->
-    <TextView
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view_simple_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:background="#ffffff"
-        android:text="A..."
-        android:textSize="30sp"/>
+        android:layout_gravity="start"
+        app:menu="@menu/menu_navigation_view_simple"
+        app:headerLayout="@layout/activity_navigation_view_simple_header"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

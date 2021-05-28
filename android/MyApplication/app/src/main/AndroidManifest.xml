@@ -19,16 +19,18 @@
             </intent-filter>
         </activity>
 
+        <!-- ProgressBar 进度条 -->
+        <activity android:name=".ProgressBarActivity" />
+        <!-- Button 按钮 -->
+        <activity android:name=".ButtonSimpleActivity" />
+        <!-- Toolbar 操作(标题)栏 -->
+        <activity android:name=".ToolbarActivity" />
         <!-- ListView 简单 -->
         <activity android:name=".MainListViewSimpleActivity" />
         <!-- RecyclerView 简单 -->
         <activity android:name=".MainRecyclerViewSimpleActivity" />
-        <!-- ProgressBar 进度条 -->
-        <activity android:name=".ProgressBarActivity" />
         <!-- Notification 通知 -->
         <activity android:name=".NotificationSimpleActivity" />
-        <!-- Toolbar 操作(标题)栏 -->
-        <activity android:name=".ToolbarActivity" />
         <!-- AlertDialog 对话框 -->
         <activity android:name=".AlertDialogActivity" />
         <!-- PopupWindow 悬浮框 -->
@@ -49,6 +51,8 @@
         <activity android:name=".SQLiteSimpleActivity" />
         <!-- DrawerLayout 侧滑菜单-简单使用 -->
         <activity android:name=".DrawerLayoutSimpleActivity" />
+        <!-- NavigationView 侧滑菜单-简单使用 -->
+        <activity android:name=".NavigationViewSimpleActivity" />
     </application>
 
 </manifest>
