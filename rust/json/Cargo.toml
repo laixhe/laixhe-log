@@ -1,0 +1,9 @@
+[package]
+name = "test_json"
+version = "0.1.0"
+authors = ["laiki <535250340@qq.com>"]
+edition = "2018"
+
+[dependencies]
+serde = { version = "1.0.126", features = ["derive"] }
+serde_json = "1.0.64"
