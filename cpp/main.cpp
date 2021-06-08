@@ -1,8 +1,6 @@
 #include <iostream>
-#include "const.cpp"
+using namespace std;
 
 int main() {
-    constInit();
-
     return 0;
 }
