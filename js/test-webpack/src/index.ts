@@ -1,3 +1,6 @@
+import './css/index.css';
+import './css/index.scss';
+
 import template from 'lodash/template';
 
 const outputElement = document.getElementById('app');
