@@ -8,9 +8,9 @@ npm install
 npm run build
 ```
 
-#### 运行
+#### 开发
 ```
-npm run start
+npm run dev
 ```
 
 #### webpack 命令
@@ -66,5 +66,6 @@ npm install -D core-js
 
 #### 安装工具库
 ```
-npm install --save lodash @types/lodash
+npm install --save lodash jquery
+npm install --save-dev @types/lodash @types/jquery
 ```

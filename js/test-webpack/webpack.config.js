@@ -1,4 +1,5 @@
 const path = require('path');
+// 帮助你创建html文件，并自动引入打包输出的bundles文件。支持html压缩
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
@@ -55,11 +56,31 @@ module.exports = (env, argv) => {
           ]
         },
         {
-          // 处理图片打包 (可处理图片、字体、)
-          test: /\.(png|jpe?g|gif)$/i,
+          // 处理图片打包 (可处理图片、字体)
+          // asset/resource 发送一个单独的文件并导出 URL，之前通过使用 file-loader 实现
+          // asset/inline 导出一个资源的 data URI，之前通过使用 url-loader 实现
+          // asset/source 导出资源的源代码，之前通过使用 raw-loader 实现
           // asset 可以在 asset/resource 和 asset/inline 之间进行选择
+          test: /\.(png|jpe?g|gif)$/i,
           // 如果文件小于 8kb，则使用 asset/inline 否则使用 asset/resource
           type: 'asset',
+          generator: {
+            // 输出文件位置以及文件名
+            filename: "images/[name][ext]"
+          },
+          parser: {
+            dataUrlCondition: {
+              maxSize: 10 * 1024, // 不超过 10kb 不转 base64
+            }
+          }
+        },
+        {
+          test: /\.(eot|svg|ttf|woff|)$/,
+          type: "asset/resource",
+          generator: {
+              // 输出文件位置以及文件名
+              filename: "fonts/[name][ext]"
+          },
         },
       ],
     },
@@ -91,6 +112,9 @@ module.exports = (env, argv) => {
       open: true,
       port: 5050,
     },
+    // target 值会根据 package.json 中的 browserslist 改变的
+    // 会导致 devServer 的自动更新失效。所以 development 环境下直接配置成 web
+    target: "web",
   }
 
   // 获取环境变量
