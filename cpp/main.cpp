@@ -1,6 +1,8 @@
 #include <iostream>
-using namespace std;
+
+#include "./mysqlx/mysqlx.cpp"
 
 int main() {
+    initDB();
     return 0;
 }

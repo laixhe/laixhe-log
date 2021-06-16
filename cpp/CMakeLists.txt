@@ -1,9 +1,12 @@
-# 工程(项目)名
-project(test_cpp)
 # cmake 最低版本需求
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.13)
 
-# 指定 C++ 编译版本
+# 工程(项目)名
+set(MAIN_NAME test-cpp)
+project(${MAIN_NAME} C CXX)
+
+# 指定 C C++ 编译版本
+set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 
 # ${PROJECT_SOURCE_DIR}  项目目录
@@ -24,4 +27,6 @@ set(CMAKE_CXX_STANDARD 17)
 #link_directories()
 
 # 添加可执行文件
-add_executable(test_cpp main.cpp)
+add_executable(${MAIN_NAME} main.cpp)
+
+target_link_libraries(${MAIN_NAME} mariadbclient)
