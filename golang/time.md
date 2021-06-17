@@ -25,7 +25,7 @@ now := time.Now()
 time.Now().Equal(now)
 ```
 
-#### 相差的纳秒数
+#### 计算运行的时间(计算时间差)(纳秒数)
 ```
 now := time.Now()
 time.Now().Sub(now)
@@ -63,12 +63,6 @@ time.Now().Add(-(time.Second * 180)).Format("2006-01-02 15:04:05")
 #### 睡眠 1秒
 ```
 time.Sleep(time.Second * 1)
-```
-
-#### 计算运行的时间(计算时间差)
-```
-now := time.Now()
-time.Since(now)
 ```
 
 #### 自定义时区
