@@ -9,6 +9,17 @@ project(${MAIN_NAME} C CXX)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 
+# WIN32 UNIX APPLE ANDROID
+if(WIN32)
+    message("T--- Now is windows")
+    link_directories(${PROJECT_SOURCE_DIR}/lib/mysql/win32/lib/)
+    include_directories(${PROJECT_SOURCE_DIR}/lib/mysql/win32/include/)
+elseif(UNIX)
+    message("T--- Now is UNIX systens.")
+    link_directories(${PROJECT_SOURCE_DIR}/lib/mysql/linux/lib/)
+    include_directories(${PROJECT_SOURCE_DIR}/lib/mysql/linux/include/)
+endif()
+
 # ${PROJECT_SOURCE_DIR}  项目目录
 
 # 定义变量
@@ -29,4 +40,4 @@ set(CMAKE_CXX_STANDARD 17)
 # 添加可执行文件
 add_executable(${MAIN_NAME} main.cpp)
 
-target_link_libraries(${MAIN_NAME} mariadbclient)
+target_link_libraries(${MAIN_NAME} mysqlclient)
