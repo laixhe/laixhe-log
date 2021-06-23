@@ -1,12 +1,13 @@
-#### 不能使用初始化的变量 
-
-> 可根据值自行判定变量类型
-
-```
 using System;
+
 namespace ConsoleApp {
-    class Program {
-        static void Main(string[] args) {
+    class Var {
+        public static void run() {
+
+            // 必须在定义时初始化
+            // 可根据值自行判定变量类型
+            // 只能用于局部变量
+
             string world = "World";
             Console.WriteLine("Hello,"+ world);
             Console.WriteLine("Hello,{0}", world);
@@ -23,4 +24,3 @@ namespace ConsoleApp {
         }
     }
 }
-```
