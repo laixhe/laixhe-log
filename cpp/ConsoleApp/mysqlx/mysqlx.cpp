@@ -1,6 +1,8 @@
 #include <iostream>
 #include "mysql.h"
 
+#include "mysqlx.h"
+
 void initDB(){
 
     // 初始化上下文

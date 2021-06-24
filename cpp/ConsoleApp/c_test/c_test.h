@@ -9,7 +9,7 @@
 extern "C" {
 #endif // __cplusplus
 
-void c_test_sum(int v1, int v2);
+void func_var();
 
 #ifdef __cplusplus
 }
