@@ -1,8 +1,5 @@
-//
-// Created by laixhe on 2020/12/28.
-//
-
 #include "Complex.h"
+
 Complex::Complex(){
     m_real = 0;
     m_image = 0;
@@ -16,7 +13,7 @@ Complex::~Complex() {
 
 }
 
-// // 拷贝构造函数
+// 拷贝构造函数
 Complex::Complex(const Complex &x) {
     m_real = x.m_real;
     m_image = x.m_image;

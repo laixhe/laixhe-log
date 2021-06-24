@@ -1,10 +1,7 @@
-//
-// Created by laixhe on 2020/12/28.
-//
-#include <iostream>
-#ifndef UNTITLED_COMPLEX_H
-#define UNTITLED_COMPLEX_H
+#ifndef __COMPLEX_H
+#define __COMPLEX_H
 
+#include <iostream>
 
 class Complex {
 public:
@@ -39,4 +36,4 @@ private:
 };
 
 
-#endif //UNTITLED_COMPLEX_H
+#endif // __COMPLEX_H
