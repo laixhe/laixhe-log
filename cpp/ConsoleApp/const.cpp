@@ -24,9 +24,9 @@
 //#const 修饰的是其右边的内容
 //
 // const int *p         : p不是常量，*p是常量
-// int const *p         : p不是常量，*p是常量
+// int const *p         : p不是常量，*p是常量 (指向变量 p 可以修改指向) ( *p 不可以间接修改指向变量的值)
 //
-// int * const p        : p是常量，*p不是常量
+// int * const p        : p是常量，*p不是常量 (指向变量 p 不能修改指向) ( *p 可以间接修改指向变量的值)
 //
 // const int * const p  : p是常量，*p是常量
 // int const * const p  : p是常量，*p是常量

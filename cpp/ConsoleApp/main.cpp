@@ -10,8 +10,7 @@
 
 int main() {
 
-    func_var();
-    std_map();
+    reference();
 
     return 0;
 }
