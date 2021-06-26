@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +58,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // C++
+        Toast.makeText(this, "C++: "+stringFromJNI(), Toast.LENGTH_LONG).show()
     }
 
     // AlertDialog 对话框 的 点击事件
@@ -126,4 +129,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    external fun stringFromJNI(): String
+
+    companion object {
+        // Used to load the 'myapplication' library on application startup.
+        init {
+            System.loadLibrary("myapplication")
+        }
+    }
 }

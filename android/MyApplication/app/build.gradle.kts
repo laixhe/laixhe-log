@@ -15,6 +15,13 @@ android {
         targetSdk = 30
         versionCode = 1
         versionName = "1.0"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags += "-std=c++17"
+            }
+        }
+
     }
 
     // 编译类型
@@ -29,11 +36,6 @@ android {
         }
     }
 
-    // 开启视图绑定
-    buildFeatures {
-        viewBinding = true
-    }
-
     // 编译选项操作
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -43,6 +45,19 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.10.2"
+        }
+    }
+
+    // 开启视图绑定
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 // 依赖
