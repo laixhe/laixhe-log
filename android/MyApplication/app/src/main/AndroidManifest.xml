@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
+    <!--
+    权限声明
+    以 <uses-permisson /> 标签形式声明，在 name 属性值中填入相关权限名
+     -->
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

@@ -13,12 +13,18 @@ android {
         applicationId = "com.example.myapplication"
         minSdk = 21
         targetSdk = 30
+        // 可以在 Android 系统的设置-应用设置-该应用信息中展示
         versionCode = 1
+        // 只能在应用内部显示调用展示
         versionName = "1.0"
 
         externalNativeBuild {
             cmake {
                 cppFlags += "-std=c++17"
+                // 设置支持的 so 库构架 "armeabi-v7a" , "arm64-v8a", "x86", "x86_64"
+                abiFilters += mutableListOf("armeabi-v7a", "arm64-v8a")
+                //abiFilters += "armeabi-v7a"
+                //abiFilters += "arm64-v8a"
             }
         }
 
@@ -66,7 +72,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.recyclerview:recyclerview:1.2.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
