@@ -9,7 +9,11 @@ namespace ConsoleApp {
             // ArrayListDict.run();
             // Class.run();
             // Delegate.run();
-            DelegateEvent.run();
+            // DelegateEvent.run();
+            // TryCatchFinally.run();
+            // DateTime_.run();
+            // Json_.run();
+            NewtonsoftJson.run();
         }
     }
 }
