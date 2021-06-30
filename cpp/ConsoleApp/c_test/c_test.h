@@ -11,6 +11,8 @@ extern "C" {
 
 void func_var();
 
+void malloc_free();
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus

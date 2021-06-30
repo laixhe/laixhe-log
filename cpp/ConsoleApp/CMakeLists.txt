@@ -1,8 +1,9 @@
-# cmake 最低版本需求
+# 用于构建 CMake 项目 CMake 最低版本
 cmake_minimum_required(VERSION 3.13)
 
 # 工程(项目)名
 set(MAIN_NAME ConsoleApp)
+# 项目名称，LANGUAGES 项目用于，这里 CXX 代表使用 C++ 语言
 project(${MAIN_NAME} C CXX)
 
 # 指定 C C++ 编译版本
@@ -40,10 +41,14 @@ endif()
 #include_directories()
 # 设置链接库引用目录位置
 #link_directories()
+# 查找包
+# find_package()
+# 打印
+#message("T---")
 #
 # 例子：
 #
-# 将 native-lib.cpp 构建出 so共享库，并命名为 hello
+# 将 native-lib.cpp 构建出 so 共享库，并命名为 hello
 # add_library( # 构建的库的名字
 #              hello
 #              # 共享库
@@ -74,6 +79,8 @@ set(const const.h const.cpp)
 set(function function.h function.cpp)
 set(array array_list_map.h array_list_map.cpp)
 
+set(complex Complex.h Complex.cpp)
+
 # 添加可执行文件
 add_executable(${MAIN_NAME} 
 ${c_test} 
@@ -82,6 +89,7 @@ ${var}
 ${const} 
 ${function} 
 ${array} 
+${complex} 
 main.cpp)
 
 target_link_libraries(${MAIN_NAME} mysqlclient)
