@@ -10,9 +10,11 @@
 
 #include "Complex.h"
 
+#include "ClassExtends.cpp"
+
 int main() {
 
-    malloc_free();
+    ClassExtentds();
 
     return 0;
 }
