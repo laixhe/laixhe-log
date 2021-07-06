@@ -13,7 +13,11 @@ namespace ConsoleApp {
             // TryCatchFinally.run();
             // DateTime_.run();
             // Json_.run();
-            NewtonsoftJson.run();
+            // NewtonsoftJson.run();
+            // Thread_.run();
+            ThreadTask.run();
+            
+            Console.ReadKey();
         }
     }
 }
