@@ -1,8 +1,8 @@
 using System;
 using System.Net.Sockets;
 
-namespace TCPServer{
-    class TCPServer{
+namespace TCPServer {
+    class TCPServer {
 
         // TCP 服务
         TcpListener tcpListener;
@@ -19,7 +19,7 @@ namespace TCPServer{
                 Accept();
             }
             catch (Exception err){
-                Console.WriteLine("start error:{0}", err);
+                Console.WriteLine("start error:{0}", err.Message);
             }
         }
 
@@ -33,12 +33,14 @@ namespace TCPServer{
                 // 获取访问连接的客户端的远程IP和端口
                 Console.WriteLine("客户端已连接:{0}", tcpClient.Client.RemoteEndPoint);
 
+                Agent agent = new Agent(tcpClient);
+
                 // 重新回调
                 Accept();
 
             }
             catch (Exception err){
-                Console.WriteLine("accept error:{0}", err);
+                Console.WriteLine("accept error:{0}", err.Message);
                 // 停止TCP服务
                 tcpListener.Stop();
             }

@@ -1,7 +1,7 @@
 using System;
 
-namespace TCPServer{
-    class Program{
+namespace TCPServer {
+    class Program {
         static void Main(string[] args){
 
             TCPServer server = new TCPServer();

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace TCPClient{
     class Program{
@@ -8,7 +9,12 @@ namespace TCPClient{
             client.Start();
 
             Console.WriteLine("TCPClient::Program::Main...");
-            Console.ReadLine();
+            
+            while (true)
+            {
+                string input = Console.ReadLine();
+                client.Send( Encoding.UTF8.GetBytes(input) );
+            }
         }
     }
 }
