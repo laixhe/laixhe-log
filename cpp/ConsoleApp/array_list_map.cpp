@@ -24,6 +24,9 @@ void _array() {
         std::cout << "arrayInt=" << arrayInt[i] << std::endl;
     }
 
+    // 更加简洁的初化方式 [C++11]
+    int array[]{ 1,2,3 };
+
     // 数组引用
     int (&ref)[3] = arrInt;
 }
@@ -39,7 +42,7 @@ void std_array() {
 
     std::cout << "------------------" << std::endl;
 
-    // foreach 写法
+    // foreach 写法 [C++11]
     for(auto i : arrInt) {
         std::cout << "std_array - arrInt=" << i << std::endl;
     }
@@ -83,7 +86,7 @@ void std_vector() {
 
     std::cout << "------------------" << std::endl;
 
-    // foreach 写法
+    // foreach 写法 [C++11]
     for (auto i : arrInt) {
         std::cout << "std_vector - arrInt=" << i << std::endl;
     }
@@ -121,7 +124,7 @@ void std_map(){
 
     std::cout << "------------------" << std::endl;
 
-    // foreach 写法
+    // foreach 写法 [C++11]
     for (auto item : mapData) {
         std::cout << "std_map - k=" << item.first << " v=" << item.second << std::endl;
     }
@@ -168,7 +171,7 @@ void std_set() {
 
     std::cout << "------------------" << std::endl;
 
-    // foreach 写法
+    // foreach 写法 [C++11]
     for (auto i : setData) {
         std::cout << "std_set - setData=" << i << std::endl;
     }
