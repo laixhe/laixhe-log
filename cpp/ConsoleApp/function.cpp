@@ -1,7 +1,5 @@
 #include <iostream>
 
-#include "function.h"
-
 // 匿名函数 [C++11]
 void lambdaFunction(){
 

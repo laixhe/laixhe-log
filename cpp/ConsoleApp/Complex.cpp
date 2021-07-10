@@ -9,10 +9,6 @@ Complex::Complex(double r, double i) {
     m_image = i;
 }
 
-Complex::~Complex() {
-
-}
-
 // 拷贝构造函数
 Complex::Complex(const Complex &x) {
     m_real = x.m_real;

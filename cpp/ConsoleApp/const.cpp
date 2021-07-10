@@ -1,7 +1,5 @@
 #include <iostream>
 
-#include "const.h"
-
 //#在 C语言 中
 //
 // 1. 外部文件可用，为外部连接

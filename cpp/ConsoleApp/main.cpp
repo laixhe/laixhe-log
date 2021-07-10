@@ -1,20 +1,21 @@
 #include <iostream>
 
-#include "c_test/c_test.h"
-#include "mysqlx/mysqlx.h"
-
-#include "var.h"
-#include "const.h"
-#include "function.h"
-#include "array_list_map.h"
-
-#include "Complex.h"
-
-#include "ClassExtends.cpp"
+#include "base/ConfigFile.h"
+#include "mysqlx/Mysqlx.h"
 
 int main() {
 
-    ClassExtentds();
+    // ConfigFile config("./config.conf");
+
+    // std::cout << "--------------=" << std::endl;
+
+    // std::cout << "ip=" << config.get("ip") << std::endl;
+    // std::cout << "port=" << config.get("port") << std::endl;
+    // std::cout << "port00=" << config.get("port00") << std::endl;
+
+    // std::cout << "--------------=" << std::endl;
+
+    // Mysqlx::getInstance().initialize("192.168.10.240", "test", 3306, "root", "123456");
 
     return 0;
 }

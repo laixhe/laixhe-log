@@ -1,9 +1,7 @@
-//
-// Created by laixhe on 2021/1/18.
-//
-
 #include <iostream>
 #include "Singleton.h"
+
+// 单例模式
 
 Singleton::Singleton() {
     std::cout<<"Singleton()"<<std::endl;
@@ -20,9 +18,4 @@ Singleton& Singleton::getInstance() {
     // 局部静态变量
     static Singleton instance;
     return instance;
-}
-
-void Singleton::test() {
-    i++;
-    std::cout<<"test(): " << i <<std::endl;
 }

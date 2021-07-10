@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.13)
 # 工程(项目)名
 set(MAIN_NAME ConsoleApp)
 # 项目名称，LANGUAGES 项目用于，这里 CXX 代表使用 C++ 语言
-project(${MAIN_NAME} C CXX)
+project(${MAIN_NAME} VERSION 0.0.1 LANGUAGES C CXX)
 
 # 指定 C C++ 编译版本
 set(CMAKE_C_STANDARD 99)
@@ -43,8 +43,9 @@ endif()
 #link_directories()
 # 查找包
 # find_package()
+#
 # 打印
-#message("T---")
+# message("T---")
 #
 # 例子：
 #
@@ -68,28 +69,17 @@ endif()
 #                        # 第三方库
 #                        ${log-lib} )
 
-# 测试 C语言
-set(c_test c_test/c_test.h c_test/c_test.c)
-
 # mysql
-set(mysqlx mysqlx/mysqlx.h mysqlx/mysqlx.cpp)
-
-set(var var.h var.cpp)
-set(const const.h const.cpp)
-set(function function.h function.cpp)
-set(array array_list_map.h array_list_map.cpp)
-
-set(complex Complex.h Complex.cpp)
+set(mysqlx mysqlx/Mysqlx.h mysqlx/Mysqlx.cpp)
+#
+set(strings base/Strings.h base/Strings.cpp)
+set(config_file base/ConfigFile.h base/ConfigFile.cpp)
 
 # 添加可执行文件
 add_executable(${MAIN_NAME} 
-${c_test} 
+${strings} 
+${config_file} 
 ${mysqlx} 
-${var} 
-${const} 
-${function} 
-${array} 
-${complex} 
 main.cpp)
 
 target_link_libraries(${MAIN_NAME} mysqlclient)

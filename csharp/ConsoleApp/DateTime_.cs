@@ -17,11 +17,15 @@ namespace ConsoleApp {
             // 获取当前时间戳
             var timeStamp1 = Convert.ToInt64((DateTime.UtcNow - DateTime.UnixEpoch).TotalSeconds);
             // 1624947342
-            Console.WriteLine("获取当前时间戳: {0}", timeStamp1);
+            Console.WriteLine("获取当前时间戳1: {0}", timeStamp1);
 
             var timeStamp2 = Convert.ToInt64(DateTime.Now.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
             // 1624947342
-            Console.WriteLine("获取当前时间戳: {0}", timeStamp2);
+            Console.WriteLine("获取当前时间戳2: {0}", timeStamp2);
+
+            var timeStamp3 = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            // 1624947342
+            Console.WriteLine("获取当前时间戳3: {0}", timeStamp3); // 最好的
 
             // 时间戳转时间
             var timeStampDate1 = DateTimeOffset.FromUnixTimeSeconds(timeStamp1).DateTime.AddHours(8);

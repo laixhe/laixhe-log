@@ -7,7 +7,7 @@ class Complex {
 public:
     Complex();
     Complex(double r, double i);
-    virtual ~Complex();
+
     // 拷贝构造函数
     Complex(const Complex& x);
 

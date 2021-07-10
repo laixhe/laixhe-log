@@ -13,15 +13,11 @@ public:
     // 注意返回的是引用
     static Singleton& getInstance();
 
-    void test();
-
 // 将构造和析构函数私有化
 // 防止外部访问
 private:
     Singleton();
     ~Singleton();
-
-    int i;
 };
 
 

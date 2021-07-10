@@ -1,6 +1,14 @@
 #include <iostream>
 
-#include "var.h"
+void var(){
+
+    int a = 10;
+    std::string b = "数据类型";
+
+    // decltype 返回数据类型
+    decltype(a) c = 20; // int 类型 
+    std::cout << "c=" << c << std::endl;
+}
 
 // 引用相关
 void reference(){
