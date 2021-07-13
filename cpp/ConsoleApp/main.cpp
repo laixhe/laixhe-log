@@ -3,6 +3,9 @@
 #include "base/ConfigFile.h"
 #include "mysqlx/Mysqlx.h"
 
+//#include "std_thread.cpp"
+#include "std_find_find_if.cpp"
+
 int main() {
 
     // ConfigFile config("./config.conf");
@@ -17,5 +20,9 @@ int main() {
 
     // Mysqlx::getInstance().initialize("192.168.10.240", "test", 3306, "root", "123456");
 
+    //std_thread_my_print();
+    std_find_find_if();
+
+    std::cout << "main end --------------" << std::endl;
     return 0;
 }

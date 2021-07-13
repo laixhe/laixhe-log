@@ -31,8 +31,8 @@ public:
     friend std::istream& operator>>(std::istream& put, Complex& x);       // 运算符重载 >>
 
 private:
-    double m_real; // 复数的实部
-    double m_image; // 复数的虚部
+    double m_real = 0.0; // 复数的实部  ( [C++11]允许非静态成员进行初始化 )
+    double m_image = 0.0; // 复数的虚部 ( [C++11]允许非静态成员进行初始化 )
 };
 
 

@@ -7,7 +7,7 @@
 
 class Person {
 public:
-    int m_age;
+    int m_age = 0; // [C++11]允许非静态成员进行初始化
 
     Person(){
        std::cout << "Person::Person() m_age=" << m_age << std::endl; 
@@ -45,7 +45,8 @@ public:
         std::cout << "Worker::work() m_age=" << m_age << " | m_salary=" << m_salary << std::endl;
     }
 
-    // 构造函数 调用  构造函数
+    // 构造函数 调用  构造函数(委托构造函数)
+    // [C++11]
     Worker() : Worker(11){
         m_age = 10;
     }

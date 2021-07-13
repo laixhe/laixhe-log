@@ -4,6 +4,8 @@
 #include <map>
 #include <set>
 #include <tuple>
+#include <list>
+#include <stack>
 
 // 数组
 void _array() {
@@ -54,7 +56,8 @@ void std_array() {
 
 }
 
-// vector 向量类型(动态数组)
+// vector 向量类型(动态数组) (如果你需要高效的随即存取，而不在乎插入和删除的效率，使用 vector)
+// 拥有一段连续的内存空间，能非常好的支持随即存取
 // 大小变化:1024  2048  4096（开始会以2倍数增加，后面慢慢以1/3、1/5等的形式增加）
 //
 // push_back()     追加元素
@@ -68,6 +71,7 @@ void std_array() {
 // capacity()   返回容纳的元素个数(容量)
 // begin()      返回指向容器第一个元素的迭代器
 // end()        返回指向容器最后一个元素的迭代器
+//
 // insert()     插入元素
 // emplace()    插入元素(比 insert 更有效率)(C++11)
 void std_vector() {
@@ -99,6 +103,47 @@ void std_vector() {
         std::cout << "std_vector - arrInt=" << *i << std::endl;
     }
     
+}
+
+// list 就是数据结构中的双向链表 (如果你需要大量的插入和删除，而不关心随即存取，则应使用 list)
+// 它的内存空间是不连续的
+//
+// push_front()    头部插入元素
+// push_back()     追加元素
+// emplace_back()  追加元素 (比 push_back 更有效率)(C++11)
+// back()     返回最后一个元素
+// front()    返回第一个元素
+// pop_front()删除第一个元素
+// pop_back() 删除最后一个元素
+// size()     返回元素个数(长度)
+// empty()    判断是否为空
+// clear()    清除所有元素
+// begin()    返回指向容器第一个元素的迭代器
+// end()      返回指向容器最后一个元素的迭代器
+void std_list(){
+
+    // list() 声明一个空列表
+    // list(n) 声明一个有n个元素的列表，每个元素都是由其默认构造函数T()构造出来的
+    // list(n,val) 声明一个由n个元素的列表，每个元素的值都是val得来的
+
+    std::list<int> listInt(3, 0); // 创建长度为3，每个元素的值都为0
+    listInt.push_back(4);
+
+    // foreach 写法 [C++11]
+    for (auto i : listInt) {
+        std::cout << "std_list - listInt=" << i << std::endl;
+    }
+
+    std::cout << "std_list - listInt size=" << listInt.size() << std::endl;
+    std::cout << "------------------" << std::endl;
+
+    listInt.push_front(5); 
+    listInt.emplace_back(6);
+
+    // 迭代
+    for (auto i = listInt.begin(); i != listInt.end(); ++i) {
+        std::cout << "std_list - listInt=" << *i << std::endl;
+    }
 }
 
 // map 关联容器
@@ -204,3 +249,11 @@ void std_tuple() {
     std::cout << "std_tuple - tupleData.2=" << std::get<2>(tupleData) << std::endl;
 
 }
+
+// stack 栈(先进后出)
+//
+// push()   在栈顶增加元素 （增加）
+// pop()    移除栈顶元素 （删除）
+// size()   返回元素个数
+// empty()  判断是否为空
+// top()    返回栈顶元素，不删除(获取)

@@ -69,6 +69,9 @@ endif()
 #                        # 第三方库
 #                        ${log-lib} )
 
+# 标准线程库 std::thread
+find_package (Threads)
+
 # mysql
 set(mysqlx mysqlx/Mysqlx.h mysqlx/Mysqlx.cpp)
 #
@@ -83,3 +86,6 @@ ${mysqlx}
 main.cpp)
 
 target_link_libraries(${MAIN_NAME} mysqlclient)
+
+# 标准线程库 std::thread
+target_link_libraries (${MAIN_NAME} ${CMAKE_THREAD_LIBS_INIT})
