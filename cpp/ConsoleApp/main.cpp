@@ -3,8 +3,8 @@
 #include "base/ConfigFile.h"
 #include "mysqlx/Mysqlx.h"
 
-//#include "std_thread.cpp"
-#include "std_find_find_if.cpp"
+#include "std_thread_mutex.cpp"
+#include "std_chrono.cpp"
 
 int main() {
 
@@ -20,8 +20,8 @@ int main() {
 
     // Mysqlx::getInstance().initialize("192.168.10.240", "test", 3306, "root", "123456");
 
-    //std_thread_my_print();
-    std_find_find_if();
+    //std_thread_many_main();
+    std_chrono();
 
     std::cout << "main end --------------" << std::endl;
     return 0;

@@ -2,7 +2,7 @@
 #include <functional>
 
 // [C++11]
-// std::ref  用于包装按引用传递的值。 
+// std::ref  用于包装按引用传递的值
 // std::cref 用于包装按const引用传递的值
 // 头文件 <functional>
 
