@@ -3,8 +3,7 @@
 #include "base/ConfigFile.h"
 #include "mysqlx/Mysqlx.h"
 
-#include "std_thread_mutex.cpp"
-#include "std_chrono.cpp"
+#include "std_atomic.cpp"
 
 int main() {
 
@@ -20,9 +19,8 @@ int main() {
 
     // Mysqlx::getInstance().initialize("192.168.10.240", "test", 3306, "root", "123456");
 
-    //std_thread_many_main();
-    std_chrono();
+    std_atomic_main();
 
-    std::cout << "main end --------------" << std::endl;
+    std::cout << "main end --------------" << " thread_id=" << std::this_thread::get_id() << std::endl;
     return 0;
 }

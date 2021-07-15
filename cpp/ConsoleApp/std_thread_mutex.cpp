@@ -12,8 +12,8 @@
 // 头文件：<mutex>
 //
 // std::condition_variable 条件变量
-// 头文件： <condition_variable>
 // 条件变量允许我们通过通知进而实现线程同步(理解为：发送方/接收方或生产者/消费者之类的工作流)
+// 头文件： <condition_variable>
 
 class std_thread_many_print{
 public:
@@ -48,11 +48,11 @@ public:
         // }
 
         for(int i=0; i < 100000; ++i){
-            std::lock_guard<std::mutex> data_lock(data_mutex); // 自动加锁和解锁
-            //data_mutex.lock(); // 加锁
-            data.push_back(i);
             std::cout << "thread_work_set" << this << " i=" << i << " thread_id=" << std::this_thread::get_id() << std::endl;
-            //data_mutex.unlock(); // 解锁
+
+            std::unique_lock<std::mutex> data_lock(data_mutex); // 自动加锁和解锁
+            data.push_back(i);
+            data_cond.notify_one(); // 条件通知( 唤醒 wait() )
         }
 
         std::cout << "thread_work_set end" << this << " thread_id=" << std::this_thread::get_id() << std::endl;
@@ -92,6 +92,11 @@ public:
 
         while (true){
             std::unique_lock<std::mutex> data_lock(data_mutex); // 自动加锁和解锁
+            // wait 等待通知
+            // 如果第二个参数 lambda 表达式返回值是 false，那么 wait() 将解锁互斥量，
+            // 并堵塞到本行，堵塞到其它某个线程调用 notify_one() 成员函数为止，
+            // 如果返回 true，则将锁互斥量与不堵塞
+            // 如果没有第二个参数默认为 false (跟 lambda 表达式返回值是 false 一样)
             data_cond.wait(data_lock, [this]{
                 if(!data.empty()){
                     return true;
@@ -99,22 +104,33 @@ public:
                 return false;
             });
 
-            if(!data.empty()){
+            // 流程只要能走到这里来，互斥锁一定是锁的，且有数据的
 
+            // if(!data.empty()){
+            //
+            //     int cmd = data.front();
+            //     data.pop_front();
+            //     std::cout << "thread_work_get" << this << " cmd=" << cmd << " thread_id=" << std::this_thread::get_id() << std::endl;
+            //
+            // } else {
+            //     std::cout << "thread_work_get" << this << " data 数据为空..." << " thread_id=" << std::this_thread::get_id() << std::endl;
+            // }
+
+            // 可能存在多条数据
+            while (!data.empty()){
                 int cmd = data.front();
                 data.pop_front();
-                std::cout << "thread_work_get" << this << " cmd=" << cmd << " i="<< i << " thread_id=" << std::this_thread::get_id() << std::endl;
-
-            } else {
-                std::cout << "thread_work_get" << this << " data 数据为空... i=" << i << " thread_id=" << std::this_thread::get_id() << std::endl;
+                std::cout << "thread_work_get" << this << " cmd=" << cmd << " thread_id=" << std::this_thread::get_id() << std::endl;
             }
+            data_lock.unlock(); // 因为 unique_lock 的灵活性，所以可以随时 unlock 解锁，以免锁住太长时间 (可不用主动解锁的，会自动解锁)
+            
         }
 
         std::cout << "thread_work_get end" << this << " thread_id=" << std::this_thread::get_id() << std::endl;
     }
 
 private:
-    std::list<int> data;
+    std::list<int> data;   // 数据
     std::mutex data_mutex; // 锁
     std::condition_variable data_cond; // 条件(通知)
 };
