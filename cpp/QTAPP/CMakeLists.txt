@@ -19,16 +19,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON) # 为 ON 时必须指明C++版本
 find_package(QT NAMES Qt6 COMPONENTS Widgets Sql REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Sql REQUIRED)
 
-set(testwidget testwidget.h testwidget.cpp testwidget.ui)
-set(testdialog testdialog.h testdialog.cpp testdialog.ui)
+set(test_widget testwidget.h testwidget.cpp testwidget.ui)
+set(test_dialog testdialog.h testdialog.cpp testdialog.ui)
+set(test_signal signalsfrom.h signalsfrom.cpp signalsto.h signalsto.cpp)
 
 set(MAIN_SOURCES main.cpp mainwindow.h mainwindow.cpp mainwindow.ui)
 
 # 编译为可执行文件
 add_executable(QTAPP
     ${MAIN_SOURCES}
-    ${testdialog}
-    ${testwidget})
+    ${test_dialog}
+    ${test_widget}
+    ${test_signal})
 
 # 项目依赖库
 target_link_libraries(QTAPP

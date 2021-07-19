@@ -13,3 +13,17 @@ TestDialog::TestDialog(QWidget *parent) : QDialog(parent), ui(new Ui::TestDialog
 TestDialog::~TestDialog() {
     delete ui;
 }
+
+// 关闭当前对话框
+void TestDialog::on_acceptBut_clicked(){
+    this->accept();
+}
+// 关闭当前对话框
+void TestDialog::on_rejectBut_clicked(){
+    this->reject();
+}
+// 关闭当前对话框
+void TestDialog::on_DoneBut_clicked(){
+    this->done(2);
+}
+

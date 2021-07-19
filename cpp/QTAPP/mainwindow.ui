@@ -17,14 +17,66 @@
    <widget class="QPushButton" name="closeBtn">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>280</y>
-      <width>80</width>
+      <x>20</x>
+      <y>20</y>
+      <width>101</width>
       <height>26</height>
      </rect>
     </property>
     <property name="text">
-     <string>关闭窗口</string>
+     <string>关闭当前窗口</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="signalsFromTo">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>101</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>触发自定义信号</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="testDialogBut">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>101</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开打Test对话框</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="messageDialogBut">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>180</y>
+      <width>101</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开打对话框</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="fileDialogBut">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>230</y>
+      <width>101</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>文件对话框</string>
     </property>
    </widget>
   </widget>

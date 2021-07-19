@@ -72,3 +72,25 @@ QWidget::QWidget(QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags(
 # 方式2：通过 setParent() 方式
 void QWidget::setParent(QWidget* parent)
 ```
+
+#### 自定义信号槽
+> 如果想要使用自定义的信号槽，首先要编写新的类并且要继承 QObject 类或者其子类，还要在定义类的头文件中加入 QObject 中的 Q_OBJECT 这个宏
+>
+
+##### 自定义信号 signals
+> 信号是类的成员函数
+> 
+> 要使用 signals 关键字进行声明，使用方法与 public 类似
+>
+> 返回值是 void 类型
+> 
+> 信号函数只需要声明，不需要定义(没有函数体实现)
+> 
+> 发送信号函数前加关键字： emit
+> 
+
+###### 自定义槽 slots
+> 槽函数就是信号的处理动作，自定义槽函数和自定义的普通函数一样
+> 
+> 返回值是 void 类型
+> 

@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 
+#include "signalsfrom.h"
+#include "signalsto.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
     // 对应的是 UI 文件中的类 <class>MainWindow</class>
@@ -17,8 +20,17 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_signalsFromTo_clicked();
+    void on_testDialogBut_clicked();
+
+    void on_messageDialogBut_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    SignalsFrom *m_signalsFrom;
+    SignalsTo *m_signalsTo;
 
 };
 
