@@ -33,6 +33,11 @@ void _array() {
 
 // array 与数组一样，array 对象的长度也是固定的，
 // 也使用栈(静态内存分配)，而不是自由存储区，因此其效率与数组相同，但更方便，更安全
+//
+// 头文件：#include<array>
+//
+// [C++11]
+//
 void std_array() {
     auto arrInt = std::array<int, 3>();
 
@@ -74,6 +79,9 @@ void std_array() {
 //
 // insert()     插入元素
 // emplace()    插入元素(比 insert 更有效率)(C++11)
+//
+// 头文件：#include<vector>
+//
 void std_vector() {
 
     auto arrInt = std::vector<int>();
@@ -120,6 +128,9 @@ void std_vector() {
 // clear()    清除所有元素
 // begin()    返回指向容器第一个元素的迭代器
 // end()      返回指向容器最后一个元素的迭代器
+//
+// 头文件：#include<list>
+//
 void std_list(){
 
     // list() 声明一个空列表
@@ -155,6 +166,9 @@ void std_list(){
 // empty()    判断是否为空
 // begin()    返回指向容器第一个元素的迭代器
 // end()      返回指向容器最后一个元素的迭代器
+//
+// 头文件：#include<map>
+//
 void std_map(){
     std::map<std::string, std::string> mapData;
 
@@ -201,6 +215,9 @@ void std_map(){
 // empty()    判断是否为空
 // begin()    返回指向容器第一个元素的迭代器
 // end()      返回指向容器最后一个元素的迭代器
+//
+// 头文件：#include<set>
+//
 void std_set() {
     auto setData = std::set<int>();
     setData.insert(1);
@@ -231,7 +248,11 @@ void std_set() {
 }
 
 // tuple 元组
+//
+// 头文件：#include<tuple>
+//
 // C++ 11 引入
+//
 void std_tuple() {
     std::tuple<int, int, std::string> tupleData = std::make_tuple(18, 19, "laixhe");
 
@@ -250,10 +271,25 @@ void std_tuple() {
 
 }
 
+// queue 队列(先进先出) [deque 双向队列]
+// 不可以用 clear() 函数清空，清空 queue 必须一个一个弹出，也并不支持遍历
+//
+// front()  返回第一个元素
+// back()   返回最后一个元素
+// push()   在栈顶增加元素 （增加）
+// pop()    移除栈顶元素   （删除）
+// size()   返回元素个数
+// empty()  判断是否为空
+//
+// 头文件：#include<queue>
+//
+
 // stack 栈(先进后出)
 //
+// 头文件：#include<stack>
+//
 // push()   在栈顶增加元素 （增加）
-// pop()    移除栈顶元素 （删除）
+// pop()    移除栈顶元素   （删除）
 // size()   返回元素个数
 // empty()  判断是否为空
 // top()    返回栈顶元素，不删除(获取)

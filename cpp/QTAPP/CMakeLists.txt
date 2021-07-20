@@ -9,7 +9,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON) # 转换 UI 文件
 set(CMAKE_AUTOMOC ON) # 转换 MOC 文件
-set(CMAKE_AUTORCC ON) # 转换资源文件
+set(CMAKE_AUTORCC ON) # 转换 资源 文件
 
 # 使用C++版本
 set(CMAKE_CXX_STANDARD 17)
@@ -19,9 +19,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON) # 为 ON 时必须指明C++版本
 find_package(QT NAMES Qt6 COMPONENTS Widgets Sql REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Sql REQUIRED)
 
+set(QRC_FILE res.qrc)
+qt6_add_resources(QRC ${QRC_FILE})
+
 set(test_widget testwidget.h testwidget.cpp testwidget.ui)
 set(test_dialog testdialog.h testdialog.cpp testdialog.ui)
 set(test_signal signalsfrom.h signalsfrom.cpp signalsto.h signalsto.cpp)
+
+set(login_dialog logindialog.h logindialog.cpp logindialog.ui)
 
 set(MAIN_SOURCES main.cpp mainwindow.h mainwindow.cpp mainwindow.ui)
 
@@ -30,7 +35,9 @@ add_executable(QTAPP
     ${MAIN_SOURCES}
     ${test_dialog}
     ${test_widget}
-    ${test_signal})
+    ${test_signal}
+    ${login_dialog}
+    ${QRC})
 
 # 项目依赖库
 target_link_libraries(QTAPP

@@ -23,8 +23,12 @@ public:
 private slots:
     void on_signalsFromTo_clicked();
     void on_testDialogBut_clicked();
-
     void on_messageDialogBut_clicked();
+    void on_fileDialogBut_clicked();
+
+    void on_fontDialogBut_clicked();
+
+    void on_colorDialogBut_clicked();
 
 private:
     Ui::MainWindow *ui;
