@@ -147,7 +147,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="fontDialogBut_2">
+   <widget class="QPushButton" name="loginDialogBut">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -158,6 +158,19 @@
     </property>
     <property name="text">
      <string>登录</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="testBut">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>500</y>
+      <width>101</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>按钮用例</string>
     </property>
    </widget>
   </widget>

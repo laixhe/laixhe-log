@@ -25,10 +25,10 @@ private slots:
     void on_testDialogBut_clicked();
     void on_messageDialogBut_clicked();
     void on_fileDialogBut_clicked();
-
     void on_fontDialogBut_clicked();
-
     void on_colorDialogBut_clicked();
+    void on_loginDialogBut_clicked();
+    void on_testBut_clicked();
 
 private:
     Ui::MainWindow *ui;

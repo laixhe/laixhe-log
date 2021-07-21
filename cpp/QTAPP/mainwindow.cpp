@@ -11,6 +11,8 @@
 
 #include "testwidget.h"
 #include "testdialog.h"
+#include "logindialog.h"
+#include "testbutton.h"
 
 // QMainWindow
 // 主窗口类
@@ -185,6 +187,16 @@ void MainWindow::on_colorDialogBut_clicked() {
     //
     ui->colorDialogLabel->setPixmap(pix);
 }
+// 登录按钮(点击事件)
+void MainWindow::on_loginDialogBut_clicked(){
+    LoginDialog login;
+    login.exec();
+}
+// 按钮用例按钮(点击事件)
+void MainWindow::on_testBut_clicked(){
+    TestButton b;
+    b.exec();
+}
 
 MainWindow::~MainWindow() {
     delete ui;
@@ -217,4 +229,3 @@ while (query.next()) {
 }
 db.close();
 */
-

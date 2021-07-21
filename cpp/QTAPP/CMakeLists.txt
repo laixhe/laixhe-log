@@ -25,6 +25,7 @@ qt6_add_resources(QRC ${QRC_FILE})
 set(test_widget testwidget.h testwidget.cpp testwidget.ui)
 set(test_dialog testdialog.h testdialog.cpp testdialog.ui)
 set(test_signal signalsfrom.h signalsfrom.cpp signalsto.h signalsto.cpp)
+set(test_button testbutton.h testbutton.cpp testbutton.ui)
 
 set(login_dialog logindialog.h logindialog.cpp logindialog.ui)
 
@@ -36,6 +37,7 @@ add_executable(QTAPP
     ${test_dialog}
     ${test_widget}
     ${test_signal}
+    ${test_button}
     ${login_dialog}
     ${QRC})
 

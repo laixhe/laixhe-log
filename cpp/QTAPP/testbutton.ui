@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TestButton</class>
+ <widget class="QDialog" name="TestButton">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="normalBtn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>80</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>普通按钮</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="checkedBtn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>81</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>开关按钮</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="menuBtn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>81</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>菜单按钮</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
