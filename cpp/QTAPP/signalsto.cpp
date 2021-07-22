@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "signalsto.h"
+
+#include <QDebug>
 
 // 自定义槽 slots
 //
@@ -11,5 +11,5 @@ SignalsTo::SignalsTo(QObject *parent) : QObject(parent) {
 }
 
 void SignalsTo::testTo(){
-    std::cout << "SignalsFrom::testFrom -> SignalsTo::testTo..." << std::endl;
+    qDebug() << "SignalsFrom::testFrom -> SignalsTo::testTo...";
 }

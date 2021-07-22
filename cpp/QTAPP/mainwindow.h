@@ -30,6 +30,8 @@ private slots:
     void on_loginDialogBut_clicked();
     void on_testBut_clicked();
 
+    void on_testThreadBut_clicked();
+
 private:
     Ui::MainWindow *ui;
 

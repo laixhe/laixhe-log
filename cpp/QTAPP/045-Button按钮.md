@@ -138,7 +138,7 @@ QMenu *QToolButton::menu() const;
 	- 当按下按钮的箭头部分时，将显示菜单。按下按钮部分发射 clicked 信号
     - QToolButton::InstantPopup: 
         - 当按下工具按钮时，菜单立即显示出来。
-        - 在这种模式下，按钮本身的动作不会被触发(不会发射clicked信号
+        - 在这种模式下，按钮本身的动作不会被触发(不会发射clicked信号)
 */
 // 设置弹出菜单的弹出方式
 void setPopupMode(QToolButton::ToolButtonPopupMode mode);

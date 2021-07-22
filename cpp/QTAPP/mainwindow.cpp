@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -13,6 +11,7 @@
 #include "testdialog.h"
 #include "logindialog.h"
 #include "testbutton.h"
+#include "test_thread.h"
 
 // QMainWindow
 // 主窗口类
@@ -103,13 +102,10 @@ void MainWindow::on_testDialogBut_clicked(){
     int ret = tDialog.exec(); // 显示对话窗口(模态窗口)并阻塞程序,当前窗口有焦点 其它 窗口失去焦点
     if(ret == QDialog::Accepted) {
         qDebug() << "accept buttion clicked...";
-        std::cout << "...accept buttion clicked..." << ret << std::endl;
     } else if(ret == QDialog::Rejected) {
         qDebug() << "rejected buttion clicked...";
-        std::cout << "...rejected buttion clicked..." << ret << std::endl;
     } else {
         qDebug() << "done buttion clicked...";
-        std::cout << "...done buttion clicked..." << ret << std::endl;
     }
 
 }
@@ -198,6 +194,11 @@ void MainWindow::on_testBut_clicked(){
     b.exec();
 }
 
+void MainWindow::on_testThreadBut_clicked(){
+    TestThread tThread;
+    tThread.exec();
+}
+
 MainWindow::~MainWindow() {
     delete ui;
 
@@ -216,7 +217,7 @@ db.setUserName("root");
 db.setPassword("123456");
 bool ok = db.open();
 if(!ok){
-    std::cout << "db open error..." << std::endl;
+    qDebug() << "db open error...";
     return;
 }
 
@@ -225,7 +226,10 @@ while (query.next()) {
     QString id = query.value(0).toString();
     QString log = query.value(1).toString();
 
-    std::cout << id.toStdString() << ":" << log.toStdString() << std::endl;
+    qDebug() << id << ":" << log;
 }
 db.close();
 */
+
+
+

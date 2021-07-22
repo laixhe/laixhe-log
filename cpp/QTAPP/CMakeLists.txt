@@ -27,6 +27,9 @@ set(test_dialog testdialog.h testdialog.cpp testdialog.ui)
 set(test_signal signalsfrom.h signalsfrom.cpp signalsto.h signalsto.cpp)
 set(test_button testbutton.h testbutton.cpp testbutton.ui)
 
+set(test_thread_my test_thread_my.h test_thread_my.cpp)
+set(test_thread test_thread.h test_thread.cpp test_thread.ui)
+
 set(login_dialog logindialog.h logindialog.cpp logindialog.ui)
 
 set(MAIN_SOURCES main.cpp mainwindow.h mainwindow.cpp mainwindow.ui)
@@ -38,6 +41,8 @@ add_executable(QTAPP
     ${test_widget}
     ${test_signal}
     ${test_button}
+    ${test_thread_my}
+    ${test_thread}
     ${login_dialog}
     ${QRC})
 
