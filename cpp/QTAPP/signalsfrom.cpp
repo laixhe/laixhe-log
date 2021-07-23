@@ -1,5 +1,7 @@
 #include "signalsfrom.h"
 
+#include <QDebug>
+
 // 自定义信号 signals
 //
 // 信号是类的成员函数

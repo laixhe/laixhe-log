@@ -1,6 +1,8 @@
 #include "testdialog.h"
 #include "ui_testdialog.h"
 
+#include <QDebug>
+
 // QDialog
 // 对话框窗口类
 // 模态(show)和非模态(exec)两种显示方式

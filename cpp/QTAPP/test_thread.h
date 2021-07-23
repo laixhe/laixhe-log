@@ -15,8 +15,10 @@ public:
     ~TestThread();
 
 signals:
-    // 用于子线程 循环随机数的数量
+    // 用于子线程1 循环随机数的数量
     void starting(int num);
+    // 用于子线程2 循环随机数的数量
+    void starting2(int num);
 
 private:
     Ui::TestThread *ui;

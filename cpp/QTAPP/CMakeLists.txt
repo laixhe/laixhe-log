@@ -16,11 +16,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) # 为 ON 时必须指明C++版本
 
 # 查找包
-find_package(QT NAMES Qt6 COMPONENTS Widgets Sql REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Sql REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Sql Network REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Sql Network REQUIRED)
 
-set(QRC_FILE res.qrc)
-qt6_add_resources(QRC ${QRC_FILE})
+#qt5_add_resources(QRC res.qrc) # qt5
 
 set(test_widget testwidget.h testwidget.cpp testwidget.ui)
 set(test_dialog testdialog.h testdialog.cpp testdialog.ui)
@@ -44,10 +43,14 @@ add_executable(QTAPP
     ${test_thread_my}
     ${test_thread}
     ${login_dialog}
-    ${QRC})
+
+    res.qrc # 在 qt6 直接用资源文件就行
+    # ${QRC} # qt5
+    )
 
 # 项目依赖库
 target_link_libraries(QTAPP
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
-    Qt${QT_VERSION_MAJOR}::Sql)
+    Qt${QT_VERSION_MAJOR}::Sql
+    Qt${QT_VERSION_MAJOR}::Network)

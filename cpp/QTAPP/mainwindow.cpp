@@ -6,6 +6,7 @@
 #include <QFontDialog>
 #include <QColorDialog>
 #include <QPainter>
+#include <QDebug>
 
 #include "testwidget.h"
 #include "testdialog.h"

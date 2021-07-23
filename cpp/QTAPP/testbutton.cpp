@@ -1,8 +1,8 @@
 #include "testbutton.h"
 #include "ui_testbutton.h"
 
-#include <iostream>
 #include <QMenu>
+#include <QDebug>
 
 // QAbstractButton 是所有按钮的基类
 

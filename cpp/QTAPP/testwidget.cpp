@@ -1,6 +1,8 @@
 #include "testwidget.h"
 #include "ui_testwidget.h"
 
+#include <QDebug>
+
 // QWidget
 // 可以内嵌到其它窗口的内部-无边框(需要给该窗口指定父窗口)
 // 可以作为独立的窗口显示-有边框(不能给该窗口指定父窗口)
