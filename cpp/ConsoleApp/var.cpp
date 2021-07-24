@@ -1,11 +1,21 @@
 #include <iostream>
 
+// auto     自动推导变量的类型    [C++11]
+// decltype 自动推导出表达式的类型 [C++11]
+//
+// auto 变量名 = 变量值;
+// int a = 10; // a -> int
+//
+// decltype (表达式)
+// int a = 10;
+// decltype(a) b = 99; // b -> int
+//
 // 区分左值与右值的便捷方法是：可以对表达式取地址（&）就是左值，否则为右值
 // 所有有名字的变量或对象都是左值，而右值是匿名的
 
 void var(){
 
-    int a = 10;
+    auto a = 10; // 推导出 int
     std::string b = "数据类型";
 
     // 字符串原始字面量 R

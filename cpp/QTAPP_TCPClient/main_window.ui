@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
+    <width>383</width>
     <height>575</height>
    </rect>
   </property>
@@ -55,6 +55,49 @@
         <widget class="QPushButton" name="disconnect">
          <property name="text">
           <string>断开连接</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget_4" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLineEdit" name="filePath"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="selFile">
+         <property name="text">
+          <string>选择文件</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget_5" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QPushButton" name="connectFileServer">
+         <property name="text">
+          <string>连接服务</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="progressBar">
+         <property name="value">
+          <number>24</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="sendFile">
+         <property name="text">
+          <string>发送文件</string>
          </property>
         </widget>
        </item>
@@ -135,7 +178,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>336</width>
+     <width>383</width>
      <height>23</height>
     </rect>
    </property>

@@ -3,6 +3,8 @@
 
 #include <QLabel>
 
+#include "recv_file.h"
+
 // 服务器端
 // 通信流程:
 // 1. 创建套接字服务器 QTcpServer 对象
@@ -21,8 +23,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_status->setPixmap(QPixmap(":/disconnect.png").scaled(20, 20));
     ui->statusbar->addWidget(new QLabel("连接状态：")); // 此处可利用QT自动回收机制(父对象)
     ui->statusbar->addWidget(m_status);               // 此处可利用QT自动回收机制(父对象)
-
     setWindowTitle("TCP - 服务器");
+
+    // ============= 发送文件 ============
+
+    // 创建 QTcpServer 对象
+    m_file_server = new QTcpServer(this); // 此处可利用QT自动回收机制(父对象)
+
+    // 检测是否有新的客户端连接的信号
+    connect(m_file_server, &QTcpServer::newConnection, this, [=](){
+        // 获得客户端连接
+        QTcpSocket *client = m_file_server->nextPendingConnection();
+        
+        // 创建子线程
+        RecvFile *subThread = new RecvFile(client);
+        // 启动子线程
+        subThread->start();
+    });
+
+    // ============= 发送信息 ============
+
     // 创建 QTcpServer 对象
     m_server = new QTcpServer(this); // 此处可利用QT自动回收机制(父对象)
 
@@ -79,5 +99,15 @@ void MainWindow::on_sendMsg_clicked() {
 
     ui->record->append("服务器: " + sendMsg);
     ui->msg->clear();
+}
+
+// 启动文件服务按钮
+void MainWindow::on_setFile_clicked(){
+    // 获取端口
+    unsigned short port = ui->port->text().toUShort();
+    // 监听服务
+    m_file_server->listen(QHostAddress::Any, port);
+    // 将按钮设置为不可用
+    ui->setFile->setDisabled(true);
 }
 

@@ -23,11 +23,15 @@ private slots:
 
     void on_sendMsg_clicked();
 
+    void on_setFile_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     QTcpServer* m_server;
     QTcpSocket* m_client;
+
+    QTcpServer* m_file_server;
 
 };
 #endif // MAINWINDOW_H

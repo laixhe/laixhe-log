@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
+    <width>422</width>
     <height>563</height>
    </rect>
   </property>
@@ -32,6 +32,13 @@
         <widget class="QPushButton" name="setListen">
          <property name="text">
           <string>启动服务</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="setFile">
+         <property name="text">
+          <string>启动文件服务</string>
          </property>
         </widget>
        </item>
@@ -112,7 +119,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>336</width>
+     <width>422</width>
      <height>23</height>
     </rect>
    </property>

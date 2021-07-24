@@ -2,13 +2,25 @@
 #include <functional>
 
 // [C++11]
-// std::function 是可调用对象的包装器，它最重要的功能是实现延时调用
+// std::function 是(可调用对象的包装器)，它最重要的功能是实现延时调用
+// std::function<返回值类型(参数类型列表)> diy_name = 可调用对象
+// 可做为回调函数使用，因为回调函数本身就是通过函数指针实现的，使用对象包装器可以取代函数指针的作用
+//
+// std::bind 用来将可调用对象与其参数一起进行绑定(绑定器)
+// 绑定后的结果可以使用 std::function 进行保存，并延迟调用到任何我们需要的时候
+// 绑定非类成员函数/变量
+// auto f = std::bind(可调用对象地址, 绑定的参数/占位符);
+// 绑定类成员函/变量
+//auto f = std::bind(类函数/成员地址, 类实例对象地址, 绑定的参数/占位符);
+//
 // 头文件 <functional>
 
+// 普通函数
 void std_function_bind_func(){
     std::cout << __FUNCTION__ << std::endl;
 }
 
+// 静态类成员函数
 class StdFunctionBindFoo {
 public:
     static int foo_func(int a) {
@@ -67,3 +79,49 @@ void std_function_bind(){
 
     std::cout << "std_function_bind end --------------" << std::endl;
 }
+
+// 做为回调函数使用
+
+// 回调函数
+class FunctionCallback {
+public:
+    // 构造函数参数是一个包装器对象
+    FunctionCallback(const std::function<void()>& f) : callback(f){
+    }
+
+    void notify(){
+        callback(); // 调用通过构造函数得到的函数指针
+    }
+
+private:
+    std::function<void()> callback;
+
+};
+
+// 仿函数
+class CallbackOperator {
+public:
+    void operator()(){
+        std::cout << "CallbackOperator 做为回调函数..." << std::endl;
+    }
+};
+
+void std_function_callback(){
+
+    CallbackOperator callback;
+
+    FunctionCallback fCallback(callback); // 仿函数通过包装器对象进行包装
+    fCallback.notify();
+
+}
+
+// 函数指针(可调用对象) (不推荐)
+/*
+int print(int a, double b)
+{
+    cout << a << b << endl;
+    return 0;
+}
+// 定义函数指针
+int (*func)(int, double) = &print;
+*/

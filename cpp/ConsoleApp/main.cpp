@@ -3,7 +3,7 @@
 #include "base/ConfigFile.h"
 #include "mysqlx/Mysqlx.h"
 
-#include "std_atomic.cpp"
+#include "std_function_bind.cpp"
 
 int main() {
 
@@ -19,8 +19,7 @@ int main() {
 
     // Mysqlx::getInstance().initialize("192.168.10.240", "test", 3306, "root", "123456");
 
-    std_atomic_main();
+    std_function_callback();
 
-    std::cout << "main end --------------" << " thread_id=" << std::this_thread::get_id() << std::endl;
     return 0;
 }

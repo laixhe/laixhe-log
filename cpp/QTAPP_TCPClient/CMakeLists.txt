@@ -14,10 +14,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Network REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network REQUIRED)
 
+set(send_file send_file.h send_file.cpp)
+
 set(main main.cpp main_window.cpp main_window.h main_window.ui)
 
 add_executable(QTAPP_TCPClient
     ${main}
+    ${send_file}
     res.qrc
 )
 

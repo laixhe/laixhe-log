@@ -9,52 +9,74 @@ class Person {
 public:
     int m_age = 0; // [C++11]允许非静态成员进行初始化
 
-    Person(){
-       std::cout << "Person::Person() m_age=" << m_age << std::endl; 
-    }
+    Person();
+    Person(int age);
 
-    Person(int age) : m_age(age) {
-       std::cout << "Person::Person() m_age=" << m_age << std::endl; 
-    }
-
-    void run(){
-        std::cout << "Person::run() m_age=" << m_age << std::endl;
-    }
+    void run();
 };
+
+Person::Person(){
+    std::cout << "Person::Person() m_age=" << m_age << std::endl; 
+}
+
+// 构造函数，并初始化列表
+Person::Person(int age): m_age(age){
+    std::cout << "Person::Person(int age) m_age=" << m_age << std::endl; 
+}
+
+void Person::run(){
+    std::cout << "Person::run() m_age=" << m_age << std::endl;
+}
+
+//==================
 
 class Student : public Person {
 public:
-    int m_score;
+    int m_score = 0; // [C++11]允许非静态成员进行初始化
 
-    Student(){
-    }
+    Student();
+    Student(int score);
 
-    // 构造函数 调用  父类的构造函数
-    Student(int score): Person(score), m_score(score) {
-    }
-
-    void study(){
-        std::cout << "Student::study() m_age=" << m_age << " | m_score=" << m_score << std::endl;
-    }
+    void study();
 };
+
+Student::Student(){
+}
+
+// 构造函数 调用  父类的构造函数 与 初始化列表
+Student::Student(int score): Person(score), m_score(score){
+}
+
+void Student::study(){
+    std::cout << "Student::study() m_age=" << m_age << " | m_score=" << m_score << std::endl;
+}
+
+//==================
 
 class Worker : public Person {
 public:
-    int m_salary;
-    void work(){
-        std::cout << "Worker::work() m_age=" << m_age << " | m_salary=" << m_salary << std::endl;
-    }
+    int m_salary = 0; // [C++11]允许非静态成员进行初始化
 
-    // 构造函数 调用  构造函数(委托构造函数)
-    // [C++11]
-    Worker() : Worker(11){
-        m_age = 10;
-    }
+    Worker();
+    Worker(int salary);
 
-    // 构造函数，并初始化列表
-    Worker(int salary) : m_salary(salary){
-    }
+    void work();
 };
+
+// 构造函数 调用  构造函数(委托构造函数)
+// [C++11]
+Worker::Worker(): Worker(11){
+}
+
+// 构造函数，并初始化列表
+Worker::Worker(int salary) : m_salary(salary){
+}
+
+void Worker::work(){
+    std::cout << "Worker::work() m_age=" << m_age << " | m_salary=" << m_salary << std::endl;
+}
+
+//==================
 
 void ClassExtentds(){
     
