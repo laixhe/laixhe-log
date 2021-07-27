@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-// 组等待
+// WaitGroup 组等待
 // Add 增加等待计数
 // Done 减少等待计数
 // 当计数为 0 时触发 Wait
@@ -13,6 +13,9 @@ import (
 // 每个子例程在结束时调用 Done 减少例程计数。
 // 之后，主例程通过 Wait 方法开始等待，直到计数器归零才继续执行
 func WaitGroup() {
+
+	// Add与Done应该放在哪？
+	// Add放在Goroutine外，Done放在Goroutine中，逻辑复杂时建议用defer保证调用
 
 	//创建任务组
 	wg := sync.WaitGroup{}

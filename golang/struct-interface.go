@@ -14,30 +14,30 @@ import "fmt"
 
 //
 
-// 定义接口
+// BaseInterface 定义接口
 // 某个 自定义类型 要 隐式 实现该接口全部方法后就实现这个接口
 type BaseInterface interface {
 	Show()
 }
 
-// 定义结构体
+// Base 定义结构体
 type Base struct {
 	// 字段
 	name string
 	age  int
 }
 
-// 定义结构体 Base 的方法，同时也 隐式 实现了 BaseInterface 接口
+// Show 定义结构体 Base 的方法，同时也 隐式 实现了 BaseInterface 接口
 func (b *Base) Show() {
 	fmt.Printf("Show name=%v, age=%v\n", b.name, b.age)
 }
 
-// 组合(继承) Base
+// Derived 组合(继承) Base
 type Derived struct {
 	Base // 直接嵌入即可
 }
 
-// 在 golang 中没有构造函数和析构函数，只能自己把握
+// NewDerived 在 golang 中没有构造函数和析构函数，只能自己把握
 func NewDerived(name string, age int) *Derived {
 	// 实例化对象
 	return &Derived{
@@ -55,19 +55,7 @@ func (t *TestBase) Show() {
 	fmt.Println("TestBase Show")
 }
 
-// 利用接口实现多态
+// Show 利用接口实现多态
 func Show(b BaseInterface) {
 	b.Show()
-}
-
-func main() {
-	derived := NewDerived("laixhe", 18)
-	derived.Show() // 结果： Show name=laixhe, age=18
-
-	// 实例化对象
-	testBase := &TestBase{}
-	testBase.Show() // 结果： TestBase Show
-
-	Show(derived)  // 结果： Show name=laixhe, age=18
-	Show(testBase) // 结果： TestBase Show
 }

@@ -1,14 +1,15 @@
-package container_main
+package container_sort
 
 import (
 	"container/list"
 	"fmt"
+	"testing"
 )
 
-// 用 list 来实现栈和队列的功能
+// 用 list 来实现栈和队列的功能 list_heap_ring
 
-// StackTest 实现栈
-func StackTest() {
+// 用 list 实现 栈 功能
+func TestListStack(t *testing.T) {
 
 	stack := list.New()
 
@@ -35,8 +36,8 @@ func StackTest() {
 
 }
 
-// QueueTest 实现队列
-func QueueTest() {
+// 用 list 来实现 队列 功能
+func TestListQueue(t *testing.T) {
 
 	queue := list.New()
 

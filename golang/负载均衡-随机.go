@@ -1,46 +1,37 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 )
 
 // 随机负载均衡：意味没有规律，随机在服务器队列中获得一台服务器处理请求
 
-//
-
-// 接口定义
+// LoadBalance 接口定义
 type LoadBalance interface {
-	// 选择一个后端Server
-	// 参数remove是需要排除选择的后端Server
-	Next(remove []string) *Server
-	// 更新可用Server列表
-	UpdateServers(servers []*Server)
+	Next(remove []string) *Server    // 选择一个后端Server，参数remove是需要排除选择的后端Server
+	UpdateServers(servers []*Server) // 更新可用Server列表
 }
 
-// 后端Server定义
+// Server 后端定义
 type Server struct {
-	// 主机地址
-	Host string
-	// 主机名
-	Name string
-	Id   int
-	// 主机是否在线
-	Online bool
+	Host   string // 主机地址
+	Name   string // 主机名
+	Id     int    //
+	Online bool   // 主机是否在线
 }
 
 type LoadBalanceRandom struct {
 	servers []*Server
 }
 
-// 实例化 随机均衡负载
+// NewLoadBalanceRandom 实例化 随机均衡负载
 func NewLoadBalanceRandom(servers []*Server) *LoadBalanceRandom {
 	newBalance := &LoadBalanceRandom{}
 	newBalance.UpdateServers(servers)
 	return newBalance
 }
 
-// 选择一个后端Server
+// Next 选择一个后端Server
 func (r *LoadBalanceRandom) Next() *Server {
 	if len(r.servers) == 0 {
 		return nil
@@ -54,7 +45,7 @@ func (r *LoadBalanceRandom) Get(key string) (*Server, error) {
 	return r.Next(), nil
 }
 
-// 系统运行过程中，后端可用Server会更新
+// UpdateServers 系统运行过程中，后端可用Server会更新
 func (r *LoadBalanceRandom) UpdateServers(servers []*Server) {
 	newServers := make([]*Server, 0)
 	for _, e := range servers {
@@ -63,21 +54,4 @@ func (r *LoadBalanceRandom) UpdateServers(servers []*Server) {
 		}
 	}
 	r.servers = newServers
-}
-
-func main() {
-	count := make([]int, 4)
-	servers := make([]*Server, 0)
-	servers = append(servers, &Server{Host: "1", Id: 0, Online: true})
-	servers = append(servers, &Server{Host: "2", Id: 1, Online: true})
-	servers = append(servers, &Server{Host: "3", Id: 2, Online: true})
-	servers = append(servers, &Server{Host: "4", Id: 3, Online: true})
-	lb := NewLoadBalanceRandom(servers)
-
-	// 创建4个Server，随机选择100000次。查看4台机器 被选中次数
-	for i := 0; i < 100000; i++ {
-		c := lb.Next()
-		count[c.Id]++
-	}
-	fmt.Println(count)
 }

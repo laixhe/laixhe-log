@@ -9,10 +9,10 @@ require (
 	github.com/disintegration/imaging v1.6.2
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.2
-	github.com/go-playground/validator/v10 v10.7.0
+	github.com/go-playground/validator/v10 v10.8.0
 	github.com/go-redis/redis/v8 v8.11.0
 	github.com/go-sql-driver/mysql v1.6.0
-	github.com/google/uuid v1.2.0
+	github.com/google/uuid v1.3.0
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/laixhe/goutil v0.3.4
 	github.com/natefinch/lumberjack v2.0.0+incompatible
@@ -24,10 +24,10 @@ require (
 	github.com/sony/sonyflake v1.0.0
 	github.com/spf13/viper v1.8.1
 	go.etcd.io/etcd/client/v3 v3.5.0
-	go.mongodb.org/mongo-driver v1.5.4
+	go.mongodb.org/mongo-driver v1.7.0
 	go.uber.org/zap v1.18.1
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
 	google.golang.org/protobuf v1.27.1
 	gorm.io/driver/mysql v1.1.1
-	gorm.io/gorm v1.21.11
+	gorm.io/gorm v1.21.12
 )

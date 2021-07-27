@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // 由关键字```const```声明常量，没有枚举类型
 
 //
@@ -16,7 +14,3 @@ const (
 const uid int = 10
 
 // uid =1 1; // error
-
-func main() {
-	fmt.Println(blue) // 结果： 2
-}

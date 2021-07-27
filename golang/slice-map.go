@@ -2,8 +2,8 @@ package main
 
 import "fmt"
 
-// slice(切片)、map(字典)
-func main() {
+// SliceMap slice(切片)、map(字典)
+func SliceMap() {
 
 	// slice(切片)的索引从 0 开始
 	lists := []string{"a", "b", "c"}

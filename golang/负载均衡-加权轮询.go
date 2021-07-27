@@ -1,19 +1,14 @@
 package main
 
-import (
-	"fmt"
-)
-
 type WeightRoundRobinBalance struct {
 	curIndex int
 	rss      []*WeightNode
 	rsw      []int
 
-	// 观察主体
-	conf LoadBalanceConf
+	conf LoadBalanceConf // 观察主体
 }
 
-// 配置主题
+// LoadBalanceConf 配置主题
 type LoadBalanceConf interface {
 	GetConf() []string
 	WatchConf()
@@ -70,27 +65,4 @@ func (r *WeightRoundRobinBalance) Get(key string) (string, error) {
 
 func (r *WeightRoundRobinBalance) SetConf(conf LoadBalanceConf) {
 	r.conf = conf
-}
-
-func main() {
-
-	rb := &WeightRoundRobinBalance{}
-	rb.Add("127.0.0.1:2001", 1)
-	rb.Add("127.0.0.1:2002", 1)
-	rb.Add("127.0.0.1:2003", 1)
-
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
-	fmt.Println(rb.Next())
 }

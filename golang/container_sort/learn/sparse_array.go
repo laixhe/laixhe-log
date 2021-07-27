@@ -1,4 +1,4 @@
-package main
+package learn
 
 import "fmt"
 
@@ -35,7 +35,7 @@ func SparseArray() {
 	var sparseArr []chessMapNode
 
 	// 一个标准的稀疏数组应该包含 记录二维数组的规模(行、列、默认值)
-	sparseArr = append(sparseArr, chessMapNode{row:len(chessMap),col:len(chessMap[0]),val:0})
+	sparseArr = append(sparseArr, chessMapNode{row: len(chessMap), col: len(chessMap[0]), val: 0})
 
 	for i, v := range chessMap {
 
@@ -44,9 +44,9 @@ func SparseArray() {
 
 				// 创建一个 chessMapNode 值节点
 				node := chessMapNode{
-					row:i,
-					col:j,
-					val:v2,
+					row: i,
+					col: j,
+					val: v2,
 				}
 
 				sparseArr = append(sparseArr, node)

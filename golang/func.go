@@ -11,33 +11,37 @@ import "fmt"
 // 函数可作为参数传递，实现回调
 // 函数可作为返回值返回
 
-//
-
 // 无参数，无返回值
-func Void() {
+func funcVoid() {
 	fmt.Println("void")
 }
 
 // 可变长参数(不定长参数)
-func Names(s ...string) {
+func funcNames(s ...string) {
 	fmt.Println(s)
 }
 
 // 有参数，多个返回值
-func Test(a int, s string) (int, string) {
+func funcArgs(a int, s string) (int, string) {
 	return a, s
 }
 
-func main() {
-	Void()
-	Names("a", "b", "c") // 结果： [a b c]
-	max, name := Test(1, "d")
-	fmt.Printf("%d, %q\n", max, name) // 结果： 1, "d"
-
+// 匿名函数，可作为闭包
+func funcLambda(){
 	// 函数变量
 	var sum = func(a int, b int) int {
 		return a + b
 	}
 	fmt.Println(sum(1, 3)) // 结果： 4
+}
 
+func FuncMain() {
+	funcVoid()
+
+	funcNames("a", "b", "c") // 结果： [a b c]
+
+	max, name := funcArgs(1, "d")
+	fmt.Printf("%d, %q\n", max, name) // 结果： 1, "d"
+
+	funcLambda()
 }
