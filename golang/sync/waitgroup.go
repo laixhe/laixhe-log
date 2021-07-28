@@ -17,20 +17,21 @@ func WaitGroup() {
 	// Add与Done应该放在哪？
 	// Add放在Goroutine外，Done放在Goroutine中，逻辑复杂时建议用defer保证调用
 
+	n := 16
 	//创建任务组
-	wg := sync.WaitGroup{}
+	wg := &sync.WaitGroup{}
 	//添加任务数(设置等待任务数)
-	wg.Add(2)
+	wg.Add(n)
 
-	for i := 0; i < 2; i++ {
+	for i := 0; i < n; i++ {
 
-		go func() {
+		go func(j int, w *sync.WaitGroup) {
 
-			fmt.Println("完成")
+			fmt.Println("完成", j)
 
 			//每完成一个任务，删除一个（标记一个）
-			wg.Done()
-		}()
+			w.Done()
+		}(i, wg)
 
 	}
 

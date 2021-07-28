@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// 读写锁
+// RWMutex 读写锁
 // 写请求在读锁和写锁时都必须阻塞等待，读请求只在写锁时阻塞等待
 func RWMutex() {
 

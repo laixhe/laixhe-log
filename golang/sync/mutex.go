@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// 互斥锁
+// Mutex 互斥锁
 // 多个协程同时运行，获得 Mutex 锁者协程优先执行，其余协程阻塞等待
 func Mutex() {
 

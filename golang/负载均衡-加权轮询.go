@@ -1,9 +1,9 @@
 package main
 
 type WeightRoundRobinBalance struct {
-	curIndex int
-	rss      []*WeightNode
-	rsw      []int
+	//curIndex int
+	rss []*WeightNode
+	//rsw      []int
 
 	conf LoadBalanceConf // 观察主体
 }

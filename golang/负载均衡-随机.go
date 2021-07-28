@@ -7,10 +7,10 @@ import (
 // 随机负载均衡：意味没有规律，随机在服务器队列中获得一台服务器处理请求
 
 // LoadBalance 接口定义
-type LoadBalance interface {
-	Next(remove []string) *Server    // 选择一个后端Server，参数remove是需要排除选择的后端Server
-	UpdateServers(servers []*Server) // 更新可用Server列表
-}
+//type LoadBalance interface {
+//	Next(remove []string) *Server    // 选择一个后端Server，参数remove是需要排除选择的后端Server
+//	UpdateServers(servers []*Server) // 更新可用Server列表
+//}
 
 // Server 后端定义
 type Server struct {
@@ -49,7 +49,7 @@ func (r *LoadBalanceRandom) Get(key string) (*Server, error) {
 func (r *LoadBalanceRandom) UpdateServers(servers []*Server) {
 	newServers := make([]*Server, 0)
 	for _, e := range servers {
-		if e.Online == true {
+		if e.Online {
 			newServers = append(newServers, e)
 		}
 	}
