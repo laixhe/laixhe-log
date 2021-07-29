@@ -18,6 +18,11 @@ android {
         // 只能在应用内部显示调用展示
         versionName = "1.0"
 
+        //
+        vectorDrawables {
+           useSupportLibrary = true
+        }
+
         externalNativeBuild {
             cmake {
                 cppFlags += "-std=c++17"
@@ -28,6 +33,7 @@ android {
             }
         }
 
+        //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     // 编译类型
@@ -55,14 +61,27 @@ android {
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
-            version = "3.10.2"
+            version = "3.10.2" // 3.18.1
         }
     }
 
-    // 开启视图绑定
+    // 构建功能
     buildFeatures {
+        // 开启视图绑定
         viewBinding = true
+        // 开启声明式UI
+        compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
+    }
+
+//    packagingOptions{
+//        resources {
+//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//        }
+//    }
 
 }
 
@@ -73,13 +92,21 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
+    
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
+    implementation("androidx.activity:activity-compose:1.3.0")
+
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
     implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    //testImplementation("junit:junit:4.+")
+    //androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    //androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    //androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
 }
 
 //

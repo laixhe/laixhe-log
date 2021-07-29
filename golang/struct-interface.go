@@ -12,7 +12,24 @@ import "fmt"
 // 继承特性：采用的是 匿名组合(composition)(嵌套) 的方式
 // 多态特性：依靠 interface(接口) 隐式实现的方式
 
-//
+// interface
+// 源码文件：runtime/iface.go
+// 两个核心结构 eface 和 iface，分别对应 convT2E 和 convT2I
+/*
+ * type iface struct {
+ *    tab  *itab
+ *    data unsafe.Pointer
+ * }
+ *
+ * type eface struct {
+ *    _type *_type
+ *    data  unsafe.Pointer
+ * }
+ *
+ * 其中 data 指向了具体保存数据的内存地址，为一个通用结构
+ *
+ *
+ */
 
 // BaseInterface 定义接口
 // 某个 自定义类型 要 隐式 实现该接口全部方法后就实现这个接口

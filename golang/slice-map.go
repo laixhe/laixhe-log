@@ -5,6 +5,25 @@ import "fmt"
 // Slice slice(切片)
 func Slice() {
 
+	// 源码文件：runtime/slice.go
+	/*
+	 * type slice struct {
+	 *   array unsafe.Pointer
+	 *   len   int
+	 *   cap   int
+	 * }
+	 *
+	 *	初始化：makeslice
+	 *        math.MulUintptr：根据元素大小和容量cap，计算所需的内存空间
+	 *        mallocgc: 分配内存 32K 作为一个临界值，小的分配在 P 的 cache 中，大的分配在 heap 堆中
+	 *  扩容：growslice
+	 *       当长度小于 1024 时，cap 翻倍；大于 1024 时，增加 1/4。 但这个并不是绝对的，会根据元素的类型尽心过一定的优化
+	 *  拷贝：slicecopy
+	 *       核心函数为 memmove，from=>to 移动 size 大小的数据，size 为 元素大小 * from 和 to 中长度较小的个数
+	 *  拷贝：slicestringcopy
+	 *       基本与上面类似，字符串的拷贝
+	 */
+
 	// 切片依赖于数组，它的底层就是数组，所以 slice 具有数组的优点
 	// 先创建一个有特定长度和数据类型的底层数组
 	// 且 slice 支持可以通过 append 向 slice 中追加元素，长度不够时会动态扩展
@@ -45,7 +64,7 @@ func Slice() {
 
 	// 拷贝(复制)
 	// 用于将内容从一个数组切片复制到另一个数组切片
-	// 如果加入的两个数组切片不一样大，就会按其中较小的那个数组切片的元素个数进行复制
+	// 如果两个切片长度不一样大，就会按其中较小的那个数组切片的元素个数进行复制
 
 	slice1 := []int{1, 2, 3, 4, 5}
 	slice2 := []int{6, 7, 8}
@@ -53,10 +72,30 @@ func Slice() {
 	// 拷贝(复制) slice1 的内容到 slice2
 	copy(slice1, slice2)          // 只会复制 slice2 的3个元素到 slice1 的前3个位置
 	fmt.Println("slice1", slice1) // 结果： [6 7 8 4 5]
+
+	// 循环
+	for _, v := range slice1 {
+		fmt.Println("v", v)
+	}
 }
 
 // Map map(字典)
 func Map() {
+
+	// 源码文件：runtime/map.go
+	/*
+	 * type hmap struct {
+	 *   count     int
+	 *   ....
+	 * }
+	 *
+	 *	初始化：makemap
+	 *	赋值：mapassign
+	 *	扩容：hashGrow
+	 *	读取：mapaccess
+	 *	删除：mapdelete
+	 */
+
 	// map(字典)以 键值对 key:value
 	// 获取一个不存在的 KEY 时，会返回 value 对应类型的默认值
 
@@ -72,4 +111,9 @@ func Map() {
 
 	A := maps["A"] // 获取一个不存在的 KEY 时，会返回 value 对应类型的默认值
 	fmt.Println(A) // 结果：0
+
+	// 循环
+	for k, v := range maps {
+		fmt.Println("k", k, "v", v)
+	}
 }

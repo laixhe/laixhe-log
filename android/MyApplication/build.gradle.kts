@@ -1,13 +1,18 @@
 //
 buildscript {
+
+    val compose_version by extra("1.0.0")
+
     repositories {
         google()
         mavenCentral()
     }
+
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-rc01")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20")
+        classpath("com.android.tools.build:gradle:7.0.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
     }
+
 }
 
 tasks.register("clean", Delete::class) {
@@ -23,7 +28,7 @@ tasks.register("clean", Delete::class) {
 //        mavenCentral()
 //    }
 //    dependencies {
-//        classpath "com.android.tools.build:gradle:7.0.0-rc01"
+//        classpath "com.android.tools.build:gradle:7.0.0"
 //        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
 //    }
 //}
