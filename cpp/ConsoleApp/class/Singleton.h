@@ -6,7 +6,7 @@
 class Singleton {
 public:
     // 禁用 拷贝构造函数
-    Singleton(const Singleton&)=delete;
+    Singleton(const Singleton&)=delete; // delete(删除函数)[C++11]
     // 禁用 = 运算符重载
     Singleton& operator=(const Singleton&)=delete;
 

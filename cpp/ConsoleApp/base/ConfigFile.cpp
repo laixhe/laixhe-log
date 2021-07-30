@@ -75,8 +75,6 @@ void ConfigFile::loadFile() {
         }
     }
     
-
-
     // 关闭打开的文件
     infile.close();
 }

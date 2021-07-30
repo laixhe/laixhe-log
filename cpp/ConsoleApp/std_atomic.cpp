@@ -6,6 +6,7 @@
 // 原子库为细粒度的原子操作提供组件，允许无锁并发编程
 // 头文件 <atomic>
 
+// std::atomic_int std_atomic_main_g_i = 0;
 std::atomic<int> std_atomic_main_g_i = 0;
 
 void std_atomic_main_print(){

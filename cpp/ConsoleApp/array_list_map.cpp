@@ -2,9 +2,12 @@
 #include <array>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <set>
+#include <unordered_set>
 #include <tuple>
 #include <list>
+#include <forward_list>
 #include <stack>
 
 // 数组
@@ -113,7 +116,7 @@ void std_vector() {
     
 }
 
-// list 就是数据结构中的双向链表 (如果你需要大量的插入和删除，而不关心随即存取，则应使用 list)
+// list 双向链表 (如果你需要大量的插入和删除，而不关心随即存取，则应使用 list)
 // 它的内存空间是不连续的
 //
 // push_front()    头部插入元素
@@ -157,6 +160,22 @@ void std_list(){
     }
 }
 
+// forward_list (单向链表)
+//
+// 头文件：#include<list>
+//
+// [C++11]
+//
+void std_forward_list(){
+
+    std::forward_list<int> numbers = {1,2,3,4,5,4,4};
+
+    // foreach 写法 [C++11]
+    for(auto number : numbers){
+        std::cout << "std_forward_list - number=" << number << std::endl;
+    }
+}
+
 // map 关联容器
 // insert()   插入元素
 // erase()    删除元素
@@ -166,6 +185,8 @@ void std_list(){
 // empty()    判断是否为空
 // begin()    返回指向容器第一个元素的迭代器
 // end()      返回指向容器最后一个元素的迭代器
+//
+// 使用的数据结构为 二叉树
 //
 // 头文件：#include<map>
 //
@@ -206,7 +227,30 @@ void std_map(){
     }
 }
 
-// set 顺序容器
+// unordered_map 关联容器
+//
+// 使用的数据结构为 哈希表
+//
+// 头文件：#include<unordered_map>
+//
+// [C++11]
+//
+void std_unordered_map(){
+
+    std::unordered_map<std::string, std::string> mapData;
+
+    mapData["name"] = "laixhe";
+    mapData["age"] = "18";
+
+    std::cout << "------------------" << std::endl;
+
+    std::cout << "std_unordered_map - name=" << mapData["name"] << " age=" << mapData["age"]<< std::endl;
+
+    std::cout << "------------------" << std::endl;
+
+}
+
+// set 顺序容器，插入时会自动排序
 // 值是唯一的
 // insert()   插入元素
 // erase()    删除元素
@@ -245,6 +289,18 @@ void std_set() {
     for (auto i = setData.begin(); i != setData.end(); ++i) {
         std::cout << "std_set - setData=" << *i << std::endl;
     }
+}
+
+// unordered_set 插入时不会自动排序
+// 值是唯一的
+//
+// 头文件：#include<unordered_set>
+//
+// 使用的数据结构为 哈希表
+//
+// C++ 11 引入
+//
+void std_unordered_set() {
 }
 
 // tuple 元组

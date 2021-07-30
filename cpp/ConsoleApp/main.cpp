@@ -3,7 +3,7 @@
 #include "base/ConfigFile.h"
 #include "mysqlx/Mysqlx.h"
 
-#include "std_function_bind.cpp"
+#include "array_list_map.cpp"
 
 int main() {
 
@@ -19,7 +19,7 @@ int main() {
 
     // Mysqlx::getInstance().initialize("192.168.10.240", "test", 3306, "root", "123456");
 
-    std_function_callback();
+    std_unordered_map();
 
     return 0;
 }
