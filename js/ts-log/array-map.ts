@@ -1,5 +1,8 @@
 // Array(数组)、Map(字典)、Set(集合)、tuple(元组)
 
+// 第一种定义方法：let 数组名：类型[] = []
+// 第二种定义方法：let 数组名：Array[类型] = []
+
 // Array(数组)的索引从 0 开始
 let array: string[] = ["a", "b"];
 array.push('c'); // 追加元素
@@ -20,5 +23,7 @@ setT.add('c'); // 添加元素
 console.log(setT); // 结果： { 'a', 'b', 'c' }
 
 // tuple(元组)，存储的元素数据类型不同（可进行增删改），索引从 0 开始
+// 只能按类型的优先顺序输入内容，否则报错
 let tuple: [number, string] = [1, "a"];
-console.log(tuple);
+console.log(`tuple=${tuple}`);
+console.log("tuple[1]=", tuple[1]);

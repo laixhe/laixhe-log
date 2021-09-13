@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "target": "esnext",         // 指定 ECMAScript 目标版本 es5 esnext
-    "module": "commonjs",       // 指定使用模块 commonjs esnext
-    "strict": true,            // 启用严格类型检查
-    "esModuleInterop": true,   // 是否将 cjs 转为 esm
-    "skipLibCheck": true,      // 忽略所有的声明文件（*.d.ts）的类型检查
-  }
-}
