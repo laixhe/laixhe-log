@@ -1,0 +1,30 @@
+syntax = "proto3";	// 指定proto版本
+
+package TestPhone;	    // 指定包名
+
+
+// 手机类型
+// 枚举类型第一个字段必须为 0
+enum PhoneType {
+    HOME = 0;
+    WORK = 1;
+}
+
+// 手机
+message Phone {
+    PhoneType type_id = 1;
+    string number     = 2;
+}
+
+// 每人的手机
+message Person {
+    int32 id                = 1;
+    string name             = 2;
+    // repeated 表示可重复(数组)
+    repeated Phone phones   = 3;
+}
+
+// 联系簿
+message ContactBook {
+    repeated Person persons = 1;
+}
