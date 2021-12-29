@@ -20,15 +20,32 @@ import (
 // rune 存储 Unicode 的码，即一个 中文 占一个 Unicode 码值
 
 func StringRun() {
-	var s1 = "字符"
-	s2 := "串"
-	var s3 int = 100
-
-	// 拼接
-	s4 := fmt.Sprintf("%s%s:%d", s1, s2, s3)
-	fmt.Println("s4=", s4) // 结果：字符串:100
 
 	fmt.Println("======================================")
+
+	// 拼接字符串
+	var hello = "Hello"
+	var world string = "World"
+	var strInt = 100
+
+	hello0 := hello + "," + world + "," + strconv.Itoa(strInt)
+	hello1 := fmt.Sprintf("%s,%s,%d", hello, world, strInt)
+	fmt.Println(hello0)
+	fmt.Println(hello1)
+	// 结果： Hello,World,100
+
+	// 拼接字符串(其他)
+	var hello4 = strings.Builder{} // bytes.Buffer 用法也差不多，都是 非线程安全 的有扩容
+	hello4.Grow(50)                // 初始化长度(预估容量)
+	hello4.WriteString(hello)
+	hello4.WriteByte(',')
+	hello4.WriteString(world)
+	hello4.WriteByte(',')
+	hello4.WriteString(strconv.Itoa(strInt))
+	var hello5 = hello4.String()
+	fmt.Printf("[%s]", hello5)
+	// 结果： Hello,World,100
+	// 当拼接的字符串多时，strings.Builder 的优势越来越明显
 
 	// 字符串转成数字
 	strInt, err := strconv.Atoi("4")
@@ -50,7 +67,7 @@ func StringRun() {
 	fmt.Println("分隔字符串2=", strSplitArray, len(strSplitArray))
 	// 结果：[1 2 3 4 5 6]
 
-	// 拼接字符串
+	// 拼接字符串(数组)
 	strJoin := strings.Join([]string{"a", "b", "c"}, ",")
 	fmt.Println("拼接字符串=", strJoin)
 	// 结果：a,b,c

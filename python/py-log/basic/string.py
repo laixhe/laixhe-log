@@ -17,13 +17,13 @@ def string_run():
     if str_int.isnumeric():  # 是否 只包含数字字符
         print("转成数字:%d" % int(str_int))
 
-    # 分隔 字符串，默认为空格
+    # 分隔字符串，默认为空格
     str_split = '1 2    3\n4\n\r5'.split()
     print(str_split)  # 结果：['1', '2', '3', '4', '5']
     str_split = '6,7,8,9'.split(",")
     print(str_split)  # 结果：['6', '7', '8', '9']
 
-    # 拼接 字符串
+    # 拼接字符串(数组)
     str_join = ','.join(['A', 'B', 'C', 'D'])
     print(str_join)  # 结果：A,B,C,D
 

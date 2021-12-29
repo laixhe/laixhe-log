@@ -17,5 +17,5 @@ tsc --init
 
 #### 运行单个文件
 ```
-ts-node var.ts
+ts-node variable.ts
 ```

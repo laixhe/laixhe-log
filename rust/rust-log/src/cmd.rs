@@ -1,5 +1,15 @@
 use std::io;
 
+// 获取程序启动时参数 std::env::args
+pub fn cmd_args(){
+    let mut args = std::env::args();
+    println!("{:?}", args);
+
+    // 第一个值一般来说就是 程序本身的名字
+    println!("{:?}", args.nth(0));
+}
+
+
 // 交互模式-读取用户的输入
 pub fn cmd_stdin_run(){
     // 用户

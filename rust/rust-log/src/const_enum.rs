@@ -2,7 +2,7 @@
 // 由关键字```static```声明全局变量
 // 而枚举```enum```和传统上的枚举是不同的更像是结构体
 
-// 系统的枚举有 Result、Option<T>
+// 系统的枚举有 Result<T, Error>、Option<T>
 // Result -> Ok   | Err
 // Option -> Some | None
 

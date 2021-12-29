@@ -40,13 +40,18 @@ pub fn string_run() {
     println!("s4_1={}", s4_1);    // 的
     println!("s4={} [{}]", s4, s4.len()); // 操作其它
 
-    // 拼接
-    let s5 = 100;
-    let s6 = "200";
-    let s7 = format!("{} {}", s5, s6);
-    println!("s7={}", s7);    // 100 200
-
     println!("======================================");
+
+    // 拼接字符串
+    let hello = "Hello";
+    let world = "World".to_string();
+    let str_int = 100;
+
+    let hello0 = hello.to_string() + "," + &world + "," + &str_int.to_string();
+    let hello1 = format!("{},{},{}", hello, world, str_int);
+    println!("{}", hello0);
+    println!("{}", hello1);
+    // 结果： Hello,World,100
 
     // 字符串转成数字
     let str_int: i64 = match String::from("a4").parse::<i64>() {
@@ -74,7 +79,7 @@ pub fn string_run() {
     println!("分隔字符串3={:?}", str_split_array);
     // 结果：["1 2    3", "4", "\r5\t6"]
 
-    // 拼接字符串
+    // 拼接字符串(数组)
     let str_concat = ["你好", "，", "世界", "！"].concat();
     println!("拼接字符串1={}", str_concat);  // 结果：你好，世界！
 
@@ -144,7 +149,7 @@ pub fn string_run() {
 
     // 将字符串转换为字节数组
     let str_data = String::from("将字符串转换为 字节数组");
-    let str_bytes = str_data.bytes().collect::<Vec<u8>>();
+    let str_bytes = str_data.bytes().collect::<Vec<u8>>(); // str_data.as_bytes();
     for (i, &item) in str_bytes.iter().enumerate() {
         if item == b' ' {
             println!("将字符串转换为字节数组:找到空格位置 {}，总长度 {}", i, str_bytes.len());
@@ -158,4 +163,9 @@ pub fn string_run() {
     println!("将字符串转换为字符数组: 总长度 {}", str_chars.len()); // 结果：11
     // 由于 char 为 4 字节长，我们可以将其转化为 u32
     println!("将字符串转换为字符数组: {}", str_chars[0] as u32);
+
+    // 将二进制转字符串
+    let str_byte_data = String::from("将二进制转字符串").bytes().collect::<Vec<u8>>();
+    let is_str = String::from_utf8(str_byte_data);
+    println!("将二进制转字符串: {:?}", is_str);
 }

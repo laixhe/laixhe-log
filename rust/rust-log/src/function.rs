@@ -23,10 +23,11 @@ pub fn func_run() {
     let (args1, args2) = func_args(1, true, String::from("函数")); // 结果：1,true,函数
     println!("{},{}", args1, args2); // 结果：1,true
     
-    // 匿名函数 lambda
+    // 匿名(闭包)函数 lambda
     let sum = |a: i32, b: i32| -> i32 {
         a+b
     };
+    // 相当于 fn sum(a: i32, b: i32) -> i32 {}
 
     println!("匿名函数:{}", sum(1,3)); // 结果：4
     

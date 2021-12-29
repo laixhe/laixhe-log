@@ -67,4 +67,15 @@ pub fn tuple_vec_map_run() {
     maps.entry("red".to_string()).or_insert(30);   // 新增
     println!("HashMap = {:?}", maps);
     // 结果：{"red": 30, "yellow": 20, "blue": 50}
+
+    to_array();
+}
+
+// 其他转换
+pub fn to_array(){
+    // 分隔字符串  (在 string.rs 中)
+	// 拼接字符串  (在 string.rs 中)
+
+	// 分隔字符串 (从 字符串 分隔为 数字类型数组) (需要自己实现)
+	// 拼接字符串 (从 数字类型数组 拼接为 字符串) (需要自己实现)
 }
