@@ -5,8 +5,6 @@
 
 // 没有 `return` 语句则使用最后一条语句的结果作为返回值
 
-//
-
 // 无参数，无返回值
 fn func_void(){
     println!("func_void")

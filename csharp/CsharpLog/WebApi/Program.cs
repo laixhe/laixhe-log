@@ -11,10 +11,11 @@ var app = builder.Build();
 // 判断环境变量
 if (app.Environment.IsDevelopment())
 {
-    // 异常处理中间件
-    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // 异常处理中间件
+    app.UseDeveloperExceptionPage();
 }
 
 // 可访问和使用静态文件

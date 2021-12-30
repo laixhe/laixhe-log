@@ -18,7 +18,7 @@ pub fn string_run() {
     println!("s={}", s);
     
     // 创建字符串
-    // let mut s1 = "字符串...".to_string();
+    // let mut s1 = "字符串...".to_string(); // let mut s1 = "字符串...".to_owned()
     let mut s1 = String::from("字符串..."); // 在堆上分配内存
     println!("{:p}", s1.as_ptr()); // 打印堆内存的地址
     println!("{:p}", &s1);         // 打印变量 s1 在栈上的地址
@@ -149,7 +149,10 @@ pub fn string_run() {
 
     // 将字符串转换为字节数组
     let str_data = String::from("将字符串转换为 字节数组");
-    let str_bytes = str_data.bytes().collect::<Vec<u8>>(); // str_data.as_bytes();
+    let str_bytes: &[u8] = str_data.as_bytes();
+    // let str_bytes: Vec<u8> = str_data.as_bytes().to_owned();
+    // let str_bytes: Vec<u8> = str_data.as_bytes().to_vec(); 
+    // let str_bytes: Vec<u8> = str_data.bytes().collect::<Vec<u8>>();
     for (i, &item) in str_bytes.iter().enumerate() {
         if item == b' ' {
             println!("将字符串转换为字节数组:找到空格位置 {}，总长度 {}", i, str_bytes.len());
@@ -164,8 +167,8 @@ pub fn string_run() {
     // 由于 char 为 4 字节长，我们可以将其转化为 u32
     println!("将字符串转换为字符数组: {}", str_chars[0] as u32);
 
-    // 将二进制转字符串
-    let str_byte_data = String::from("将二进制转字符串").bytes().collect::<Vec<u8>>();
-    let is_str = String::from_utf8(str_byte_data);
-    println!("将二进制转字符串: {:?}", is_str);
+    // 将二进制字符串转字符串
+    let str_byte_data = String::from("将二进制字符串转字符串").bytes().collect::<Vec<u8>>();
+    let is_str = String::from_utf8(str_byte_data); // String::from_utf8_lossy(str_byte_data);
+    println!("将二进制字符串转字符串: {:?}", is_str);
 }

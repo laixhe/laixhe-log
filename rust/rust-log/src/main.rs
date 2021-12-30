@@ -1,12 +1,9 @@
-mod rwfile;
+//mod rwfile;
+//use rwfile::write_read;
+
+mod struct_trait;
 mod string;
 
-use rwfile::write_read;
-
 fn main(){
-    write_read::rwfile::fs_write_to();
-    let result = write_read::rwfile::fs_read_write();
-    println!("{:?}", result);
-
-    string::string_run();
+    struct_trait::struct_trait_run();
 }
