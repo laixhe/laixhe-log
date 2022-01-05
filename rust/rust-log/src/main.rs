@@ -1,9 +1,5 @@
-//mod rwfile;
-//use rwfile::write_read;
-
-mod struct_trait;
-mod string;
+mod rwfile;
 
 fn main(){
-    struct_trait::struct_trait_run();
+    rwfile::cmd_file::cmd_file_run();
 }

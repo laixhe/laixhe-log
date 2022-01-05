@@ -1,12 +1,15 @@
 use std::io;
+use std::env;
 
 // 获取程序启动时参数 std::env::args
 pub fn cmd_args(){
-    let mut args = std::env::args();
-    println!("{:?}", args);
-
+    //let mut args = env::args();
+    //println!("env::args={:?}", args);
     // 第一个值一般来说就是 程序本身的名字
-    println!("{:?}", args.nth(0));
+    //println!("env::args[0]={:?}", args.nth(0));
+
+    let args : Vec<String> = env::args().collect::<Vec<String>>();
+    println!("env::args().collect={:?}", args);
 }
 
 
