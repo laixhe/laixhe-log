@@ -67,8 +67,11 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.3.4</version>
+            <version>3.5.0</version>
         </dependency>
+
+        <!-- 监控SQL日志-->
+
 
     </dependencies>
 

@@ -1,4 +1,9 @@
+using WebApi.Log;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// 配置日志
+builder.ConfigureLog();
 
 // 注册 MVC 框架依赖项并发现控制器
 builder.Services.AddControllers();

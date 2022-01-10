@@ -5,6 +5,9 @@ use std::collections::HashMap;
 // 访问超出数组的范围索引，编译可能会通过，运行时会报错(runtime panic)
 
 pub fn tuple_vec_map_run() {
+	
+	// 数组
+    // 索引从 0 开始
 
     // 定义数组并初始化
     let array: [i32; 5] = [1,2,3,4,5];
