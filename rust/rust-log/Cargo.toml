@@ -1,5 +1,5 @@
 [package]
-name = "RustLog"
+name = "rust_log"
 version = "0.1.0"
 authors = ["laixhe <laixhe@laixhe.com>"]
 edition = "2021"

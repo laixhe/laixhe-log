@@ -55,6 +55,12 @@ fn match_run(){
         0 => {
             println!("match 0 ={}", status);
         },
+        4 | 5 | 6 => {
+            println!("match 4 or 5 or 6 ={}", status);
+        },
+        7..=9 => {
+            println!("match 7 or 8 or 9 ={}", status);
+        }
         10 => {
             println!("match 10 ={}", status);
         },
