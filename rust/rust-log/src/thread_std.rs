@@ -83,6 +83,7 @@ pub fn thread_std_mutex_run(){
     let mut handles = vec![];
 
     for _ in 0..10{
+        // 通过克隆创建多个原子锁
         let counter = Arc::clone(&arc_mutex);
         let handle = thread::spawn(move || {
             let mut num = counter.lock().unwrap();

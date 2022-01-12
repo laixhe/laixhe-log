@@ -39,8 +39,9 @@ pub fn tuple_vec_map_run() {
     println!("=================================");
 
     // Vec(向量)(Vector)类似于列表(List)
-    //let mut vectors: Vec<i32> = Vec::new(); // 与下面效果一样
-    let mut vectors = vec![1, 2, 3];
+    //let mut vectors: Vec<i32> = Vec::new();             // 初始化
+    //let mut vectors: Vec<i32> = Vec::with_capacity(10); // 初始化并设置容量
+    let mut vectors = vec![1, 2, 3];           // 初始化并追加元素
 
     // 追加元素
     vectors.push(4);
