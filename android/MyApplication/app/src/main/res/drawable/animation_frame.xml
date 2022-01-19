@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- android:duration="120" 每帧时长毫秒-->
+    <item android:drawable="@drawable/x1" android:duration="120"/>
+    <item android:drawable="@drawable/x2" android:duration="120"/>
+    <item android:drawable="@drawable/x3" android:duration="120"/>
+    <item android:drawable="@drawable/x4" android:duration="120"/>
+</animation-list>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplication">
+
+    <!--
+    权限声明
+    以 <uses-permisson /> 标签形式声明，在 name 属性值中填入相关权限名
+     -->
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="false"
+        android:theme="@style/Theme.MyApplication">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- ProgressBar 进度条 -->
+        <activity android:name=".ProgressBarActivity" />
+        <!-- Button 按钮 -->
+        <activity android:name=".ButtonSimpleActivity" />
+        <!-- Toolbar 操作(标题)栏 -->
+        <activity android:name=".ToolbarActivity" />
+        <!-- ListView 简单 -->
+        <activity android:name=".MainListViewSimpleActivity" />
+        <!-- RecyclerView 简单 -->
+        <activity android:name=".MainRecyclerViewSimpleActivity" />
+        <!-- Notification 通知 -->
+        <activity android:name=".NotificationSimpleActivity" />
+        <!-- AlertDialog 对话框 -->
+        <activity android:name=".AlertDialogActivity" />
+        <!-- PopupWindow 悬浮框 -->
+        <activity android:name=".PopupWindowActivity" />
+        <!-- Animation 动画 -->
+        <activity android:name=".AnimationActivity" />
+        <!-- ViewPager 多页面切换 -->
+        <activity android:name=".ViewPagerActivity" />
+        <!-- Fragment 简单应用 -->
+        <activity android:name=".FragmentSimpleActivity" />
+        <!-- Menu 简单使用 -->
+        <activity android:name=".MenuSimpleActivity" />
+        <!-- 读写内部存储-简单使用 -->
+        <activity android:name=".FileSimpleActivity" />
+        <!-- SharedPreferences 存储 -->
+        <activity android:name=".SharedPreferencesActivity" />
+        <!-- SQLite 数据库-简单使用 -->
+        <activity android:name=".SQLiteSimpleActivity" />
+        <!-- DrawerLayout 侧滑菜单-简单使用 -->
+        <activity android:name=".DrawerLayoutSimpleActivity" />
+        <!-- NavigationView 侧滑菜单-简单使用 -->
+        <activity android:name=".NavigationViewSimpleActivity" />
+    </application>
+
+</manifest>
