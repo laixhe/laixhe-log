@@ -1,0 +1,6 @@
+.idea
+.vscode
+.history
+.vs
+.DS_Store
+*.exe
