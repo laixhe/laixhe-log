@@ -6,7 +6,7 @@ edition = "2021"
 
 [dependencies]
 # 异步
-tokio = { version = "1.0", features = ["full"] }
+tokio = { version = "1.24", features = ["full"] }
 # web
 axum = "0.6"
 axum-extra = "0.4"
