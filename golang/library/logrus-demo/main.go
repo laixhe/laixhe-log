@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/natefinch/lumberjack"
 	"github.com/sirupsen/logrus"
+	lumberjack "gopkg.in/natefinch/lumberjack.v2"
 )
 
 // logrus 内置了两种日志格式，JSONFormatter 和 TextFormatter
