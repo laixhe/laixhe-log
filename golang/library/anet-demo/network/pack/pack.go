@@ -6,40 +6,41 @@ import (
 )
 
 const (
-	HeadLength uint32 = 4     // 包头长度字节
-	ByteOrder  string = "big" // 消息字节排序 little big
+	DefaultHeaderLen uint32 = 8     // 包头长度方法
+	ByteOrder        string = "big" // 消息字节排序 little big
 )
 
 // Pack 打包消息
-func Pack(data []byte) (packet []byte, err error) {
+func Pack(msg *Message) (packet []byte, err error) {
 	var buf bytes.Buffer
-	buf.Grow(len(data) + int(HeadLength))
+	buf.Grow(len(msg.Data) + int(DefaultHeaderLen))
 
-	if err = binary.Write(&buf, byteOrder(), uint32(len(data))); err != nil {
+	if err = binary.Write(&buf, byteOrder(), msg.DataLen); err != nil {
 		return
 	}
-	if err = binary.Write(&buf, byteOrder(), data); err != nil {
+	if err = binary.Write(&buf, byteOrder(), msg.ID); err != nil {
 		return
 	}
-
+	if err = binary.Write(&buf, byteOrder(), msg.Data); err != nil {
+		return
+	}
 	packet = buf.Bytes()
 	return
 }
 
 // Unpack 解包消息
-func Unpack(packet []byte) (data []byte, err error) {
-	var (
-		buf    = bytes.NewBuffer(packet)
-		msgLen uint32
-	)
-
-	if err = binary.Read(buf, byteOrder(), &msgLen); err != nil {
+func Unpack(packet []byte) (msg *Message, err error) {
+	msg = &Message{}
+	var buf = bytes.NewBuffer(packet)
+	if err = binary.Read(buf, byteOrder(), &msg.DataLen); err != nil {
 		return
 	}
-
-	if msgLen > 0 {
-		data = make([]byte, msgLen)
-		if err = binary.Read(buf, byteOrder(), &data); err != nil {
+	if err = binary.Read(buf, byteOrder(), &msg.ID); err != nil {
+		return
+	}
+	if msg.DataLen > 0 {
+		msg.Data = make([]byte, msg.DataLen)
+		if err = binary.Read(buf, byteOrder(), &msg.Data); err != nil {
 			return
 		}
 	}

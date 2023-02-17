@@ -46,13 +46,17 @@ func (s *server) accept() error {
 		if err != nil {
 			if errors.Is(err, net.ErrClosed) {
 				// TODO: log
-				fmt.Println("Listener closed...")
+				fmt.Println("tcp listener accept closed error", err)
 				return err
 			}
-			if e, ok := err.(net.Error); ok && e.Temporary() {
+			if e, ok := err.(net.Error); ok && e.Timeout() {
 				// TODO: log
+				fmt.Println("tcp listener accept timeout error", err)
+				continue
 			}
-			fmt.Println("listener.AcceptTCP err = ", err)
+
+			// TODO: log
+			fmt.Println("tcp listener accept error", err)
 			continue
 		}
 

@@ -1,25 +1,29 @@
 package pack
 
 import (
-	"bytes"
+	"bufio"
 	"encoding/binary"
-	"io"
 	"net"
 )
 
 // TcpRead 读取 TCP 解包消息
-func TcpRead(conn net.Conn) (data []byte, err error) {
-	packet := make([]byte, HeadLength)
-	if _, err = io.ReadFull(conn, packet); err != nil {
+func TcpRead(conn net.Conn) (msg *Message, err error) {
+	buf := bufio.NewReader(conn)
+	return TcpBufRead(buf)
+}
+
+// TcpBufRead 读取 TCP 解包消息
+func TcpBufRead(buf *bufio.Reader) (msg *Message, err error) {
+	msg = &Message{}
+	if err = binary.Read(buf, byteOrder(), &msg.DataLen); err != nil {
 		return
 	}
-	var headLen uint32
-	if err = binary.Read(bytes.NewBuffer(packet), byteOrder(), &headLen); err != nil {
+	if err = binary.Read(buf, byteOrder(), &msg.ID); err != nil {
 		return
 	}
-	if headLen > 0 {
-		data = make([]byte, headLen)
-		if _, err = io.ReadFull(conn, data); err != nil {
+	if msg.DataLen > 0 {
+		msg.Data = make([]byte, msg.DataLen)
+		if err = binary.Read(buf, byteOrder(), &msg.Data); err != nil {
 			return
 		}
 	}

@@ -1,33 +1,43 @@
 package tcp
 
 import (
+	"bufio"
 	"context"
+	"errors"
 	"fmt"
-	"golang_log/library/anet-demo/network/pack"
 	"net"
-	"sync"
+	"sync/atomic"
 	"time"
 
 	"golang_log/library/anet-demo/network"
+	"golang_log/library/anet-demo/network/pack"
+)
+
+var (
+	ErrorConnectionClosed = errors.New("connection is closed")
 )
 
 // Conn 用户链接
 type Conn struct {
-	sessionID int64              // 连接ID，全局唯一
-	conn      net.Conn           // TCP源连接
-	server    network.IServer    // 服务器
-	ctx       context.Context    // 管理该连接上下文
-	cancel    context.CancelFunc // 管理该连接上下文
-	isClosed  bool               // 当前连接是否关闭
-	mx        sync.Mutex         // 管理连接锁
-	writeChan chan []byte        // 写入队列
+	connID     int64              // 连接ID，全局唯一
+	conn       net.Conn           // TCP源连接
+	connReader *bufio.Reader      // TCP源连接读缓冲
+	server     network.IServer    // 服务器
+	ctx        context.Context    // 管理该连接上下文
+	cancel     context.CancelFunc // 管理该连接上下文
+	writeChan  chan []byte        // 写入队列
+	closeFlag  int32              // 当前连接是否关闭(原子锁)
 }
 
 func (c *Conn) init(conn net.Conn, server network.IServer) {
 	c.conn = conn
+	c.connReader = bufio.NewReader(conn)
 	c.server = server
-	c.isClosed = false
+	c.closeFlag = 0
 	c.writeChan = make(chan []byte, 100)
+
+	// TODO: log
+	fmt.Println("tcp accept init", conn.RemoteAddr(), c.connID)
 
 	go c.Start()
 }
@@ -55,25 +65,35 @@ func (c *Conn) Context() context.Context {
 	return c.ctx
 }
 
-func (c *Conn) GetSessionID() int64 {
-	return c.sessionID
+func (c *Conn) GetConnID() int64 {
+	return c.connID
+}
+
+// IsClosed 是否连接关闭
+func (c *Conn) IsClosed() bool {
+	return atomic.LoadInt32(&c.closeFlag) == 1
 }
 
 // close 关闭连接
 func (c *Conn) close() {
-	c.mx.Lock()
-	defer c.mx.Unlock()
+	// TODO: log
+	fmt.Println("tcp close", c.conn.RemoteAddr(), c.connID)
 
 	// 如果当前链接已经关闭
-	if c.isClosed {
+	if c.IsClosed() {
+		// TODO: log
+		fmt.Println("tcp close true", c.conn.RemoteAddr(), c.connID)
 		return
 	}
-	// 关闭 socket 链接
-	_ = c.conn.Close()
-	// 将链接从连接管理器中删除
-	c.server.GetManager().Remove(c)
 	// 设置连接关闭标志位
-	c.isClosed = true
+	if atomic.CompareAndSwapInt32(&c.closeFlag, 0, 1) {
+		// 关闭写入队列
+		close(c.writeChan)
+		// 关闭 socket 链接
+		_ = c.conn.Close()
+		// 将链接从连接管理器中删除
+		c.server.GetManager().Remove(c)
+	}
 }
 
 // read 读取消息
@@ -83,16 +103,19 @@ func (c *Conn) read() {
 	for {
 		select {
 		case <-c.ctx.Done():
+			// TODO: log
+			fmt.Println("tcp read ctx done", c.conn.RemoteAddr(), c.connID)
 			return
 		default:
-			data, err := pack.TcpRead(c.conn)
+			packMessage, err := pack.TcpBufRead(c.connReader)
 			if err != nil {
-				fmt.Println("read error ", err)
+				// TODO: log
+				fmt.Println("tcp read error", c.conn.RemoteAddr(), c.connID, err)
 				return
 			}
 
-			c.writeChan <- []byte(string(data) + fmt.Sprintf("--%v", time.Now().UnixMilli()))
-			fmt.Println(string(data))
+			c.writeChan <- []byte(string(packMessage.Data) + fmt.Sprintf("--%v", time.Now().UnixMilli()))
+			fmt.Println(string(packMessage.Data))
 		}
 	}
 }
@@ -104,19 +127,30 @@ func (c *Conn) write() {
 	for {
 		select {
 		case <-c.ctx.Done():
+			// TODO: log
+			fmt.Println("tcp write ctx done", c.conn.RemoteAddr(), c.connID)
 			return
 		case data, ok := <-c.writeChan:
 			if !ok {
+				// TODO: log
+				fmt.Println("tcp write chan", c.conn.RemoteAddr(), c.connID)
 				return
 			}
-			packet, err := pack.Pack(data)
+			if c.IsClosed() {
+				// TODO: log
+				fmt.Println("tcp write closed error", c.conn.RemoteAddr(), c.connID)
+				return
+			}
+			packet, err := pack.Pack(pack.NewMessage(100, data))
 			if err != nil {
-				fmt.Printf("packet message error: %v\n", err)
+				// TODO: log
+				fmt.Println("tcp write packet message error", c.conn.RemoteAddr(), c.connID, err)
 				continue
 			}
 			_, err = c.conn.Write(packet)
 			if err != nil {
-				fmt.Printf("write message error: %v\n", err)
+				// TODO: log
+				fmt.Println("tcp write message error", c.conn.RemoteAddr(), c.connID, err)
 				continue
 			}
 		}

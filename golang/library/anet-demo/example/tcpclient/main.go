@@ -26,7 +26,7 @@ func main() {
 				log.Println("接收服务端数据失败!")
 				return
 			}
-			log.Println(data)
+			log.Println(data.DataLen, data.ID, string(data.Data))
 		}
 	}()
 
@@ -34,7 +34,7 @@ func main() {
 		for {
 			// 向服务发送数据
 			wData := "是的! " + fmt.Sprintf("%v", time.Now().UnixMilli())
-			data, err := pack.Pack([]byte(wData))
+			data, err := pack.Pack(pack.NewMessage(111, []byte(wData)))
 			if err != nil {
 				log.Println("Pack data 失败!")
 				return

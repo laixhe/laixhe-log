@@ -147,3 +147,59 @@ else:
 
 #### break 语句可以跳出 for 和 while 的循环体
 #### continue 语句可以跳过当前循环，然后继续进行下一轮循环
+
+### 函数
+- 使用 def 关键字
+- 有参数默认值
+- 有可变参数(参数前加 * 是以元组的形式传递)(参数前加 ** 是以字典的形式传递)
+- 有多值返回，是以元组的形式
+
+```
+def get_name():
+    pass
+```
+
+### 异常
+- 手动抛出异常 raise
+
+```
+try:
+    执行代码
+except:
+    发生异常时执行代码
+else:
+    没有异常时执行代码
+finally:
+    不管有没有异常都会执行代码
+```
+
+### 模块
+- 导入模块
+  - import 模块名
+  - import 模块名 as 别名
+  - from   模块名 import 函数名
+
+### 类
+
+```
+#!/usr/bin/python3
+ 
+class MyClass:
+    i = 123456
+    def f(self):
+        return 'hello world'
+
+# 实例化类
+x = MyClass()
+ 
+# 访问类的属性和方法
+print("MyClass 类的属性 i 为：", x.i)
+print("MyClass 类的方法 f 输出为：", x.f())
+```
+
+
+
+
+
+
+
