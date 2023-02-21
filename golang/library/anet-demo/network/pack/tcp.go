@@ -15,10 +15,11 @@ func TcpRead(conn net.Conn) (msg *Message, err error) {
 // TcpBufRead 读取 TCP 解包消息
 func TcpBufRead(buf *bufio.Reader) (msg *Message, err error) {
 	msg = &Message{}
-	if err = binary.Read(buf, byteOrder(), &msg.DataLen); err != nil {
+
+	if err = binary.Read(buf, byteOrder(), &msg.ID); err != nil {
 		return
 	}
-	if err = binary.Read(buf, byteOrder(), &msg.ID); err != nil {
+	if err = binary.Read(buf, byteOrder(), &msg.DataLen); err != nil {
 		return
 	}
 	if msg.DataLen > 0 {

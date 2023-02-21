@@ -15,10 +15,10 @@ func Pack(msg *Message) (packet []byte, err error) {
 	var buf bytes.Buffer
 	buf.Grow(len(msg.Data) + int(DefaultHeaderLen))
 
-	if err = binary.Write(&buf, byteOrder(), msg.DataLen); err != nil {
+	if err = binary.Write(&buf, byteOrder(), msg.ID); err != nil {
 		return
 	}
-	if err = binary.Write(&buf, byteOrder(), msg.ID); err != nil {
+	if err = binary.Write(&buf, byteOrder(), msg.DataLen); err != nil {
 		return
 	}
 	if err = binary.Write(&buf, byteOrder(), msg.Data); err != nil {
@@ -32,10 +32,11 @@ func Pack(msg *Message) (packet []byte, err error) {
 func Unpack(packet []byte) (msg *Message, err error) {
 	msg = &Message{}
 	var buf = bytes.NewBuffer(packet)
-	if err = binary.Read(buf, byteOrder(), &msg.DataLen); err != nil {
+
+	if err = binary.Read(buf, byteOrder(), &msg.ID); err != nil {
 		return
 	}
-	if err = binary.Read(buf, byteOrder(), &msg.ID); err != nil {
+	if err = binary.Read(buf, byteOrder(), &msg.DataLen); err != nil {
 		return
 	}
 	if msg.DataLen > 0 {

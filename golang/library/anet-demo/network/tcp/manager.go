@@ -17,14 +17,14 @@ type manager struct {
 func newManager(server *server) network.IManager {
 	return &manager{
 		server: server,
-		pool:   sync.Pool{New: func() interface{} { return &Conn{} }},
+		pool:   sync.Pool{New: func() interface{} { return &Connection{} }},
 		conns:  new(sync.Map),
 	}
 }
 
 // HandleConn 处理(分配)连接
 func (m *manager) HandleConn(conn net.Conn) {
-	connPool := m.pool.Get().(*Conn)
+	connPool := m.pool.Get().(*Connection)
 	connPool.init(conn, m.server)
 	m.Add(connPool)
 }

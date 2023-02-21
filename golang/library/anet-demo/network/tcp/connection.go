@@ -17,8 +17,8 @@ var (
 	ErrorConnectionClosed = errors.New("connection is closed")
 )
 
-// Conn 用户链接
-type Conn struct {
+// Connection 用户链接
+type Connection struct {
 	connID     int64              // 连接ID，全局唯一
 	conn       net.Conn           // TCP源连接
 	connReader *bufio.Reader      // TCP源连接读缓冲
@@ -29,7 +29,7 @@ type Conn struct {
 	closeFlag  int32              // 当前连接是否关闭(原子锁)
 }
 
-func (c *Conn) init(conn net.Conn, server network.IServer) {
+func (c *Connection) init(conn net.Conn, server network.IServer) {
 	c.conn = conn
 	c.connReader = bufio.NewReader(conn)
 	c.server = server
@@ -43,7 +43,7 @@ func (c *Conn) init(conn net.Conn, server network.IServer) {
 }
 
 // Start 启动连接，让当前连接开始工作
-func (c *Conn) Start() {
+func (c *Connection) Start() {
 	c.ctx, c.cancel = context.WithCancel(context.Background())
 	go c.read()
 	go c.write()
@@ -56,26 +56,26 @@ func (c *Conn) Start() {
 }
 
 // Stop 停止连接，结束当前连接
-func (c *Conn) Stop() {
+func (c *Connection) Stop() {
 	c.cancel()
 }
 
 // Context 返回该连接上下文
-func (c *Conn) Context() context.Context {
+func (c *Connection) Context() context.Context {
 	return c.ctx
 }
 
-func (c *Conn) GetConnID() int64 {
+func (c *Connection) GetConnID() int64 {
 	return c.connID
 }
 
 // IsClosed 是否连接关闭
-func (c *Conn) IsClosed() bool {
+func (c *Connection) IsClosed() bool {
 	return atomic.LoadInt32(&c.closeFlag) == 1
 }
 
 // close 关闭连接
-func (c *Conn) close() {
+func (c *Connection) close() {
 	// TODO: log
 	fmt.Println("tcp close", c.conn.RemoteAddr(), c.connID)
 
@@ -97,7 +97,7 @@ func (c *Conn) close() {
 }
 
 // read 读取消息
-func (c *Conn) read() {
+func (c *Connection) read() {
 	defer c.Stop()
 
 	for {
@@ -121,7 +121,7 @@ func (c *Conn) read() {
 }
 
 // write 写入消息
-func (c *Conn) write() {
+func (c *Connection) write() {
 	defer c.Stop()
 
 	for {

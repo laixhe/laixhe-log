@@ -97,8 +97,6 @@ func SetGet() {
 		ka := <-ch
 		fmt.Println("ttl:", ka.TTL)
 	}
-
-	fmt.Println("-----------------")
 }
 
 // 监听某个KEY的变化

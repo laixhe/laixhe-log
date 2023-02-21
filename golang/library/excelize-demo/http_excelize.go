@@ -23,7 +23,11 @@ func HttpXls(w http.ResponseWriter, req *http.Request) {
 
 	f := excelize.NewFile()
 	// 创建一个工作表
-	sheet1 := f.NewSheet("Sheet1")
+	sheet1, err := f.NewSheet("Sheet1")
+	if err != nil {
+		fmt.Println("new file sheet error", err)
+		return
+	}
 	// 设置工作簿的默认工作表
 	f.SetActiveSheet(sheet1)
 
@@ -42,7 +46,7 @@ func HttpXls(w http.ResponseWriter, req *http.Request) {
 				continue
 			}
 			// 插入图片，并设置图片的缩放、外部超链接
-			err = f.AddPictureFromBytes("Sheet1", k, `{"x_scale":0.1,"y_scale":0.1,"hyperlink":"`+v+`","hyperlink_type":"External"}`, "备注图片", ".png", buf)
+			err = f.AddPictureFromBytes("Sheet1", k, `{"x_scale":0.1,"y_scale":0.1,"hyperlink":"`+v+`","hyperlink_type":"External"}`, ".png", buf, nil)
 			if err != nil {
 				fmt.Println("add picture:", err)
 				continue
@@ -62,8 +66,6 @@ func HttpXls(w http.ResponseWriter, req *http.Request) {
 
 	// 保存文件
 	//f.SaveAs("用户列表.xlsx")
-
-	return
 }
 
 // 远程获取网页

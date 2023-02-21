@@ -1,6 +1,6 @@
 module golang_log
 
-go 1.19
+go 1.20
 
 require (
 	github.com/Shopify/sarama v1.38.1
@@ -10,7 +10,7 @@ require (
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/golang-jwt/jwt/v4 v4.4.3
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.3.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/laixhe/goutil v0.3.4
@@ -20,6 +20,7 @@ require (
 	github.com/rs/xid v1.4.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/sony/sonyflake v1.1.0
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
 	github.com/xuri/excelize/v2 v2.7.0
 	go.etcd.io/etcd/client/v3 v3.5.7
@@ -28,7 +29,7 @@ require (
 	golang.org/x/crypto v0.6.0
 	google.golang.org/protobuf v1.28.1
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
-	gorm.io/driver/mysql v1.4.6
+	gorm.io/driver/mysql v1.4.7
 	gorm.io/gorm v1.24.5
 )
 
@@ -53,6 +54,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
 	github.com/jcmturner/dnsutils/v2 v2.0.0 // indirect
 	github.com/jcmturner/gofork v1.7.6 // indirect
@@ -96,7 +98,7 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69 // indirect
-	golang.org/x/net v0.6.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
