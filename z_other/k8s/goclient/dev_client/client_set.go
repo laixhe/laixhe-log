@@ -15,6 +15,8 @@ import (
 //            把 Resource 和 Version 也封装成方法了，用起来更简单直接，一个资源是一个客户端，
 //            多个资源就对应了多个客户端，所以 ClientSet 就是多个客户端的集合，
 //            不过 ClientSet 只能访问内置资源，访问不了自定义资源
+//
+// 常用于对 k8s 内部资源做 CRUD, 或查询当前集群拥有什么资源
 
 // 初始化客户端
 func ClientSet() (*kubernetes.Clientset, error) {

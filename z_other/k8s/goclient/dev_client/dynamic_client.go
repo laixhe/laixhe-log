@@ -10,7 +10,7 @@ import (
 	"k8s.io/client-go/dynamic"
 )
 
-// DynamicClient: 可以访问内置资源和自定义资源，拿出的内容是 Object 类型，按实际情况自己去做强制转换，当然了也会有强转失败的风险
+// DynamicClient: 可以访问内置资源和CRD自定义资源，拿出的内容是 Object 类型，按实际情况自己去做强制转换，当然了也会有强转失败的风险
 // 如果只是操作 kubernetes 的内置资源，用 RESTClient、ClientSet 已经足够了，但是对于 CRD 资源却无能为力了
 
 func DynamicClient() (*dynamic.DynamicClient, error) {

@@ -3,7 +3,6 @@ package config
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/laixhe/goutil/zaplog"
@@ -20,10 +19,10 @@ type AppConfig struct {
 
 // MysqlConfig mysql
 type MysqlConfig struct {
-	Dsn         string // 连接地址
-	MaxIdleConn int    // 设置空闲连接池中连接的最大数量
-	MaxOpenConn int    // 设置打开数据库连接的最大数量
-	MaxLifeTime int    // 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)(单位秒)
+	Dsn          string // 连接地址
+	MaxIdleCount int    // 设置空闲连接池中连接的最大数量
+	MaxOpenCount int    // 设置打开数据库连接的最大数量
+	MaxLifeTime  int    // 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)(单位秒)
 }
 
 // RedisConfig redis
@@ -93,20 +92,20 @@ func DBDsn() string {
 
 // DBMaxIdleConn 获取数据库-空闲连接池中连接的最大数量
 func DBMaxIdleConn() int {
-	if conf.Mysql.MaxIdleConn <= 0 {
-		conf.Mysql.MaxIdleConn = 10
+	if conf.Mysql.MaxIdleCount <= 0 {
+		conf.Mysql.MaxIdleCount = 10
 	}
 
-	return conf.Mysql.MaxIdleConn
+	return conf.Mysql.MaxIdleCount
 }
 
 // DBMaxOpenConn 获取数据库-打开数据库连接的最大数量
 func DBMaxOpenConn() int {
-	if conf.Mysql.MaxOpenConn <= 0 {
-		conf.Mysql.MaxOpenConn = 150
+	if conf.Mysql.MaxOpenCount <= 0 {
+		conf.Mysql.MaxOpenCount = 100
 	}
 
-	return conf.Mysql.MaxOpenConn
+	return conf.Mysql.MaxOpenCount
 }
 
 // DBMaxLifeTime 获取数据库-设置了连接可复用的最大时间(要比数据库设置连接超时时间少)(单位秒)
@@ -205,7 +204,7 @@ func init() {
 
 	if Pid() != "" {
 		pid := os.Getpid()
-		if err := ioutil.WriteFile(Pid(), []byte(fmt.Sprintf("%d", pid)), 0666); err != nil {
+		if err := os.WriteFile(Pid(), []byte(fmt.Sprintf("%d", pid)), 0666); err != nil {
 			panic(err)
 		}
 	}
