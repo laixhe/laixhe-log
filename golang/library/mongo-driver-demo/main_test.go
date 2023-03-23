@@ -8,32 +8,64 @@ import (
 )
 
 func TestMgo_UserInsertOne(t *testing.T) {
-
 	user := &User{
-		Id:          primitive.NewObjectID(),
-		Name:        "laixhe",
-		Age:         18,
-		AsStr:       []string{"aa", "bb"},
-		AsInt:       []int{11, 22},
-		AsStruct:    []AsTStruct{{111, "aaa"}, {222, "bbb"}},
-		AsMap:       map[string]string{"1111": "aaaa", "2222": "bbbb"},
-		AsMapStruct: map[string]AsTStruct{"11111": {111111, "aaaaaa"}, "22222": {222222, "bbbbbb"}},
-	}
-
-	user = &User{
-		Id:          primitive.NewObjectID(),
-		Name:        "laiki",
-		Age:         19,
-		AsStr:       []string{"aa", "bb"},
-		AsInt:       []int{11, 22},
-		AsStruct:    []AsTStruct{{111, "aaa"}, {222, "bbb"}},
-		AsMap:       map[string]string{"1111": "aaaa", "2222": "bbbb"},
-		AsMapStruct: map[string]AsTStruct{"11111": {111111, "aaaaaa"}, "22222": {222222, "bbbbbb"}},
+		Id:   primitive.NewObjectID(),
+		Name: "laixhe",
+		Age:  18,
+		Items: []Item{
+			{
+				Code: "1000",
+				Data: map[string]interface{}{
+					"AA": 100,
+					"BB": 200,
+				},
+			},
+		},
+		Like: []int{11, 22, 33},
 	}
 
 	result, err := NewMgo().UserInsertOne(user)
 
 	fmt.Printf("result=%s err=%v\n", result.InsertedID, err)
+}
+
+func TestMgo_UserInsertMany(t *testing.T) {
+	users := []User{
+		{
+			Id:   primitive.NewObjectID(),
+			Name: "laiki",
+			Age:  19,
+			Items: []Item{
+				{
+					Code: "2000",
+					Data: map[string]interface{}{
+						"AA": 200,
+						"BB": 200,
+					},
+				},
+			},
+			Like: []int{44, 55, 66},
+		},
+		{
+			Id:   primitive.NewObjectID(),
+			Name: "lai",
+			Age:  20,
+			Items: []Item{
+				{
+					Code: "1000",
+					Data: map[string]interface{}{
+						"AA": 300,
+						"BB": 200,
+					},
+				},
+			},
+			Like: []int{44, 33, 22},
+		},
+	}
+
+	result, err := NewMgo().UserInsertMany(users)
+
+	fmt.Printf("result=%s err=%v\n", result, err)
 }
 
 func TestMgo_UserFindOne(t *testing.T) {
@@ -42,7 +74,7 @@ func TestMgo_UserFindOne(t *testing.T) {
 }
 
 func TestMgo_UserFind(t *testing.T) {
-	users, err := NewMgo().UserFind(19, 1)
+	users, err := NewMgo().UserFind(18, 1)
 	fmt.Printf("users=%v err=%v\n", users, err)
 }
 
