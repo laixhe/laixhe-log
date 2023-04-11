@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "./;api";
+
+import "google/protobuf/any.proto";
+
+import "http_status.proto";
+
+// 响应请求的公共模型
+message HttpResponse {
+    api.HttpStatus Code = 1;      // 响应码
+    string msg = 2;               // 响应信息
+    google.protobuf.Any data = 3; // 数据
+}

@@ -1,10 +1,24 @@
 app:
   # 项目名
   name: api-demo
-  # debug release
+  # 运行模式 debug release
   mode: debug
-  port: 8088
+  port: 5080
   pid: api-demo.pid
+
+log:
+  # 日志文件路径
+  path: logs.log
+  # 日志模式 console file
+  runType: console
+  # 日志级别 debug  info  error
+  level: debug
+  # 每个日志文件保存大小 20M
+  maxSize: 20
+  # 保留 N 个备份
+  maxBackups: 20
+  # 保留 N 天
+  maxAge: 7
 
 mysql:
   dsn: root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
@@ -16,18 +30,27 @@ mysql:
   maxLifeTime: 300
 
 redis:
-  # 运行类型：1=单机 2=哨兵主从 3=分布式集群
+  # 运行类型：1=单机(single) 2=哨兵主从(sentinel) 3=分布式集群(cluster)
   runType: 1
+  # 选择 N 号数据库
   dbNum: 0
+  # 密码
   password:
+  # 最大链接数
+  poolSize: 100
+  # 空闲链接数
+  minIdleConn: 5
+  # 单机
   single:
     node: 127.0.0.1:6379
+  # 哨兵主从
   sentinel:
     master: masquerade
     nodes:
       - 127.0.0.1:8001
       - 127.0.0.1:8002
       - 127.0.0.1:8003
+  # 分布式集群
   cluster:
     nodes:
       - 127.0.0.1:8001
@@ -37,19 +60,7 @@ redis:
       - 127.0.0.1:8005
       - 127.0.0.1:8006
 
-logs:
-  # 日志文件路径: 【当为 console 是控制台输出】【当为 ./logs/logs.log 是文件输出】
-  path: console
-  # 日志级别 debug  info  error
-  logLevel: debug
-  # 每个日志文件保存大小 20M
-  maxSize: 20
-  # 保留 N 个备份
-  maxBackup: 20
-  # 保留 N 天
-  maxAge: 7
-
 jwt:
   secretKey: W6VjDud2W1kMG3BicbMNlGgI4ZfcoHtMGLWr
   # 过期时长(单位秒)
-  expTime: 2592000
+  expireTime: 2592000

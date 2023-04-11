@@ -35,10 +35,9 @@ replace xxx v0.0.0 => xxx v0.0.0       取代当前项目中的某些依赖包
 exclude xxx v0.0.0                     排除某些包的特别版本
 
 go get path@version                    添加依赖或修改依赖版本[latest|master][develop][commit id]
-go get github.com/laixhe/goutil@v0.3.4
-go get github.com/laixhe/goutil@master
-go get github.com/laixhe/goutil@develop
-go get github.com/laixhe/goutil@154ea76f7bb09b1f033a8e12ec6ccf38fb6fe860
+go get github.com/laixhe/goimg@v0.1.0
+go get github.com/laixhe/goimg@master
+go get github.com/laixhe/goimg@77162ddc41707930b4a7a23a9be998d84d1415b0
 ```
 
 #### 例子

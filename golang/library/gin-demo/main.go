@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/laixhe/goutil/zaplog"
 )
 
 func main() {
@@ -19,8 +18,8 @@ func main() {
 	// 中间件
 	//r.Use(gin.Logger())
 	//r.Use(gin.Recovery())
-	r.Use(zaplog.GinLogger())
-	r.Use(zaplog.GinRecovery())
+	//r.Use(zaplog.GinLogger())
+	//r.Use(zaplog.GinRecovery())
 	r.Use(Cors())
 
 	r.GET("/ping", ping)
@@ -44,11 +43,11 @@ func main() {
 // 跨域中间件
 func Cors() gin.HandlerFunc {
 	return cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},                                       // 准许跨域请求网站,多个使用,分开,限制使用* [Access-Control-Allow-Origin]
-		AllowMethods:     []string{"GET","POST","DELETE","PUT","OPTIONS"},     // 设置允许请求的方法 [Access-Control-Allow-Methods]
-		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"}, // 设置允许请求的头信息 [Access-Control-Allow-Headers]
+		AllowOrigins: []string{"*"},                                       // 准许跨域请求网站,多个使用,分开,限制使用* [Access-Control-Allow-Origin]
+		AllowMethods: []string{"GET", "POST", "DELETE", "PUT", "OPTIONS"}, // 设置允许请求的方法 [Access-Control-Allow-Methods]
+		AllowHeaders: []string{"Origin", "Content-Type", "Authorization"}, // 设置允许请求的头信息 [Access-Control-Allow-Headers]
 		//ExposeHeaders:    []string{"Origin", "Content-Type", "Content-Length", "Authorization"},// 显示的请求表头(可选) [Access-Control-Expose-Headers]
-		AllowCredentials: true,                                                // 是否允许需要带 cookie 信息 [Access-Control-Allow-Credentials]
+		AllowCredentials: true, // 是否允许需要带 cookie 信息 [Access-Control-Allow-Credentials]
 		// 容许跨域的原点网站,可以直接 return true 就万事大吉了
 		AllowOriginFunc: func(origin string) bool {
 			//return origin == "https://github.com"

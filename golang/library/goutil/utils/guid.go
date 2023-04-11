@@ -10,7 +10,6 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/laixhe/goutil/date"
 	"github.com/sony/sonyflake"
 )
 
@@ -86,7 +85,7 @@ func (c *XUID) Generate() int64 {
 }
 
 // xuid 类以雪花算法
-var xuid = XUID{increase: date.TimeUnix}
+var xuid = XUID{increase: time.Now().Unix()}
 
 // GetXUID 类以雪花算法生成分布式唯一ID
 func GetXUID() int64 {

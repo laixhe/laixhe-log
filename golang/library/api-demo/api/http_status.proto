@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "./;api";
+
+enum HttpStatus {
+    OK       = 0;
+    Sign     = 1;
+    SignForm = 2;
+    SignTime = 3;
+    Auth     = 4;
+    Form     = 5;
+}

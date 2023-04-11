@@ -7,9 +7,10 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/laixhe/goutil/zaplog"
 
-	"golang_log/library/api-demo/common"
+	"golang_log/library/api-demo/core/config"
+	"golang_log/library/api-demo/core/httpjwt"
+	"golang_log/library/api-demo/core/logx"
 )
 
 // Cors 跨域中间件
@@ -29,34 +30,33 @@ func Cors() gin.HandlerFunc {
 
 // Authorization
 const (
-	Bearer    = "Bearer "
-	BearerLen = len(Bearer)
+	Authorization = "Authorization"
+	Bearer        = "Bearer "
+	BearerLen     = 7
 )
 
 // JwtAuth 鉴权
 func JwtAuth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var errs error
-		token := ctx.Request.Header.Get("Authorization")
+		var err error
+		token := ctx.Request.Header.Get(Authorization)
 		if len(token) > 0 {
 			if strings.HasPrefix(token, Bearer) {
-				t, err := common.JwtDecode(token[BearerLen:])
-				if err == nil {
-					ctx.Request.Header.Set(common.AuthUserIDKey, t.Id)
+				if claims, err1 := httpjwt.ParseToken(token[BearerLen:], config.Get().Jwt); err1 == nil {
+					ctx.Set(httpjwt.AuthUid, claims.Uid)
 					ctx.Next()
 					return
+				} else {
+					err = err1
 				}
-				errs = err
 			} else {
-				errs = errors.New("token " + Bearer + "empty")
+				err = errors.New("token " + Bearer + "empty")
 			}
 		} else {
-			errs = errors.New("token empty")
+			err = errors.New("token empty")
 		}
-
-		zaplog.Errorf("authorization:%v error:%v", token, errs)
+		logx.Errorf("authorization:%v error:%v", token, err)
 		// 返回错误
-
 		ctx.Abort()
 	}
 }

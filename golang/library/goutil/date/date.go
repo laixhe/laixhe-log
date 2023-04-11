@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/laixhe/goutil/match"
+	"golang_log/library/goutil/match"
 )
 
 // (这是个奇葩,必须是这个时间点, 据说是go诞生之日, 记忆方法:6-1-2-3-4-5)
@@ -173,14 +173,15 @@ func NewTimeUnix(ts int64) *newTime {
 // NewTimeParse 以字符串的日期时间创建时间模型
 // str 字符串的日期时间
 // 有效的日期格式：2006-01-02 15:04:05
-//              2006-01-02
-//              2006-1-2
-//              2006/01/02 15:04:05
-//              2006/01/02
-//              2006/1/2
-//              20060102150405
-//              20060102
-//              2006-01-02T15:04:05+08:00
+//
+//	2006-01-02
+//	2006-1-2
+//	2006/01/02 15:04:05
+//	2006/01/02
+//	2006/1/2
+//	20060102150405
+//	20060102
+//	2006-01-02T15:04:05+08:00
 func NewTimeParse(str string) (*newTime, error) {
 	if "" == str {
 		return nil, invalidTimeFormat

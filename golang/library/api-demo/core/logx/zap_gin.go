@@ -1,4 +1,4 @@
-package zaplog
+package logx
 
 import (
 	"net/http"
@@ -10,7 +10,6 @@ import (
 
 // GinLogger gin中间件
 func GinLogger() gin.HandlerFunc {
-	IsInitNil()
 	return func(c *gin.Context) {
 		c.Next()
 		zapLogger.Info("gin",
@@ -26,7 +25,6 @@ func GinLogger() gin.HandlerFunc {
 
 // GinRecovery gin中间件
 func GinRecovery() gin.HandlerFunc {
-	IsInitNil()
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {

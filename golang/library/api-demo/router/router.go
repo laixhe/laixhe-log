@@ -2,9 +2,9 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/laixhe/goutil/zaplog"
 
-	"golang_log/library/api-demo/config"
+	"golang_log/library/api-demo/core/config"
+	"golang_log/library/api-demo/core/logx"
 )
 
 // Router gin 路由
@@ -17,12 +17,12 @@ func Router() *gin.Engine {
 	r := gin.New()
 
 	// 中间件
-	r.Use(zaplog.GinLogger())
-	r.Use(zaplog.GinRecovery())
+	r.Use(logx.GinLogger())
+	r.Use(logx.GinRecovery())
 	r.Use(Cors())
 
-	V1 := r.Group("/api/v1")
-	UserRouter(V1)
+	apiV1 := r.Group("/v1")
+	UserRouter(apiV1)
 
 	return r
 }
