@@ -1,0 +1,65 @@
+app:
+  pid: api-demo.pid
+
+servers:
+  http:
+    ip: 0.0.0.0
+    port: 5800
+  grpc:
+    ip: 0.0.0.0
+    port: 5900
+
+log:
+  # 日志文件路径
+  path: logs.log
+  # 日志模式 console file
+  run_type: console
+  # 日志级别 debug  info  error
+  level: debug
+  # 每个日志文件保存大小 20M
+  max_size: 20
+  # 保留 N 个备份
+  max_backups: 20
+  # 保留 N 天
+  max_age: 7
+
+mysql:
+  # 连接地址
+  dsn: root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+  # 设置空闲连接池中连接的最大数量
+  max_idle_count: 10
+  # 设置打开数据库连接的最大数量
+  max_open_count: 150
+  # 设置了连接可复用的最大时间(要比数据库设置连接超时时间少)(单位秒)
+  max_life_time: 300
+
+redis:
+  # 多个地址是以 , 分割
+  addr: 127.0.0.1:6379
+  # 选择N号数据库
+  db_num: 0
+  # 密码
+  password:
+  # 最大链接数
+  pool_size: 100
+  # 空闲链接数
+  min_idle_conn: 5
+  # 哨兵主从(当有值时为:主从模式)(当没值时且addr有多个时为:分布式集群)
+  master:
+
+mongodb:
+  # 连接地址
+  uri: mongodb://127.0.0.1:27017
+  # 指定数据库
+  database: "test"
+  # 最大连接的数量
+  max_pool_size: 100
+  # 最小连接的数量
+  min_pool_size: 5
+  # 最大连接的空闲时间(设置了连接可复用的最大时间)(单位秒)
+  max_conn_idle_time: 300
+
+jwt:
+  secret_key: W6VjDud2W1kMG3BicbMNlGgI4ZfcoHtMGLWr
+  # 过期时长(单位秒)
+  expire_time: 2592000

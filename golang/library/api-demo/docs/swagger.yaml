@@ -1,0 +1,165 @@
+definitions:
+  api.ECode:
+    enum:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 100
+    - 101
+    - 102
+    - 103
+    - 104
+    - 105
+    - 106
+    type: integer
+    x-enum-comments:
+      ECode_EAuthExpire: 授权过期
+      ECode_EAuthNotLogin: 未授权登录
+      ECode_EEmailExist: 邮箱已存在
+      ECode_EEmailNotExist: 邮箱不存在
+      ECode_EOK: 成功
+      ECode_EParam: 参数错误
+      ECode_EPasswordError: 密码错误
+      ECode_EService: 服务错误
+      ECode_EUnknown: 未知错误
+      ECode_EUserExist: 用户已存在
+      ECode_EUserNotExist: 用户不存在
+    x-enum-varnames:
+    - ECode_EOK
+    - ECode_EUnknown
+    - ECode_EService
+    - ECode_EParam
+    - ECode_EAuthNotLogin
+    - ECode_EAuthExpire
+    - ECode_EUserExist
+    - ECode_EUserNotExist
+    - ECode_EEmailExist
+    - ECode_EEmailNotExist
+    - ECode_EPasswordError
+  app.ResponseModel:
+    properties:
+      code:
+        allOf:
+        - $ref: '#/definitions/api.ECode'
+        description: 响应码
+      data:
+        description: 数据
+      msg:
+        description: 响应信息
+        type: string
+    type: object
+  v1api.AuthLoginRequest:
+    properties:
+      email:
+        description: 邮箱
+        type: string
+      password:
+        description: 密码
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  v1api.AuthLoginResponse:
+    properties:
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/v1api.User'
+    type: object
+  v1api.AuthRefreshResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  v1api.AuthRegisterRequest:
+    properties:
+      email:
+        description: 邮箱
+        type: string
+      password:
+        description: 密码
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  v1api.AuthRegisterResponse:
+    properties:
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/v1api.User'
+    type: object
+  v1api.User:
+    properties:
+      email:
+        type: string
+      uid:
+        type: integer
+      uuid:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: API接口
+paths:
+  /v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 请求body参数
+        in: body
+        name: body
+        schema:
+          $ref: '#/definitions/v1api.AuthLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1api.AuthLoginResponse'
+      summary: 登录用户
+  /v1/auth/refresh:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Bearer token令牌
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1api.AuthRefreshResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.ResponseModel'
+      summary: 刷新Jwt
+  /v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 请求body参数
+        in: body
+        name: body
+        schema:
+          $ref: '#/definitions/v1api.AuthRegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1api.AuthRegisterResponse'
+      summary: 注册用户
+swagger: "2.0"

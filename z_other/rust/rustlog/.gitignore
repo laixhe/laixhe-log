@@ -1,0 +1,8 @@
+.idea/
+.vscode/
+target/
+
+.history
+.vs
+.DS_Store
+*.exe
