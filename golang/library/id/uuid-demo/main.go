@@ -11,5 +11,5 @@ func main() {
 	fmt.Println(googleUuid.New().String())
 	fmt.Println(googleUuid.NewString())
 
-	fmt.Println(gofrsUuid.NewV4())
+	fmt.Println(gofrsUuid.Must(gofrsUuid.NewV4()).String())
 }

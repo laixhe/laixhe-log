@@ -2,6 +2,10 @@ package main
 
 import "testing"
 
-func TestJsonMainR(t *testing.T) {
-	JsonMainRW()
+func TestStdJson(t *testing.T) {
+	StdJson()
+}
+
+func TestSonicJson(t *testing.T) {
+	SonicJson()
 }
