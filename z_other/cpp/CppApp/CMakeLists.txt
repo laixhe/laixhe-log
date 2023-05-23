@@ -6,7 +6,7 @@ project(cppapp VERSION 1.0 LANGUAGES CXX)
 
 #set(CMAKE_C_STANDARD 99)             # 指定 C 编译版本
 set(CMAKE_CXX_STANDARD 17)           # 指定 C++ 编译版本
-set(CMAKE_CXX_STANDARD_REQUIRED ON)  #
+set(CMAKE_CXX_STANDARD_REQUIRED ON)  # 并要求编译器支持此 C++ 标准
 set(CMAKE_BUILD_TYPE Debug)          # Debug Release
 
 # 查找当前目录下的所有源文件
@@ -24,6 +24,10 @@ target_link_libraries(${PROJECT_NAME} template)
 
 message("project_name: ${PROJECT_NAME}")
 
+# PROJECT_NAME              项目名称
+# PROJECT_SOURCE_DIR        工程的根目录
+# CMAKE_CURRENT_SOURCE_DIR  当前 CMakeLists.txt 文件所在目录
+#
 # set()                   定义变量
 # include_directories()   指定头文件目录搜索
 # link_directories()      指定库文件目录搜索
