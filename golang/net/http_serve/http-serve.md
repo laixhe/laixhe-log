@@ -76,6 +76,7 @@ import (
 var static embed.FS
 
 func main() {
+    //http.StripPrefix("/static", http.FileServer(http.FS(fs)))
 	err := http.ListenAndServe(":80", http.FileServer(http.FS(static)))
 	if err != nil {
 		print(err)
@@ -125,7 +126,12 @@ var static embed.FS
 
 func main() {
 	r := gin.Default()
-	r.StaticFS("/", http.FS(static))
+	//r.StaticFS("/", http.FS(static))
+	
+	r.Any("/*filepath", func(c *gin.Context) {
+		staticServer := http.FileServer(http.FS(fs))
+		staticServer.ServeHTTP(c.Writer, c.Request)
+	})
 
 	err := r.Run(":80")
 	if err != nil {
