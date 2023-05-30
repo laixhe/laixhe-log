@@ -31,6 +31,8 @@ message("project_name: ${PROJECT_NAME}")
 # set()                   定义变量
 # include_directories()   指定头文件目录搜索
 # link_directories()      指定库文件目录搜索
+# find_package()          查找第三方库
+# find_package(yaml-cpp CONFIG REQUIRED) 查找第三方库(使用 config 模式)
 # add_library()           生成库文件 (生成共享库 add_library(hello SHARED xxx.cpp) )
 # add_compiler_options()  添加编译参数 ( add_compiler_options(-Wall -o2) )
 # add_executable()        生成可执行文件
