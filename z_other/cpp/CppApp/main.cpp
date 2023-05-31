@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "std_string.h"
-#include "std_function.h"
+#include "class_singleton.h"
 
 int main(){
 
-    func_initializer_list({4,5,6});
-    
+    Singleton& mySingleton = getSingletonInstance();
+    mySingleton.doSomething();
+
     return 0;
 }
