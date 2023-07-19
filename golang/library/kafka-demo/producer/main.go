@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 )
 
 func main() {
@@ -39,7 +39,7 @@ func main() {
 		msg := &sarama.ProducerMessage{}
 		msg.Topic = "test_data"
 
-		if (unixTime%2) == 0 {
+		if (unixTime % 2) == 0 {
 			msg.Value = sarama.ByteEncoder("将字符串转换为字节数组:" + strconv.Itoa(int(unixTime)))
 		} else {
 			// 将字符串转换为字节数组
@@ -62,7 +62,7 @@ func main() {
 }
 
 // 异步生产者
-func SaramaProducer()  {
+func SaramaProducer() {
 
 	config := sarama.NewConfig()
 	config.Producer.RequiredAcks = sarama.WaitForAll
@@ -82,11 +82,11 @@ func SaramaProducer()  {
 	// 循环判断哪个通道发送过来数据.
 	fmt.Println("start goroutine")
 	go func(c sarama.AsyncProducer) {
-		for{
+		for {
 			select {
-			case  suc := <-c.Successes():
+			case suc := <-c.Successes():
 				// 开启 config.Producer.Return.Successes = true 后一定要监听这个chan，默认大小256 如果满了就阻塞掉
-				fmt.Println("partitions: ", suc.Partition,"Successes offset: ", suc.Offset, "timestamp: ")
+				fmt.Println("partitions: ", suc.Partition, "Successes offset: ", suc.Offset, "timestamp: ")
 			case fail := <-c.Errors():
 				// 开启 config.Producer.Return.Errors = true 后一定要监听这个chan，默认大小256 如果满了就阻塞掉
 				fmt.Println("Errors err: ", fail.Err)
@@ -102,7 +102,7 @@ func SaramaProducer()  {
 		msg := &sarama.ProducerMessage{}
 		msg.Topic = "test_data"
 
-		if (unixTime%2) == 0 {
+		if (unixTime % 2) == 0 {
 			msg.Value = sarama.ByteEncoder("字符串1:" + strconv.Itoa(int(unixTime)))
 		} else {
 			// 将字符串转换为字节数组

@@ -3,12 +3,12 @@
 
 > 安装
 ```
-go get github.com/Shopify/sarama
+go get github.com/IBM/sarama
 ```
 
 > 导入
 ```
-import "github.com/Shopify/sarama"
+import "github.com/IBM/sarama"
 ```
 
 > consumer 消费者

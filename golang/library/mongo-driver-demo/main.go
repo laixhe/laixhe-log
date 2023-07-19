@@ -10,7 +10,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
-	"go.mongodb.org/mongo-driver/x/bsonx"
 )
 
 type Mgo struct {
@@ -93,7 +92,7 @@ func (m *Mgo) CreateIndex() error {
 	indexOptions.SetUnique(true)
 
 	indexModel := mongo.IndexModel{
-		Keys:    bsonx.Doc{{"name", bsonx.Int32(1)}},
+		Keys:    bson.M{"name": 1},
 		Options: indexOptions,
 	}
 
