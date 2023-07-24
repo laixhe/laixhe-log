@@ -1,3 +1,13 @@
+### Hello World
+- 默认情况下，Python 3 源码文件以 UTF-8 编码，所有字符串都是 unicode 字符串
+```
+if __name__ == '__main__':
+    hello = 'Hello'
+    world = 'World'
+    print('Hello=%s' % hello)
+    print('%s, %s' % (hello, world))
+```
+
 ### 类型
 - Number（数字）
   - int：有符号整型
@@ -47,6 +57,29 @@ list.sort( key=None, reverse=False)——对原列表进行排序
 list.clear()——清空列表
 ```
 
+```
+if __name__ == '__main__':
+    # 空列表
+    # names = []
+    # names = list()
+
+    names = ['lai']
+    names.append('laiki')
+
+    for v in names:
+        print(v)
+        pass
+
+    print('----')
+
+    for k, v in enumerate(names):
+        print(k, v)
+        pass
+		
+    pass
+
+```
+
 ### Dictionary（字典）
 - 字典的每个键值 key=>value 对用冒号 : 分割，每个对之间用逗号(,)分割，整个字典包括在花括号 {} 中
 - {key1 : value1, key2 : value2, key3 : value3 }
@@ -63,6 +96,28 @@ dict.items()——以列表返回一个视图对象。
 dict.keys()——返回一个视图对象。
 dict.values()——返回一个视图对象。
 pop(key[,default])——删除字典 key（键）所对应的值，返回被删除的值。
+```
+
+```
+if __name__ == '__main__':
+	# 空字典
+	# user = {}
+	# user = dict()
+	
+    user = {'name': 'laiki'}
+    user['age'] = 18
+
+    for k, v in user.items():
+        print(k, v)
+        pass
+
+    print('----')
+
+    for k in user:
+        print(k, user[k])
+        pass
+
+    pass
 ```
 
 ### Tuple（元组）
@@ -157,6 +212,12 @@ else:
 ```
 def get_name():
     pass
+	
+def get_name(*args):
+    pass
+	
+def get_name(**args):
+    pass
 ```
 
 ### 异常
@@ -180,21 +241,49 @@ finally:
   - from   模块名 import 函数名
 
 ### 类
+- 私有属性：两个下划线开头，声明该属性为私有
+- 公开属性：不带两个下划线开头，可以在类外访问
 
 ```
-#!/usr/bin/python3
- 
-class MyClass:
-    i = 123456
-    def f(self):
-        return 'hello world'
+# class MyClass:
+class MyClass(object):  # 在 Python 中，所有类默认继承 object 类
+    name = ''  # 公开属性
+    __age = 0  # 私有属性
 
-# 实例化类
-x = MyClass()
- 
-# 访问类的属性和方法
-print("MyClass 类的属性 i 为：", x.i)
-print("MyClass 类的方法 f 输出为：", x.f())
+    # 构造方法
+    def __init__(self, name, age):
+        self.name = name
+        self.__age = age
+        pass
+
+    def get_age(self):
+        return self.__age
+
+
+if __name__ == '__main__':
+    # 实例化类
+    x = MyClass(name='laiki', age=18)
+
+    # 访问类的属性和方法
+    print('MyClass 类的属性 name 为：%s' % x.name)
+    print("MyClass 类的方法 age 输出为：%d" % x.get_age())
+```
+
+### 日期与时间
+```
+import time
+
+if __name__ == '__main__':
+    # 获取当前时间戳
+    print( time.time() )
+    # 格式化时间
+    print( time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) )
+    # 获取当前时间
+    print( time.localtime(time.time()) )
+    # 时间戳转格式化时间
+    print( time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(1675175334)) )
+    # 格式化时间转时间戳
+    print( time.mktime(time.strptime("2023-01-31 22:28:54", "%Y-%m-%d %H:%M:%S")) )
 ```
 
 
