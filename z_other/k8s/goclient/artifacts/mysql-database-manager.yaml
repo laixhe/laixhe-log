@@ -1,0 +1,8 @@
+apiVersion: crdtest.laixhe.com/v1
+kind: DatabaseManager
+metadata:
+  name: example-mysql01
+spec:
+  dbtype: "mysql01"
+  deploymentName: "example-mysql01"
+  replicas: 1
