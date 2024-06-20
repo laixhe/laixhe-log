@@ -1,7 +1,11 @@
-## 需要 Golang 1.20 以上
+## 项目以 Golang 1.22 编写
+
+[TOC]
+
+
 ```
 # 设置代理
-export GOPROXY=https://proxy.golang.com.cn,direct
+export GOPROXY=https://goproxy.cn,direct
 # 当前项目下
 go mod tidy
 ```

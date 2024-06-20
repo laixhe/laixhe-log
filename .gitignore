@@ -2,5 +2,7 @@
 .vscode
 .history
 .vs
+.fleet
+__pycache__
 .DS_Store
 *.exe
