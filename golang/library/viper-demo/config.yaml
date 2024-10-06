@@ -1,0 +1,30 @@
+app:
+  name: api-demo
+  mode: debug
+  port: 8088
+  pid: api-demo.pid
+
+mysql:
+  dsn: root:123456@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+  max_idle_count: 10
+  max_open_count: 150
+  max_life_time: 300
+
+redis:
+  runType: 1
+  dbNum: 0
+  password: "123456"
+  single:
+    node: 127.0.0.1:6379
+  cluster:
+    nodes:
+      - 127.0.0.1:8001
+      - 127.0.0.1:8002
+
+services:
+  - host: "127.0.0.1"
+    port: 8001
+  - host: "127.0.0.2"
+    port: 8002
+  - host: "127.0.0.3"
+    port: 8003
