@@ -1,0 +1,146 @@
+networks:
+  common_net:
+    driver: bridge
+
+services:
+  # 服务名称为 etcd 该名称主要用于容器之间服务的 dns 解析
+  etcd:
+    image: '${ETCD_IMAGE}'                                  # 使用的镜像
+    container_name: etcd                                    # 容器的名称 --name
+    restart: always                                         # 容器开机自启
+    networks:
+      - common_net                                          # 网络 --network
+    ports:                                                  # 端口映射 -p
+      - '2379:2379'
+    volumes:
+      - './data/etcd/data:/etcd/data'
+    environment:                                             # 环境变量 --env
+      - ALLOW_NONE_AUTHENTICATION=yes                        # 允许不用密码登录
+      - TZ=Asia/Shanghai                                     # 时区
+      - ETCD_NAME=etcd                                       # 节点名称
+      - ETCD_DATA_DIR=/etcd/data                             # 数据目录
+      - ETCD_LOGGER=zap                                      # 日志类型
+      - ETCD_LOG_LEVEL=INFO                                  # 日志级别
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379          # 设置监听客户端通讯的URL列表(对外提供服务)
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379          # 告知集群自己的客户端地址
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380            # 用于监听伙伴通讯的URL列表
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd:2380    # 告知集群自己集群通讯地址
+      - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster              # 创建集群唯一TOKEN
+      - ETCD_INITIAL_CLUSTER=etcd=http://etcd:2380           # 集群成员(逗号隔开)
+      - ETCD_INITIAL_CLUSTER_STATE=new                       # 初始化集群状态
+
+  redis:
+    image: '${REDIS_IMAGE}'
+    container_name: redis
+    restart: always
+    privileged: true                                         # 获取宿主机root权限
+    networks:
+      - common_net
+    ports:
+      - '6379:6379'
+    volumes:
+      - './data/redis/data:/redis/data'
+      - './config/redis/redis.conf:/redis/redis.conf'
+    environment:
+      - TZ=Asia/Shanghai
+    command: ['redis-server', '/redis/redis.conf']           # 指定配置文件启动进程
+    sysctls:
+      net.core.somaxconn: 1024
+
+  mongo:
+    image: '${MONGO_IMAGE}'
+    container_name: mongo
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - "27017:27017"
+    volumes:
+      - './data/mongo/data:/data'
+    environment:
+      - TZ=Asia/Shanghai
+      - MONGO_INITDB_ROOT_USERNAME=admin                    # 用户名密码
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    # --auth 表示登录 mongo 需要账号密码
+    # --directoryperdb 每个数据库使用单独的文件夹
+    command: 'mongod --directoryperdb --oplogSize 128 --auth'
+
+  kafka:
+    image: "${KAFKA_IMAGE}"
+    container_name: kafka
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - "9092:9092"
+    volumes:
+      - './data/kafka/data:/kafka/data'
+    environment:
+      - TZ=Asia/Shanghai
+      # 允许使用 kraft，即替代 Zookeeper
+      - KAFKA_ENABLE_KRAFT=yes
+      # 节点ID
+      - KAFKA_CFG_NODE_ID=1
+      # 角色，做 broker 也要做 controller
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      # 集群地址
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka1:9093
+      # 定义服务端监听端口（Docker 内部的 ip 地址和端口）
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      # 定义外网访问地址（宿主机ip地址和端口）ip 不能是 0.0.0.0
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://192.168.110.93:59092
+      # 定义安全协议
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      # 指定供外部使用的控制类请求信息
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      # 使用集群id，集群内的 Kafka 都要用这个 id 做初始化，生成一个 UUID 即可(22byte)
+      - KAFKA_KRAFT_CLUSTER_ID=xYcCyHmJlIaLzLoBzVwIcP
+      # 允许使用 PLAINTEXT 监听器，默认false，不建议在生产环境使用
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      # 不允许自动创建主题
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+      # 必须唯一，且与 KAFKA_CFG_NODE_ID 一致
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LOG_DIRS=/kafka/data
+
+  postgres:
+    image: '${PG_IMAGE}'
+    container_name: postgresql
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - '5432:5432'
+    volumes:
+      - './data/postgresql/data:/var/lib/postgresql/data'
+      - './data/postgresql/log:/var/log/postgresql'
+    environment:
+      - TZ=Asia/Shanghai
+      - PGTZ=Asia/Shanghai
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=postgres
+
+  mysql:
+    image: '${MYSQL_IMAGE}'
+    container_name: mysql
+    restart: always
+    privileged: true
+    networks:
+      - common_net
+    ports:
+      - '3306:3306'
+    volumes:
+      - './data/mysql/logs/:/var/log/mysql'
+      - './data/mysql/data/:/var/lib/mysql'
+      - './config/mysql/my.cnf:/etc/my.cnf'
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_ROOT_PASSWORD=123456
+    command:
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+
