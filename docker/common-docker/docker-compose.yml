@@ -7,6 +7,7 @@ services:
   etcd:
     image: '${ETCD_IMAGE}'                                  # 使用的镜像
     container_name: etcd                                    # 容器的名称 --name
+    hostname: etcd
     restart: always                                         # 容器开机自启
     networks:
       - common_net                                          # 网络 --network
@@ -32,6 +33,7 @@ services:
   redis:
     image: '${REDIS_IMAGE}'
     container_name: redis
+    hostname: redis
     restart: always
     privileged: true                                         # 获取宿主机root权限
     networks:
@@ -50,6 +52,7 @@ services:
   mongo:
     image: '${MONGO_IMAGE}'
     container_name: mongo
+    hostname: mongo
     restart: always
     networks:
       - common_net
@@ -59,15 +62,20 @@ services:
       - './data/mongo/data:/data'
     environment:
       - TZ=Asia/Shanghai
+      - wiredTigerCacheSizeGB=1
       - MONGO_INITDB_ROOT_USERNAME=admin                    # 用户名密码
       - MONGO_INITDB_ROOT_PASSWORD=123456
     # --auth 表示登录 mongo 需要账号密码
     # --directoryperdb 每个数据库使用单独的文件夹
-    command: 'mongod --directoryperdb --oplogSize 128 --auth'
+    # command: 'mongod --directoryperdb --oplogSize 128 --auth'
+    command: ["mongod", "--directoryperdb", "--oplogSize", "128", "--auth","--bind_ip_all"]
+    # use test
+    # db.createUser({user:'test',pwd:'123456',roles:[{role:'readWrite',db:'test'}]});
 
   kafka:
     image: "${KAFKA_IMAGE}"
     container_name: kafka
+    hostname: kafka
     restart: always
     networks:
       - common_net
@@ -84,11 +92,11 @@ services:
       # 角色，做 broker 也要做 controller
       - KAFKA_CFG_PROCESS_ROLES=controller,broker
       # 集群地址
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka1:9093
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
       # 定义服务端监听端口（Docker 内部的 ip 地址和端口）
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
       # 定义外网访问地址（宿主机ip地址和端口）ip 不能是 0.0.0.0
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://192.168.110.93:59092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://192.168.110.93:9092
       # 定义安全协议
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
@@ -104,9 +112,10 @@ services:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_LOG_DIRS=/kafka/data
 
-  postgres:
+  postgresql:
     image: '${PG_IMAGE}'
     container_name: postgresql
+    hostname: postgresql
     restart: always
     networks:
       - common_net
@@ -125,6 +134,7 @@ services:
   mysql:
     image: '${MYSQL_IMAGE}'
     container_name: mysql
+    hostname: mysql
     restart: always
     privileged: true
     networks:
@@ -143,4 +153,23 @@ services:
     command:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
+
+  minio:
+    image: "${MINIO_IMAGE}"
+    container_name: minio
+    hostname: minio
+    networks:
+      - common_net
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    volumes:
+      - "./data/minio/data:/data"
+      - "./data/minio/config:/root/.minio"
+    environment:
+      TZ: Asia/Shanghai
+      MINIO_ROOT_USER: "root"
+      MINIO_ROOT_PASSWORD: "12345678"
+    restart: always
+    command: minio server /data --console-address ':9090'
 
