@@ -4,6 +4,10 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/6tail/lunar-go/calendar"
+	"github.com/6tail/tyme4go/tyme"
+	carbon "github.com/dromara/carbon/v2"
 )
 
 func TimeRun() {
@@ -196,4 +200,26 @@ func TimeTick2() {
 
 	// 睡眠 N秒
 	time.Sleep(time.Second * 10) // 用于延迟程序的退出
+}
+
+// Lunar 农历
+func Lunar() {
+	// 公历 转 农历
+	solarTime, _ := tyme.SolarTime{}.FromYmdHms(2023, 4, 1, 14, 0, 0)
+	fmt.Println(solarTime.GetLunarHour().GetLunarDay()) // 农历癸卯年闰二月十一
+	fmt.Println(solarTime.GetLunarHour().GetName())     // 未时
+
+	// 农历 转 农历
+	lunarTime, _ := tyme.LunarHour{}.FromYmdHms(2023, -2, 11, 14, 0, 0)
+	fmt.Println(lunarTime.GetLunarDay()) // 农历癸卯年闰二月十一
+	fmt.Println(lunarTime.GetName())     // 未时
+
+	// 农历 转 农历
+	lunar := calendar.NewLunar(2023, -2, 11, 14, 0, 0)
+	fmt.Println(lunar.String())           // 二〇二三年闰二月十一
+	fmt.Println(lunar.GetTimeZhi() + "时") // 未时
+
+	// 公历 转 农历
+	solarCarbon := carbon.Parse("2023-04-01 14:00:00")
+	fmt.Println(solarCarbon.Lunar().ToDateString()) // 二零二三年闰二月十一
 }

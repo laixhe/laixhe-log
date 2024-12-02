@@ -1,2 +1,2 @@
 docker compose up -d
-docker compose up postgres -d
+docker compose up etcd -d

@@ -30,3 +30,8 @@ func TestTimeTick1(t *testing.T) {
 func TestTimeTick2(t *testing.T) {
 	TimeTick2()
 }
+
+// 农历
+func TestLunar(t *testing.T) {
+	Lunar()
+}

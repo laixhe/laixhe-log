@@ -3,13 +3,16 @@ module study
 go 1.23
 
 require (
+	github.com/6tail/lunar-go v1.3.15
+	github.com/6tail/tyme4go v1.0.4
 	github.com/IBM/sarama v1.43.3
-	github.com/bytedance/sonic v1.12.4
+	github.com/bytedance/sonic v1.12.5
 	github.com/disintegration/imaging v1.6.2
+	github.com/dromara/carbon/v2 v2.5.1
 	github.com/elastic/go-elasticsearch/v8 v8.16.0
 	github.com/gin-contrib/cors v1.7.2
 	github.com/gin-gonic/gin v1.10.0
-	github.com/go-playground/validator/v10 v10.22.1
+	github.com/go-playground/validator/v10 v10.23.0
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/gofrs/uuid/v5 v5.3.0
 	github.com/google/uuid v1.6.0
