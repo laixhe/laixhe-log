@@ -35,7 +35,7 @@ services:
     container_name: redis
     hostname: redis
     restart: always
-    privileged: true                                         # 获取宿主机root权限
+    privileged: true                                         # 给予容器特权，使其具有更多权限
     networks:
       - common_net
     ports:
@@ -106,10 +106,13 @@ services:
       - KAFKA_KRAFT_CLUSTER_ID=xYcCyHmJlIaLzLoBzVwIcP
       # 允许使用 PLAINTEXT 监听器，默认false，不建议在生产环境使用
       - ALLOW_PLAINTEXT_LISTENER=yes
-      # 不允许自动创建主题
-      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+      # 每个 topic 的默认分区数
+      - KAFKA_NUM_PARTITIONS=4
+      # 允许自动创建主题
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
       # 必须唯一，且与 KAFKA_CFG_NODE_ID 一致
       - KAFKA_BROKER_ID=1
+      # 数据目录
       - KAFKA_CFG_LOG_DIRS=/kafka/data
 
   postgresql:
@@ -136,6 +139,7 @@ services:
     container_name: mysql
     hostname: mysql
     restart: always
+    # 给予容器特权，使其具有更多权限
     privileged: true
     networks:
       - common_net
@@ -158,6 +162,7 @@ services:
     image: "${MINIO_IMAGE}"
     container_name: minio
     hostname: minio
+    restart: always
     networks:
       - common_net
     ports:
@@ -167,9 +172,26 @@ services:
       - "./data/minio/data:/data"
       - "./data/minio/config:/root/.minio"
     environment:
-      TZ: Asia/Shanghai
-      MINIO_ROOT_USER: "root"
-      MINIO_ROOT_PASSWORD: "12345678"
-    restart: always
+      - TZ=Asia/Shanghai
+      - MINIO_ROOT_USER=root
+      - MINIO_ROOT_PASSWORD=12345678
     command: minio server /data --console-address ':9090'
 
+  meilisearch:
+    image: "${MEILISEARCH_IMAGE}"
+    container_name: meilisearch
+    hostname: meilisearch
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - "7700:7700"
+    volumes:
+      - "./data/meilisearch/data:/meili_data"
+    environment:
+      - TZ=Asia/Shanghai
+      # 环境 production 禁用了搜索预览界面 或 development 启用了搜索预览功能
+      #- MEILI_ENV=development
+      # 如果是 production 模式，则必须要提供主密钥；如果是 development 模式，则可以不提供主密钥
+      # 如果你没有提供主密钥或提供的密钥长度小于 16 字节，Meilisearch 都会建议你使用一个自动生成的主密钥
+      #- MEILI_MASTER_KEY=123456
