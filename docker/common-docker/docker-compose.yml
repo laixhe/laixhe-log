@@ -5,37 +5,57 @@ networks:
 services:
   # 服务名称为 etcd 该名称主要用于容器之间服务的 dns 解析
   etcd:
-    image: '${ETCD_IMAGE}'                                  # 使用的镜像
-    container_name: etcd                                    # 容器的名称 --name
+    # 使用的镜像
+    image: '${ETCD_IMAGE}'
+    # 容器的名称 --name
+    container_name: etcd
     hostname: etcd
-    restart: always                                         # 容器开机自启
+    # 容器开机自启
+    restart: always
+    # 网络 --network
     networks:
-      - common_net                                          # 网络 --network
-    ports:                                                  # 端口映射 -p
+      - common_net
+    # 端口映射 -p
+    ports:
       - '2379:2379'
     volumes:
       - './data/etcd/data:/etcd/data'
-    environment:                                             # 环境变量 --env
-      - ALLOW_NONE_AUTHENTICATION=yes                        # 允许不用密码登录
-      - TZ=Asia/Shanghai                                     # 时区
-      - ETCD_NAME=etcd                                       # 节点名称
-      - ETCD_DATA_DIR=/etcd/data                             # 数据目录
-      - ETCD_LOGGER=zap                                      # 日志类型
-      - ETCD_LOG_LEVEL=INFO                                  # 日志级别
-      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379          # 设置监听客户端通讯的URL列表(对外提供服务)
-      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379          # 告知集群自己的客户端地址
-      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380            # 用于监听伙伴通讯的URL列表
-      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd:2380    # 告知集群自己集群通讯地址
-      - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster              # 创建集群唯一TOKEN
-      - ETCD_INITIAL_CLUSTER=etcd=http://etcd:2380           # 集群成员(逗号隔开)
-      - ETCD_INITIAL_CLUSTER_STATE=new                       # 初始化集群状态
+    # 环境变量 --env
+    environment:
+      # 允许不用密码登录
+      - ALLOW_NONE_AUTHENTICATION=yes
+      # 时区
+      - TZ=Asia/Shanghai
+      # 节点名称
+      - ETCD_NAME=etcd
+      # 数据目录
+      - ETCD_DATA_DIR=/etcd/data
+      # 日志类型
+      - ETCD_LOGGER=zap
+      # 日志级别
+      - ETCD_LOG_LEVEL=INFO
+      # 设置监听客户端通讯的URL列表(对外提供服务)
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      # 告知集群自己的客户端地址
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+      # 用于监听伙伴通讯的URL列表
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      # 告知集群自己集群通讯地址
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd:2380
+      # 创建集群唯一TOKEN
+      - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
+      # 集群成员(逗号隔开)
+      - ETCD_INITIAL_CLUSTER=etcd=http://etcd:2380
+      # 初始化集群状态
+      - ETCD_INITIAL_CLUSTER_STATE=new
 
   redis:
     image: '${REDIS_IMAGE}'
     container_name: redis
     hostname: redis
     restart: always
-    privileged: true                                         # 给予容器特权，使其具有更多权限
+    # 给予容器特权，使其具有更多权限
+    privileged: true
     networks:
       - common_net
     ports:
@@ -45,7 +65,8 @@ services:
       - './config/redis/redis.conf:/redis/redis.conf'
     environment:
       - TZ=Asia/Shanghai
-    command: ['redis-server', '/redis/redis.conf']           # 指定配置文件启动进程
+    # 指定配置文件启动进程
+    command: ['redis-server', '/redis/redis.conf']
     sysctls:
       net.core.somaxconn: 1024
 
@@ -63,14 +84,12 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - wiredTigerCacheSizeGB=1
-      - MONGO_INITDB_ROOT_USERNAME=admin                    # 用户名密码
+      - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=123456
     # --auth 表示登录 mongo 需要账号密码
     # --directoryperdb 每个数据库使用单独的文件夹
     # command: 'mongod --directoryperdb --oplogSize 128 --auth'
     command: ["mongod", "--directoryperdb", "--oplogSize", "128", "--auth","--bind_ip_all"]
-    # use test
-    # db.createUser({user:'test',pwd:'123456',roles:[{role:'readWrite',db:'test'}]});
 
   kafka:
     image: "${KAFKA_IMAGE}"
@@ -139,7 +158,6 @@ services:
     container_name: mysql
     hostname: mysql
     restart: always
-    # 给予容器特权，使其具有更多权限
     privileged: true
     networks:
       - common_net
