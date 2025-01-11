@@ -1,0 +1,43 @@
+syntax = "proto3";	// 指定proto版本
+
+package test;	    // 指定包名
+
+option go_package = "study/library/protobuf-demo/test";
+
+//        double  float   int32 int64 bool string bytes
+// Golang float64 float32 int32 int64 bool string bytes
+//
+// 对于 string  默认值是空字符串(注:是"")
+// 对于 bytes   默认值是空字节(注:应该是[]byte{}, 注意这里也不是 nil)
+// 对于 boolean 默认值是 false
+// 对于数字类型  默认值是 0
+// 对于枚举     默认值是第一个定义的枚举值, 而这个值必须是 0
+// 对于消息字段  默认值是 nil
+
+// 手机类型
+// 枚举类型第一个字段必须为 0
+enum PhoneType {
+    HOME = 0;
+    WORK = 1;
+}
+
+// 手机
+message Phone {
+    PhoneType type_id = 1;            // 手机类型
+    int64     number  = 2;            // 手机号
+    map<string, string> contacts = 3; // 联系人
+}
+
+// 每人的手机
+message Person {
+    int32  id               = 1;
+    string name             = 2;
+    repeated Phone phones   = 3;
+}
+
+// 联系簿
+message ContactBook {
+    repeated Person persons = 1;
+}
+
+// repeated 表示可重复(数组)
