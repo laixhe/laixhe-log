@@ -40,7 +40,7 @@ func main() {
 	}
 }
 
-// 跨域中间件
+// Cors 跨域中间件
 func Cors() gin.HandlerFunc {
 	return cors.New(cors.Config{
 		AllowOrigins: []string{"*"},                                       // 准许跨域请求网站,多个使用,分开,限制使用* [Access-Control-Allow-Origin]

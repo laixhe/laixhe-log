@@ -13,7 +13,7 @@ func main() {
 	//WatchGet()
 }
 
-// 写入读取
+// SetGet 写入读取
 func SetGet() {
 
 	// 配置 etcd ,创建客户端
@@ -99,7 +99,7 @@ func SetGet() {
 	}
 }
 
-// 监听某个KEY的变化
+// WatchGet 监听某个KEY的变化
 func WatchGet() {
 	// 配置 etcd
 	cli, err := clientv3.New(clientv3.Config{

@@ -203,7 +203,7 @@ func ScanListName() ([]string, error) {
 	return data, nil
 }
 
-// ScanGet 原生 SQL 查询单条单列
+// ScanGetID 原生 SQL 查询单条单列
 func ScanGetID() (int, error) {
 	var data int
 	query := "SELECT `id` FROM `user` LIMIT 1"

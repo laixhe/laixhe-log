@@ -170,7 +170,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       LANG: en_US.UTF-8
-      MYSQL_ROOT_HOST: %
+      MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: 123456
     command:
       --character-set-server=utf8mb4
