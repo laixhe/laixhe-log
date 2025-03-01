@@ -1,6 +1,6 @@
 module study
 
-go 1.23
+go 1.24
 
 require (
 	github.com/6tail/lunar-go v1.4.0
@@ -8,7 +8,7 @@ require (
 	github.com/IBM/sarama v1.45.0
 	github.com/bytedance/sonic v1.12.9
 	github.com/disintegration/imaging v1.6.2
-	github.com/dromara/carbon/v2 v2.5.2
+	github.com/dromara/carbon/v2 v2.5.3
 	github.com/elastic/go-elasticsearch/v8 v8.17.1
 	github.com/gin-contrib/cors v1.7.3
 	github.com/gin-gonic/gin v1.10.0
@@ -19,7 +19,7 @@ require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/meilisearch/meilisearch-go v0.31.0
 	github.com/nsqio/go-nsq v1.1.0
-	github.com/redis/go-redis/v9 v9.7.0
+	github.com/redis/go-redis/v9 v9.7.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/rs/xid v1.6.0
 	github.com/sirupsen/logrus v1.9.3
@@ -28,9 +28,9 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/xuri/excelize/v2 v2.9.0
 	go.etcd.io/etcd/client/v3 v3.5.18
-	go.mongodb.org/mongo-driver v1.17.2
+	go.mongodb.org/mongo-driver v1.17.3
 	go.uber.org/zap v1.27.0
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.35.0
 	google.golang.org/protobuf v1.36.5
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gorm.io/driver/mysql v1.5.7

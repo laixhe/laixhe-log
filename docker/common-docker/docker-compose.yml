@@ -18,8 +18,8 @@ services:
     # 端口映射 -p
     ports:
       - '2379:2379'
-    volumes:
-      - './data/etcd/data:/etcd/data'
+    #volumes:
+    #  - './data/etcd/data:/etcd/data'
     # 环境变量 --env
     environment:
       # 允许不用密码登录
@@ -60,13 +60,13 @@ services:
       - common_net
     ports:
       - '6379:6379'
-    volumes:
-      - './data/redis/data:/redis/data'
-      - './config/redis/redis.conf:/redis/redis.conf'
+    #volumes:
+    #  - './data/redis/data:/redis/data'
+    #  - './config/redis/redis.conf:/redis/redis.conf'
     environment:
       TZ: Asia/Shanghai
     # 指定配置文件启动进程
-    command: ['redis-server', '/redis/redis.conf']
+    command: ['redis-server', '--appendonly', 'yes']
     sysctls:
       net.core.somaxconn: 1024
 
@@ -79,8 +79,8 @@ services:
       - common_net
     ports:
       - '27017:27017'
-    volumes:
-      - './data/mongo/data:/data'
+    #volumes:
+    #  - './data/mongo/data:/data'
     environment:
       TZ: Asia/Shanghai
       wiredTigerCacheSizeGB: 1
@@ -89,7 +89,7 @@ services:
     # --auth 表示登录 mongo 需要账号密码
     # --directoryperdb 每个数据库使用单独的文件夹
     # command: 'mongod --directoryperdb --oplogSize 128 --auth'
-    command: ['mongod', '--directoryperdb', '--oplogSize', '128', '--auth','--bind_ip_all']
+    command: ['mongod', '--directoryperdb', '--oplogSize', '128', '--auth', '--bind_ip_all']
 
   kafka:
     image: '${KAFKA_IMAGE}'
@@ -100,8 +100,8 @@ services:
       - common_net
     ports:
       - '9092:9092'
-    volumes:
-      - './data/kafka/data:/kafka/data'
+    #volumes:
+    #  - './data/kafka/data:/kafka/data'
     environment:
       TZ: Asia/Shanghai
       # 允许使用 kraft，即替代 Zookeeper
@@ -143,9 +143,9 @@ services:
       - common_net
     ports:
       - '5432:5432'
-    volumes:
-      - './data/postgresql/data:/var/lib/postgresql/data'
-      - './data/postgresql/log:/var/log/postgresql'
+    #volumes:
+    #  - './data/postgresql/data:/var/lib/postgresql/data'
+    #  - './data/postgresql/log:/var/log/postgresql'
     environment:
       TZ: Asia/Shanghai
       PGTZ: Asia/Shanghai
@@ -163,10 +163,10 @@ services:
       - common_net
     ports:
       - '3306:3306'
-    volumes:
-      - './data/mysql/logs/:/var/log/mysql'
-      - './data/mysql/data/:/var/lib/mysql'
-      - './config/mysql/my.cnf:/etc/my.cnf'
+    #volumes:
+    #  - './data/mysql/logs/:/var/log/mysql'
+    #  - './data/mysql/data/:/var/lib/mysql'
+    #  - './config/mysql/my.cnf:/etc/mysql/conf.d/my.cnf'
     environment:
       TZ: Asia/Shanghai
       LANG: en_US.UTF-8
@@ -175,6 +175,9 @@ services:
     command:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
+      --general_log=1
+      --general_log_file=/var/log/mysql/general.log
+      --log-error=/var/log/mysql/error.log
 
   minio:
     image: '${MINIO_IMAGE}'
@@ -186,9 +189,9 @@ services:
     ports:
       - '9000:9000'
       - '9090:9090'
-    volumes:
-      - './data/minio/data:/data'
-      - './data/minio/config:/root/.minio'
+    #volumes:
+    #  - './data/minio/data:/data'
+    #  - './data/minio/config:/root/.minio'
     environment:
       TZ: Asia/Shanghai
       MINIO_ROOT_USER: root
@@ -204,8 +207,8 @@ services:
       - common_net
     ports:
       - '7700:7700'
-    volumes:
-      - './data/meilisearch/data:/meili_data'
+    #volumes:
+    #  - './data/meilisearch/data:/meili_data'
     environment:
       TZ: Asia/Shanghai
       # 环境 production 禁用了搜索预览界面 或 development 启用了搜索预览功能
@@ -224,9 +227,9 @@ services:
     ports:
       - '2181:2181'
       - '8080:8080'
-    volumes:
-      - './data/zookeeper/data:/data'
-      - './data/zookeeper/datalog:/datalog'
+    #volumes:
+    #  - './data/zookeeper/data:/data'
+    #  - './data/zookeeper/datalog:/datalog'
     environment:
       TZ: Asia/Shanghai
       ZOO_MY_ID: 1
