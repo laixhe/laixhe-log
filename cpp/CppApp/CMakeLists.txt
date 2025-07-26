@@ -1,13 +1,13 @@
 # 用于构建 CMake 项目 CMake 最低版本
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.23)
 
 # 项目名称和版本 ( CXX 代表使用 C++ 语言 )( C 代表使用 C 语言)
 project(cppapp VERSION 1.0 LANGUAGES CXX)
 
 #set(CMAKE_C_STANDARD 99)             # 指定 C 编译版本
-set(CMAKE_CXX_STANDARD 17)           # 指定 C++ 编译版本
-set(CMAKE_CXX_STANDARD_REQUIRED ON)  # 并要求编译器支持此 C++ 标准
-set(CMAKE_BUILD_TYPE Debug)          # Debug Release
+set(CMAKE_CXX_STANDARD 20)            # 指定 C++ 编译版本
+set(CMAKE_CXX_STANDARD_REQUIRED ON)   # 并要求编译器支持此 C++ 标准
+set(CMAKE_BUILD_TYPE Debug)           # Debug Release
 
 # 查找当前目录下的所有源文件
 # 并将名称保存到 DIR_SRCS 变量

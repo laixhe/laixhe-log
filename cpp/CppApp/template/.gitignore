@@ -1,5 +1,3 @@
-.idea/
-.vscode/
 build/
 CMakeFiles/
 cmake-build-*
@@ -11,4 +9,3 @@ Makefile
 *.a
 *.dll
 *.exe
-cppapp

@@ -28,13 +28,16 @@
 
 #### CMakeLists 文件
 ```
-# 工程(项目)名
-project(test_cpp)
 # cmake 最低版本需求
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.23)
+
+# 项目名称和版本 ( CXX 代表使用 C++ 语言 )( C 代表使用 C 语言)
+project(test_cpp VERSION 1.0 LANGUAGES CXX)
 
 # 指定 C++ 编译版本
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+# 并要求编译器支持此 C++ 标准
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 项目目录 ${PROJECT_SOURCE_DIR}  
 

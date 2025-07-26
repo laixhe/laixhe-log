@@ -1,11 +1,14 @@
 #include <iostream>
 
-#include "class_singleton.h"
+#include "std_chrono.h"
 
 int main(){
 
-    Singleton& mySingleton = getSingletonInstance();
-    mySingleton.doSomething();
+    auto stdChrono = new StdChrono();
+    stdChrono->Timestamp();
+    stdChrono->Format();
+    stdChrono->Compute();
+    delete stdChrono;
 
     return 0;
 }

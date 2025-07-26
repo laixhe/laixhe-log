@@ -1,14 +1,12 @@
 #ifndef STDSTRING_H
 #define STDSTRING_H
 
-#include <iostream>
-
 class StdString
 {
 public:
     StdString();
 
-    void Var();
+    void Format(); // 格式化
 };
 
 #endif // STDSTRING_H
