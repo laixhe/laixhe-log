@@ -32,5 +32,4 @@ void StdString::Format(){
     // 使用位置参数
     std::string format2 = std::format("age={1} name={0}", name, age);
     std::cout << "format2: " << format2 << std::endl;
-
 }

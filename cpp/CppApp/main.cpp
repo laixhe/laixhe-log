@@ -1,14 +1,10 @@
 #include <iostream>
 
-#include "std_chrono.h"
+#include "std_string.h"
 
 int main(){
 
-    auto stdChrono = new StdChrono();
-    stdChrono->Timestamp();
-    stdChrono->Format();
-    stdChrono->Compute();
-    delete stdChrono;
-
+    auto str = new StdString();
+    str->Format();
     return 0;
 }

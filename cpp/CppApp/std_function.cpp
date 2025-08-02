@@ -1,6 +1,5 @@
 #include "std_function.h"
 
-
 // 内联函数
 //
 // 为了解决一些频繁调用小函数消耗大量栈空间的问题，引入了inline内联函数
@@ -66,7 +65,6 @@ void func_lambda(){
         return v1 + v2;
     };
     std::cout << "func... " << func(22, 33) << std::endl;
-
 }
 
 // 使用 Lambda 表达式递归计算 N
@@ -75,7 +73,6 @@ void func_lambda(){
 // 在函数调用的时候将 Lambda 表达式作为参数传递给下一层函数
 // 利用了 引用捕获 和 std::function
 void func_lambda_recursion(){
-    
     std::function<int(int)> f = [&f](int n) {
         if (n == 0 || n == 1) {
             return 1;
@@ -83,17 +80,13 @@ void func_lambda_recursion(){
 
         return n * f(n - 1);
     };
-
     std::cout << f(5) << std::endl;
 }
 
 // 初始化列表(有点想变长参数) [C++11]
 void func_initializer_list(std::initializer_list<int> list){
-    
     std::cout << "len=" << list.size() << std::endl;
-
     for(int i : list) {
         std::cout << i << std::endl;
     }
-
 }

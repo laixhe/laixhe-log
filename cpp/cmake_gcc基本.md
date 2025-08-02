@@ -1,4 +1,3 @@
-
 #### GCC
 
 > 预处理-编译-汇编-链接
@@ -19,7 +18,6 @@
 -D     定义必要的宏
 ```
 
-
 #### cmake
 ```
 -G   指定一个明确的编译环境
@@ -29,7 +27,7 @@
 #### CMakeLists 文件
 ```
 # cmake 最低版本需求
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.30)
 
 # 项目名称和版本 ( CXX 代表使用 C++ 语言 )( C 代表使用 C 语言)
 project(test_cpp VERSION 1.0 LANGUAGES CXX)
@@ -58,5 +56,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 添加可执行文件
 add_executable(test_cpp main.cpp)
-
 ```

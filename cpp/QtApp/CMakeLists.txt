@@ -1,11 +1,11 @@
 # 用于构建 CMake 项目 CMake 最低版本
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.23)
 
 # 项目名称和版本 ( CXX 代表使用 C++ 语言 )
 project(QtApp VERSION 0.1 LANGUAGES CXX)
 
 # 指定 C++ 编译版本，并要求编译器支持此 C++ 标准
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #set(CMAKE_BUILD_TYPE Debug)  # Debug Release
 

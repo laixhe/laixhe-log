@@ -70,15 +70,14 @@ void StdChrono::Format()
     std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
     // 转换为旧式接口，单位:秒
     std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
-    // 将 time_t 对象转换为本地时间
-    struct tm cutTm = {0};
-    std::tm *localTime = localtime_r(&currentTime, &cutTm);
 
-    // 格式化输出日期和时间
-    std::ostringstream oss;
-    oss << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
-
-    std::cout << "格式化时间: " << oss.str() << std::endl;
+    // // 将 time_t 对象转换为本地时间
+    // struct tm cutTm = {0};
+    // std::tm *localTime = localtime_r(&currentTime, &cutTm);
+    // // 格式化输出日期和时间
+    // std::ostringstream oss;
+    // oss << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
+    // std::cout << "格式化时间: " << oss.str() << std::endl;
 
     // [C++20]
     std::cout << "Date: " << std::format("{:%Y-%m-%d %H:%M:%S}", now) << std::endl;
