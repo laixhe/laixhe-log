@@ -1,0 +1,14 @@
+.idea/
+.vscode/
+build/
+CMakeFiles/
+cmake-build-*
+
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+
+*.a
+*.dll
+*.exe
+cppapp

@@ -1,0 +1,203 @@
+networks:
+  common_net:
+    driver: bridge
+
+services:
+  # 服务名称为 etcd 该名称主要用于容器之间服务的 dns 解析
+  etcd:
+    # 使用的镜像
+    image: '${ETCD_IMAGE}'
+    # 容器的名称 --name
+    container_name: etcd
+    hostname: etcd
+    # 容器开机自启
+    restart: always
+    # 网络 --network
+    networks:
+      - common_net
+    # 端口映射 -p
+    ports:
+      - '2379:2379'
+    #volumes:
+    #  - './data/etcd/data:/etcd/data'
+    # 环境变量 --env
+    environment:
+      # 允许不用密码登录
+      ALLOW_NONE_AUTHENTICATION: yes
+      # 时区
+      TZ: Asia/Shanghai
+      # 节点名称
+      ETCD_NAME: etcd
+      # 数据目录
+      ETCD_DATA_DIR: /etcd/data
+      # 日志类型
+      ETCD_LOGGER: zap
+      # 日志级别
+      ETCD_LOG_LEVEL: INFO
+      # 设置监听客户端通讯的URL列表(对外提供服务)
+      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
+      # 告知集群自己的客户端地址
+      ETCD_ADVERTISE_CLIENT_URLS: http://etcd:2379
+      # 用于监听伙伴通讯的URL列表
+      ETCD_LISTEN_PEER_URLS: http://0.0.0.0:2380
+      # 告知集群自己集群通讯地址
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: http://etcd:2380
+      # 创建集群唯一TOKEN
+      ETCD_INITIAL_CLUSTER_TOKEN: etcd-cluster
+      # 集群成员(逗号隔开)
+      ETCD_INITIAL_CLUSTER: etcd=http://etcd:2380
+      # 初始化集群状态
+      ETCD_INITIAL_CLUSTER_STATE: new
+
+  redis:
+    image: '${REDIS_IMAGE}'
+    container_name: redis
+    hostname: redis
+    restart: always
+    # 给予容器特权，使其具有更多权限
+    privileged: true
+    networks:
+      - common_net
+    ports:
+      - '6379:6379'
+    environment:
+      TZ: Asia/Shanghai
+    # 指定配置文件启动进程
+    command: ['redis-server', '--appendonly', 'yes']
+
+  mongo:
+    image: '${MONGO_IMAGE}'
+    container_name: mongo
+    hostname: mongo
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - '27017:27017'
+    environment:
+      TZ: Asia/Shanghai
+      wiredTigerCacheSizeGB: 1
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    # --auth 表示登录 mongo 需要账号密码
+    # --directoryperdb 每个数据库使用单独的文件夹
+    # command: 'mongod --directoryperdb --oplogSize 128 --auth'
+    command: ['mongod', '--directoryperdb', '--oplogSize', '128', '--auth', '--bind_ip_all']
+
+  kafka:
+    image: '${KAFKA_IMAGE}'
+    container_name: kafka
+    hostname: kafka
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - '9092:9092'
+    environment:
+      TZ: Asia/Shanghai
+      # 节点ID
+      KAFKA_NODE_ID: 1
+      # 角色，做 broker 也要做 controller
+      KAFKA_PROCESS_ROLES: broker,controller
+      # 定义服务端监听端口（Docker 内部的 ip 地址和端口）
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      # 定义外网访问地址（宿主机ip地址和端口）ip 不能是 0.0.0.0
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      # 指定供外部使用的控制类请求信息
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      # 定义安全协议
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      # 集群地址
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # 每个 topic 的默认分区数
+      KAFKA_NUM_PARTITIONS: 3
+
+  postgresql:
+    image: '${PG_IMAGE}'
+    container_name: postgresql
+    hostname: postgresql
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - '5432:5432'
+    environment:
+      TZ: Asia/Shanghai
+      PGTZ: Asia/Shanghai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: postgres
+
+  mysql:
+    image: '${MYSQL_IMAGE}'
+    container_name: mysql
+    hostname: mysql
+    restart: always
+    privileged: true
+    networks:
+      - common_net
+    ports:
+      - '3306:3306'
+    environment:
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 123456
+    command:
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --general_log=1
+      --general_log_file=/var/log/mysql/general.log
+      --log-error=/var/log/mysql/error.log
+
+  minio:
+    image: '${MINIO_IMAGE}'
+    container_name: minio
+    hostname: minio
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - '9000:9000'
+      - '9090:9090'
+    environment:
+      TZ: Asia/Shanghai
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: 12345678
+    command: minio server /data --console-address ':9090'
+
+  meilisearch:
+    image: '${MEILISEARCH_IMAGE}'
+    container_name: meilisearch
+    hostname: meilisearch
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - '7700:7700'
+    environment:
+      TZ: Asia/Shanghai
+      # 环境 production 禁用了搜索预览界面 或 development 启用了搜索预览功能
+      #MEILI_ENV: development
+      # 如果是 production 模式，则必须要提供主密钥；如果是 development 模式，则可以不提供主密钥
+      # 如果你没有提供主密钥或提供的密钥长度小于 16 字节，Meilisearch 都会建议你使用一个自动生成的主密钥
+      #MEILI_MASTER_KEY: 123456
+
+  zookeeper:
+    image: '${ZOOKEEPER_IMAGE}'
+    container_name: zookeeper
+    hostname: zookeeper
+    restart: always
+    networks:
+      - common_net
+    ports:
+      - '2181:2181'
+      - '8080:8080'
+    environment:
+      TZ: Asia/Shanghai
+      ZOO_MY_ID: 1
+      ALLOW_ANONYMOUS_LOGIN: yes
