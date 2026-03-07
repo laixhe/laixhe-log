@@ -15,3 +15,85 @@
 2. 全局区：存放全局变量和静态变量以及常量，在程序结束后由操作系统释放(数据段)
 3. 栈区：由编译其自动分配和释放，存放函数的参数值以及局部变量，因此不要返回局部变量的地址(自动分配和释放)
 4. 堆区：一般由程序员通过 `new` 开辟空间，进行分配和释放，若程序员不释放，则程序结束时由操作系统回收(需要主动去申请和释放)
+
+```
+// 类型安全的格式化（替代 printf/iostream）
+// [C++ 20]
+#include <format>
+
+// 专为处理原始字节数据而设计
+// [C++ 17] #include <cstddef>
+std::byte
+
+// 任意类型
+// [C++ 17]
+#include <any>
+
+// 可选值
+// [C++ 17]
+#include <optional>
+  std::optional<T>
+  std::nullopt 可空
+
+// 错误处理
+// [C++ 23]
+#include <expected>
+
+// 复合数据
+#include <utility> std::pair   用于存储两个不同类型的对象（std::make_pair）
+#include <array>   // [C++ 11] 数组
+#include <tuple>   // [C++ 17] 元组
+#include <variant> // [C++ 17] 类型安全的联合体（std::monostate）
+
+// 字符串与数值互转
+// [C++ 17]
+#include <charconv>
+
+// 智能指针
+// [C++ 11]
+#include <memory>
+
+// 互斥锁（独占锁）
+// [C++ 11]
+#include <mutex>
+
+// 共享锁（读写锁与独占锁）
+// [C++ 17]
+#include <shared_mutex>
+
+// 处理时间和日期
+// [C++ 11]
+#include <chrono>
+
+// 位操作
+// [C++ 20]
+#include <bit>
+
+// 连续内存访问抽象（替代裸指针与 std::vector 引用）
+// [C++ 20]
+#include <span>
+  std::span<T>
+
+// 内存流（文本/二进制）（基于 std::span）
+// [C++ 23]
+#include <spanstream>
+  std::ispanstream 输入流（只读）（对应传统流 istringstream）
+  std::ospanstream 输出流（只写）（对应传统流 ostringstream）
+  std::spanstream  双向流（读+写）（对应传统流 stringstream）
+
+// 路径与文件操作
+// [C++ 17]
+#include <filesystem>
+
+// 原子操作
+// [C++ 11]
+#include <atomic>
+
+// 多线程
+// [C++ 11]
+#include <thread>
+
+// 协程
+// [C++ 20]
+#include <coroutine>
+```

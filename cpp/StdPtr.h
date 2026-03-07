@@ -1,8 +1,7 @@
-#ifndef STDPTR_H
-#define STDPTR_H
+#ifndef CPPAPP_STDPTR_H
+#define CPPAPP_STDPTR_H
 
 #include <memory>
-
 
 // 智能指针 [C++11]
 // #include <memory>
@@ -17,4 +16,11 @@
 // auto ptr = std::make_unique<A>();     // 推荐
 // std::unique_ptr<A> tem = ptr;         // 不允许移动，编译失败
 
-#endif // STDPTR_H
+class StdPtr
+{
+    public:
+    StdPtr();
+};
+
+
+#endif //CPPAPP_STDPTR_H
