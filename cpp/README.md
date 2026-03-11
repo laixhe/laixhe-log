@@ -17,9 +17,39 @@
 4. 堆区：一般由程序员通过 `new` 开辟空间，进行分配和释放，若程序员不释放，则程序结束时由操作系统回收(需要主动去申请和释放)
 
 ```
+// 统一的字符字面量
+#include <string>
+char8_t   std::u8string   u8""  [C++ 20] UTF-8
+char16_t  std::u16string  u""   [C++ 11] UTF-16
+char32_t  std::u32string  U""   [C++ 11] UTF-32
+
+// 带分隔的转义序列
+// [C++ 23]
+\o{}  八进制
+\x{}  十六进制
+\u{}  16位 Unicode 码点
+\U{}  32位 Unicode 码点
+
+// 固定宽度的整数类型
+// [C++ 11]
+#include <cstdint>
+  std::int8_t     std::uint8_t
+  std::int16_t    std::uint16_t
+  std::int32_t    std::uint32_t
+  std::int64_t    std::uint64_t
+  std::INT8_MIN   std::INT8_MAX   std::UINT8_MAX
+  std::INT16_MIN  std::INT16_MAX  std::UINT16_MAX
+  std::INT32_MIN  std::INT32_MAX  std::UINT32_MAX
+  std::INT64_MIN  std::INT64_MAX  std::UINT64_MAX
+  intptr_t uintptr_t 用于存储指针的整数类型，确保可以存储任何指针值的整数
+
 // 类型安全的格式化（替代 printf/iostream）
 // [C++ 20]
 #include <format>
+
+// 只读字符串视图（只读字符串引用，不分配内存、不复制数据）
+// [C++ 17]
+#include <string_view>
 
 // 专为处理原始字节数据而设计
 // [C++ 17] #include <cstddef>
@@ -68,6 +98,8 @@ std::byte
 // 位操作
 // [C++ 20]
 #include <bit>
+  std::endian    获取标量类型的端序（大小端）
+  std::byteswap  [C++23] 反转任何整数类型的字节序
 
 // 连续内存访问抽象（替代裸指针与 std::vector 引用）
 // [C++ 20]
@@ -85,6 +117,11 @@ std::byte
 // [C++ 17]
 #include <filesystem>
 
+// 范围操作
+// [C++ 20]
+#include <ranges>
+  std::views 处理数据（过滤、变换、切片）
+
 // 原子操作
 // [C++ 11]
 #include <atomic>
@@ -96,4 +133,8 @@ std::byte
 // 协程
 // [C++ 20]
 #include <coroutine>
+
+// 并行执行策略（结构化并发）
+// [C++ 17 26]
+#include <execution>
 ```
