@@ -1,6 +1,8 @@
 #ifndef CPPAPP_STDCONST_H
 #define CPPAPP_STDCONST_H
 
+#include <iostream>
+
 class StdConst
 {
 public:

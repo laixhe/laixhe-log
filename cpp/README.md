@@ -43,6 +43,12 @@ char32_t  std::u32string  U""   [C++ 11] UTF-32
   std::INT64_MIN  std::INT64_MAX  std::UINT64_MAX
   intptr_t uintptr_t 用于存储指针的整数类型，确保可以存储任何指针值的整数
 
+// 格式化输出（基于 format）
+// [C++ 23]
+#include <print>
+std::print
+std::println
+
 // 类型安全的格式化（替代 printf/iostream）
 // [C++ 20]
 #include <format>
@@ -71,9 +77,15 @@ std::byte
 
 // 复合数据
 #include <utility> std::pair   用于存储两个不同类型的对象（std::make_pair）
-#include <array>   // [C++ 11] 数组
-#include <tuple>   // [C++ 17] 元组
-#include <variant> // [C++ 17] 类型安全的联合体（std::monostate）
+#include <array>    // [C++ 11] 数组
+#include <tuple>    // [C++ 17] 元组
+#include <variant>  // [C++ 17] 类型安全的联合体（多态值）（std::monostate）
+#include <flat_map> // [C++ 23] 基于连续内存存储有序元素（用于小型数据集或频繁查找的场景）
+#include <flat_set> // [C++ 23] 基于连续内存存储有序元素（用于小型数据集或频繁查找的场景）
+
+// 交换（用新值替换对象的值，并返回对象的旧值）
+// [C++ 14]
+#include <utility> std::exchange
 
 // 字符串与数值互转
 // [C++ 17]
@@ -82,6 +94,10 @@ std::byte
 // 智能指针
 // [C++ 11]
 #include <memory>
+std::unique_ptr  std::make_unique [C++14]  独占所有权，不可拷贝，可移动。管理单个动态对象的最佳默认选择
+std::shared_ptr  std::make_shared          共享所有权，引用计数。用于需要多个地方共享访问的对象
+std::weak_ptr                              配合 shared_ptr 使用，解决循环引用问题，不增加引用计数
+#include <utility> std::move [C++11]       资源转移而非拷贝
 
 // 互斥锁（独占锁）
 // [C++ 11]
@@ -133,6 +149,9 @@ std::byte
 // 协程
 // [C++ 20]
 #include <coroutine>
+co_await  等待外部事件
+co_yield  返回中间值
+co_return 返回最终结果
 
 // 并行执行策略（结构化并发）
 // [C++ 17 26]

@@ -1,7 +1,5 @@
 #include "StdConst.h"
 
-#include <iostream>
-
 // 常量指针(锁数据，不锁指针)
 void StdConst::ConstPointer()
 {
