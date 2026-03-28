@@ -31,7 +31,7 @@ char32_t  std::u32string  U""   [C++ 11] UTF-32
 \U{}  32位 Unicode 码点
 
 // 固定宽度的整数类型
-// [C++ 11]
+// [C++ 11][C++ 23]
 #include <cstdint>
   std::int8_t     std::uint8_t
   std::int16_t    std::uint16_t
@@ -42,6 +42,11 @@ char32_t  std::u32string  U""   [C++ 11] UTF-32
   std::INT32_MIN  std::INT32_MAX  std::UINT32_MAX
   std::INT64_MIN  std::INT64_MAX  std::UINT64_MAX
   intptr_t uintptr_t 用于存储指针的整数类型，确保可以存储任何指针值的整数
+  float16_t
+  float32_t
+  float64_t
+  float128_t
+  bfloat16_t
 
 // 格式化输出（基于 format）
 // [C++ 23]

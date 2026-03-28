@@ -1,40 +1,56 @@
-### Cargo 基本命令
+### rustup 基本命令
+
+```
+rustup
+    target  # 添加目标架构
+            add xxx
+```
+
+### cargo 基本命令
+
 ```
 cargo
-      init    xxx  # 初始化当前所在目录
-      new     xxx  # 创建项(初始化一个新的目录)
-      install xxx  # 安装依赖
-      add     xxx  # 添加依赖关系
-      remove  xxx  # 删除依赖关系
-      build   xxx  # 编译项目
-      run     xxx  # 运行项目
-      update  xxx  # 更新依赖
-      clean   xxx  # 清理构建目录(默认 target)
-      check   xxx  # 检查语法
-      fmt     xxx  # 格式代码
-      test    xxx  # 测试
-      bench        # 分析代码性能
-      tree         # 查看库依赖关系
-      doc          # 生成文档
-      publish      # 发布模块
+    init    xxx  # 初始化当前所在目录
+    new     xxx  # 创建项(初始化一个新的目录)
+            [--lib 库]
+    install xxx  # 安装依赖
+    add     xxx  # 添加依赖关系
+    remove  xxx  # 删除依赖关系
+    build        # 编译项目
+            [--release 发布构建(默认 debug)]
+            [--target xxx 指定架构库]
+    run          # 运行项目
+    update       # 更新依赖
+            [-p xxx 指定库]
+    clean   xxx  # 清理构建目录(默认 target)
+    check   xxx  # 检查语法
+    fmt     xxx  # 格式代码
+    test    xxx  # 测试
+    bench        # 分析代码性能
+    tree         # 查看库依赖关系
+    doc          # 生成文档
+    publish      # 发布模块
 
---version          # 版本
---lib         xxx  # 指定为库
---release          # 发布构建(默认 debug)
---target      xxx  # 指定架构库
---features xxx[full]  # 指定库的特征
--p            xxx  # 指定库
+--version        # 版本
+--lib       xxx  # 指定为库
+--features  xxx[full]  # 指定库的特征
 ```
 
+### 基本命令
+
 ```
-# 指定编译架构库
+# 添加目标架构
+rustup target add x86_64-unknown-linux-gnu
+# 构建发布指定编译架构库
 cargo build --target x86_64-apple-ios --release
 # 指定更新依赖
 cargo update -p time
 ```
 
 ### 工作空间(workspace)
+
 - vim Cargo.toml
+
 ```
 [workspace]
 
@@ -46,7 +62,9 @@ members = [
 ```
 
 ### 项目空间(package)
+
 - vim Cargo.toml
+
 ```
 # 配置项目信息
 [package]
@@ -64,4 +82,32 @@ rand = { git = "https://github.com/rust-lang-nursery/rand", version = "0.8" }
 ## 从 crates.io 指定依赖项(默认)
 rand = "0.8"
 tokio = { version = "1.23", features = ["full"] }
+```
+
+### 使用 release 配置编译
+
+- vim Cargo.toml
+
+```
+[profile.release]
+# 最高优化级别
+opt-level=3
+# 剥离调试符号，减小二进制体积
+strip=true
+# 开启链接时优化（让编译器在链接阶段对整个程序进行全局优化）
+lto=true
+# 使用单个代码生成单元，提升优化效果（会拖慢编译速度，但能让优化器做出更好的决策）
+codegen-units=1
+```
+
+### 使用 dev 配置编译
+
+- vim Cargo.toml
+
+```
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
 ```

@@ -1,5 +1,5 @@
-##### Option 类型
-- 是 Rust 标准库中的一个枚举类型
+##### `Option` 类型
+- 是 `Rust` 标准库中的一个枚举类型
 
 ```
 enum Option<T> {

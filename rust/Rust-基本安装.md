@@ -1,4 +1,4 @@
-##### 安装前设置安装目录(可选)
+#### 安装前设置安装目录
 ```
 # cargo的安装路径
 export CARGO_HOME=xxx
@@ -6,17 +6,14 @@ export CARGO_HOME=xxx
 export RUSTUP_HOME=xxx
 ```
 
-##### 安装前设置 rustup-init为在线安装工具为设置国内镜像(可选)
+#### 安装前设置 rustup-init为在线安装工具为设置国内镜像
 ```
-export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static 
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
 export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 ```
 
-##### 安装地址
-> https://www.rust-lang.org/learn/get-started
-
-##### 为第三方库设置国内镜像
-> 为 $HOME/.cargo 目录下建一个名为 config 的文本文件( ~/.cargo/config )
+#### 为第三方库设置国内镜像
+> 为 $HOME/.cargo 目录下建一个名为 config 的文本文件( ~/.cargo/config.toml )
 
 ```
 [source.crates-io] 
@@ -55,6 +52,7 @@ registry = "https://code.aliyun.com/rustcc/crates.io-index"
 git-fetch-with-cli = true
 ```
 
+#### 工具链架构
 ```
 # 更新工具链
 rustup update [stable]
@@ -67,5 +65,10 @@ rustup self uninstall
 rustup target list
 # 添加架构目标
 rustup target add aarch64-apple-ios x86_64-apple-ios
+```
 
+#### 简化跨平台编译
+```
+cargo install cargo-zigbuild
+cargo zigbuild --target x86_64-unknown-linux-gnu --release
 ```
