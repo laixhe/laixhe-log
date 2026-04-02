@@ -2,11 +2,33 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"testing"
+
+	"github.com/quic-go/quic-go/http3"
 )
 
 // net/http 提供了基础的 Web 功能，即监听端口，映射静态路由，解析 HTTP 报文
+
+// HTTP/3 服务
+func TestHttp3Serve(t *testing.T) {
+	// HTTP/3 Server
+	server := &http3.Server{
+		Addr: ":443",
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Write([]byte("Hello over HTTP/3!"))
+		}),
+	}
+
+	// 启用 HTTP/3
+	go func() {
+		log.Fatal(server.ListenAndServeTLS("cert.pem", "key.pem"))
+	}()
+
+	// HTTP/1.1 和 HTTP/2 兼容
+	log.Fatal(http.ListenAndServeTLS(":443", "cert.pem", "key.pem", nil))
+}
 
 // 最简单的 HTTP 服务
 func TestHttpServe(t *testing.T) {
