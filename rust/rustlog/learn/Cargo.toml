@@ -1,8 +1,9 @@
 [package]
-name = "tcpserver"
+name = "learn"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 # 引用 Workspace 共享依赖
-#serde = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

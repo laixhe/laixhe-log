@@ -36,7 +36,15 @@ cargo
 --features  xxx[full]  # 指定库的特征
 ```
 
-### 基本命令
+```
+# 加依赖，直接编辑 Cargo.toml 或者用命令
+cargo add serde --features derive
+cargo add serde_json
+# 编译运行
+cargo run --release
+```
+
+### 目标架构
 
 ```
 # 添加目标架构
@@ -79,9 +87,12 @@ authors = ["laixhe <laixhe@laixhe.com>"]
 my-lib = { path = "../my-lib" }
 ## 从 git 仓库指定依赖
 rand = { git = "https://github.com/rust-lang-nursery/rand", version = "0.8" }
+
 ## 从 crates.io 指定依赖项(默认)
-rand = "0.8"
-tokio = { version = "1.23", features = ["full"] }
+# Serde 核心库，启用 derive 宏，自动生成 trait 实现
+serde = { version = "1.0", features = ["derive"] }
+# JSON 格式适配器
+serde_json = "1.0"
 ```
 
 ### 使用 release 配置编译
