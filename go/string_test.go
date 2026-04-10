@@ -25,6 +25,8 @@ type stringStruct struct {
 
 // 字符串基本使用
 func TestString(t *testing.T) {
+	// 以空白字符分隔字符串
+	fmt.Println(strings.Fields("1 2	3 	4")) // 结果：[1 2 3 4]
 	// 分隔字符串
 	fmt.Println(strings.Split("1,2,3", ",")) // 结果：[1 2 3]
 	// 切割字符串（只切割第一个出现的）
@@ -42,6 +44,7 @@ func TestString(t *testing.T) {
 
 	// 替换字符串（-1 表示替换全部）
 	fmt.Println(strings.Replace("aaa替换aaa字符串aaa", "a", "", -1)) // 结果：替换字符串
+	fmt.Println(strings.ReplaceAll("aaa替换aaa字符串aaa", "a", ""))  // 结果：替换字符串
 	// 替换字符串(多个)-使用特定规则(成对出现)对字符串进行替换操作
 	fmt.Println(strings.NewReplacer("<", "&lt;", ">", "&gt;").Replace("替换<字符串>规则")) // 结果：替换&lt;字符串&gt;规则
 

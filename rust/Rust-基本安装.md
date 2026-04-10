@@ -72,3 +72,52 @@ rustup target add aarch64-apple-ios x86_64-apple-ios
 cargo install cargo-zigbuild
 cargo zigbuild --target x86_64-unknown-linux-gnu --release
 ```
+
+#### 让 Rust 编译更快
+```
+# 将已构建的内容缓存到本地
+cargo install sccache --locked
+# 有提供二进制文件 https://github.com/mozilla/sccache/releases
+
+# 检查状态
+sccache --show-stats
+
+vim $HOME/.cargo/config.toml
+[build]
+rustc-wrapper = ".cargo/bin/sccache"
+```
+
+```
+# 在 ~/.cargo/config.toml 中添加
+[build]
+# 设置最大并行编译单元数（建议设为 CPU 核心数）
+jobs = 8
+# 缓存编译
+rustc-wrapper = "sccache"
+
+
+# 在 Cargo.toml 中添加
+[profile.dev]
+# 启用增量编译
+incremental = true
+# 自定义优化级别减少最终构建差异（0~3）
+opt-level = 0
+# 并行代码生成单元数（1~16）
+codegen-units = 16
+# 是否保留调试信息
+debug = true
+
+[profile.dev.package."*"]
+# 依赖包适度优化，平衡性能与速度
+opt-level = 2
+ 
+[profile.release]
+# 启用最高级别优化
+opt-level = 3
+# 减少代码生成单元数量，提高优化效果
+codegen-units = 1
+# 是否链接时优化，提升性能
+lto = true
+# 是否剥离调试符号，减少二进制体积
+strip = true
+```
