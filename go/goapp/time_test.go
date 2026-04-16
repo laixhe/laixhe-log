@@ -40,10 +40,10 @@ func TestTime(t *testing.T) {
 	timeUnixNow := time.Unix(timeUnix, 0)
 
 	fmt.Println("获取当前时间对象:", timeNow)         // 结果: 2025-06-21 17:18:39.1714361 +0800 CST m=+0.002067001
-	fmt.Println("获取当前时间戳:", timeUnix)          // 结果: 1750497519
-	fmt.Println("当前时间格式化:", timeFormat)        // 结果: 2025-06-21 17:18:39
-	fmt.Println("当前时间GMT格式化:", timeGMTFormat)  // 结果: Sat, 21 Jun 2025 17:18:39 GMT
-	fmt.Println("将时间戳转为时间对象:", timeUnixNow) // 结果: 2025-06-21 17:18:39 +0800 CST
+	fmt.Println("获取当前时间戳:", timeUnix)         // 结果: 1750497519
+	fmt.Println("当前时间格式化:", timeFormat)       // 结果: 2025-06-21 17:18:39
+	fmt.Println("当前时间GMT格式化:", timeGMTFormat) // 结果: Sat, 21 Jun 2025 17:18:39 GMT
+	fmt.Println("将时间戳转为时间对象:", timeUnixNow)   // 结果: 2025-06-21 17:18:39 +0800 CST
 }
 
 // 时间字符串转换时间
@@ -60,16 +60,25 @@ func TestTimeParse(t *testing.T) {
 // 计算耗时或剩余时间
 func TestTimeSinceUntil(t *testing.T) {
 	// 计算耗时
-	start := time.Now()              // 开始时间
-	time.Sleep(time.Second)          // 模拟耗时
-	elapsed := time.Since(start)     // 结束时间（计算耗时）
+	start := time.Now()          // 开始时间
+	time.Sleep(time.Second)      // 模拟耗时
+	elapsed := time.Since(start) // 结束时间（计算耗时）
 	fmt.Println("模拟耗时", elapsed) // 模拟耗时 1.000971s
 
 	// 计算剩余时间
-	deadline := time.Now().Add(3 * time.Second) // 添加 3 秒时间
-	time.Sleep(time.Second)                     // 模拟耗时
-	remaining := time.Until(deadline)           // 计算剩余时间
-	fmt.Println("剩余时间", remaining)          // 剩余时间 1.9992231s
+	deadline := time.Now().Add(3 * time.Second)    // 添加 3 秒时间
+	time.Sleep(time.Second)                        // 模拟耗时
+	remaining := time.Until(deadline)              // 计算剩余时间
+	fmt.Println("剩余时间", remaining, int(remaining)) // 剩余时间 1.9991347s 1999134700
+	time.Sleep(time.Second)
+	remaining = time.Until(deadline)
+	fmt.Println("剩余时间", remaining, int(remaining)) // 剩余时间 999.0924ms 999092400
+	time.Sleep(time.Second)
+	remaining = time.Until(deadline)
+	fmt.Println("剩余时间", remaining, int(remaining)) // 剩余时间 -1.3424ms -1342400
+	time.Sleep(time.Second)
+	remaining = time.Until(deadline)
+	fmt.Println("剩余时间", remaining, int(remaining)) // 剩余时间 -1.0013777s -1001377700
 }
 
 // 自定义时区

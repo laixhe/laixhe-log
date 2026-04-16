@@ -76,9 +76,9 @@ members = [
 ```
 # 配置项目信息
 [package]
-name = "xxx"
+name = "testrust"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 authors = ["laixhe <laixhe@laixhe.com>"]
 
 # 依赖关系
@@ -86,7 +86,11 @@ authors = ["laixhe <laixhe@laixhe.com>"]
 ## 从本地指定依赖
 my-lib = { path = "../my-lib" }
 ## 从 git 仓库指定依赖
-rand = { git = "https://github.com/rust-lang-nursery/rand", version = "0.8" }
+bevy = { git = "https://github.com/bevyengine/bevy", version = "0.19" }
+bevy = { git = "https://github.com/bevyengine/bevy", branch = "main" }
+bevy = { git = "https://github.com/bevyengine/bevy", rev = "ef69ba45b1404c08f31514c210e72fbc19a41314" }
+
+bevy = { version = "0.19", default-features = false, features = ["default_app"] }
 
 ## 从 crates.io 指定依赖项(默认)
 # Serde 核心库，启用 derive 宏，自动生成 trait 实现

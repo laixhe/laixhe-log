@@ -1,3 +1,20 @@
+#### cmake
+```
+-G   指定一个明确的编译环境
+     -G "MinGW Makefiles"
+     -G "Visual Studio 17 2022"
+     -G "Visual Studio 16 2019"
+     -G "Visual Studio 15 2017"
+-A 
+     -A Win32
+     -A x64
+
+cmake -B build -G "MinGW Makefiles"    生成构建配置目录与文件
+cmake --build build                    构建项目
+```
+
+#### CMakeLists 文件
+```
 # 用于构建 CMake 项目 CMake 最低版本
 cmake_minimum_required(VERSION 4.1)
 # 项目名称和版本 ( CXX 代表使用 C++ 语言 )( C 代表使用 C 语言)
@@ -72,3 +89,4 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT $
 # cmake -B build -G "MinGW Makefiles"    生成构建配置目录与文件
 # cmake --build build                    构建项目
 #
+```

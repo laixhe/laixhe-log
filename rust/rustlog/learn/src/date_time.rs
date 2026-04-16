@@ -10,8 +10,12 @@ use std::thread;
 // std::time::SystemTime 系统时间
 
 pub fn std_time(){
+    let start = std::time::Instant::now();
+
     let now = std::time::SystemTime::now();
     println!("当前时间：{:?}", now);
+
+    println!("计算耗时：{:?}", start.elapsed());
 }
 
 // 休眠
