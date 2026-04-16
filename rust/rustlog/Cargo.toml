@@ -5,15 +5,115 @@ edition = "2024"
 
 [workspace]
 # 依赖解析器版本（2024 Edition 默认使用 resolver = "3"，优化了依赖解析逻辑）
-resolver = "3"
+#resolver = "3"
 # 声明 Workspace 成员（支持通配符，如 "crates/*"）
-members = [
-    "learn",
-    "tcpserver",
-    "tcpclient",
-]
+members = ["mod_use"]
 
 # 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
 [workspace.dependencies]
+
+[dependencies]
+# 错误
+thiserror = "2.0"
+anyhow = "1.0"
+
+# 时间
+jiff = "0.2"
+
+# 序列化
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+ron = "0.12"
+
+# 异步运行时
+tokio = { version = "1.52", features = ["full"] }
+
+# 随机数
+rand = "0.10"
+
+# 加密( SHA256 SHA384 SHA512 )
+ring = "0.17"
+# 加密哈希( BLAKE3 )
+blake3 = "1.8"
+# 数据编码(二进制转字符串)
+data-encoding = "2.11"
+
+# jwt
+jsonwebtoken = { version = "10", features = ["aws_lc_rs"] }
+# 内存缓存
+moka = { version = "0.12", features = ["sync", "future"] }
+# 队列
+crossbeam-queue = "0.3"
+# 环形缓冲区
+ringbuf = "0.5"
+# 实现多态
+downcast-rs = "2.0"
+
+# 追踪日志-禁用冗余以提升运行时性能
+log = { version = "0.4", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+tracing = { version = "0.1", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+
+# 某个分支
+#tokio = { git = "https://github.com/tokio-rs/tokio", branch = "main" }
+# 某个标签
+#tokio = { git = "https://github.com/tokio-rs/tokio", tag = "tokio-1.52.3" }
+# 某个提交
+#tokio = { git = "https://github.com/tokio-rs/tokio", rev = "778e9d9" }
+# 路径
+#tokio = { path = "../tokio-rs" }
+
+[[example]]
+name = "json"
+path = "examples/json.rs"
+
+[[example]]
+name = "jwt"
+path = "examples/jwt.rs"
+
+[[example]]
+name = "date_time"
+path = "examples/date_time.rs"
+
+[[example]]
+# 无锁队列
+name = "crossbeam_queue_segqueue"
+path = "examples/crossbeam_queue_segqueue.rs"
+
+[[example]]
+# 实现多态
+name = "downcast"
+path = "examples/downcast.rs"
+
+[[example]]
+# 加密
+name = "ring"
+path = "examples/ring.rs"
+
+[[example]]
+# 环形缓冲区
+name = "ringbuf"
+path = "examples/ringbuf.rs"
+
+[[example]]
+# 异步内存缓存
+name = "moka_future"
+path = "examples/moka_future.rs"
+
+[[example]]
+# 同步内存缓存
+name = "moka_sync"
+path = "examples/moka_sync.rs"
+
+[[example]]
+name = "std_net_tcp_server"
+path = "examples/std_net_tcp_server.rs"
+
+[[example]]
+name = "std_net_tcp_client"
+path = "examples/std_net_tcp_client.rs"
