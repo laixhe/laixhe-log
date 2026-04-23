@@ -1,7 +1,9 @@
 ```
+cargo run -p date_time
+cargo run -p json
+cargo run -p mod_use
 cargo run -p tcpserver
 cargo run -p tcpclient
-cargo run -p learn
 ```
 
 ### 可见性控制

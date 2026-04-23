@@ -22,3 +22,11 @@ pub fn std_time(){
 pub fn sleep(){
     thread::sleep(std::time::Duration::from_secs(1));
 }
+
+
+fn main() {
+    println!("-------------------开始休眠-------------------------");
+    sleep();
+    println!("-------------------结束休眠-------------------------");
+    std_time();
+}

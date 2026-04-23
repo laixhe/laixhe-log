@@ -19,3 +19,8 @@ pub fn deserialize(){
     let user: Json = serde_json::from_str(r#"{"name":"laixhe","age":18}"#).unwrap();
     println!("反序列化结果: {:?}", user);
 }
+
+fn main() {
+    deserialize();
+    serialize();
+}
