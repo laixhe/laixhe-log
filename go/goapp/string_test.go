@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"unicode/utf8"
 )
 
 /*
@@ -52,6 +53,10 @@ func TestString(t *testing.T) {
 	fmt.Println(strings.Contains("判断包含字符串", "包含")) // 结果：true
 	// 判断两个字符串是否相等（忽略大小写，同时它还会对特殊字符进行转换）
 	fmt.Println(strings.EqualFold("AB大", "ab大")) // 结果：true
+
+	// 字符串长度
+	s := "123字符串abc"
+	fmt.Println(len(s), len([]rune(s)), utf8.RuneCountInString(s)) // 结果：15 9 9
 
 	// strings.TrimSpace 去除字符串两侧的空白字符
 	// strings.Trim      去除字符串两侧的指定字符串
