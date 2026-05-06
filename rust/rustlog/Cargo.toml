@@ -8,14 +8,18 @@ edition = "2024"
 resolver = "3"
 # 声明 Workspace 成员（支持通配符，如 "crates/*"）
 members = [
-    "date_time",
     "json",
     "mod_use",
+    "moka/future",
+    "moka/sync",
     "net/tcpserver",
     "net/tcpclient",
+    "time/std",
 ]
 
 # 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
 [workspace.dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+tokio = { version = "1.52", features = ["full"] }
+anyhow = "1.0"

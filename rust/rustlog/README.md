@@ -1,9 +1,11 @@
 ```
-cargo run -p date_time
 cargo run -p json
 cargo run -p mod_use
-cargo run -p tcpserver
-cargo run -p tcpclient
+cargo run -p moka_future
+cargo run -p moka_sync
+cargo run -p net_tcpclient
+cargo run -p net_tcpserver
+cargo run -p time_std
 ```
 
 ### 可见性控制

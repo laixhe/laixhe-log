@@ -33,7 +33,7 @@ func TestHttpClientGet(t *testing.T) {
 	client := &http.Client{}
 
 	// 创建一个新的 HTTP 请求
-	req, err := http.NewRequest("GET", "https://example.com", nil)
+	req, err := http.NewRequest("GET", "https://example.com", http.NoBody)
 	if err != nil {
 		fmt.Println("Error creating request:", err)
 		return

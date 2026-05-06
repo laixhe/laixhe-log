@@ -1,0 +1,10 @@
+[package]
+name = "moka_future"
+version = "0.1.0"
+edition = "2024"
+description = "异步内存缓存"
+
+[dependencies]
+moka = { version = "0.12", features = ["future"] }
+# 引用 Workspace 共享依赖
+tokio = { workspace = true }
