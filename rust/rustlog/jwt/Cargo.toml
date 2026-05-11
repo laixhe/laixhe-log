@@ -1,0 +1,10 @@
+[package]
+name = "jwt"
+version = "0.1.0"
+edition = "2024"
+description = "jwt"
+
+[dependencies]
+# 引用 Workspace 共享依赖
+jsonwebtoken = { workspace = true }
+serde = { workspace = true, features = ["derive"] }

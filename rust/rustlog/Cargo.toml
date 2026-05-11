@@ -8,18 +8,30 @@ edition = "2024"
 resolver = "3"
 # 声明 Workspace 成员（支持通配符，如 "crates/*"）
 members = [
+    "crossbeam/segqueue",
     "json",
+    "jwt",
     "mod_use",
     "moka/future",
     "moka/sync",
     "net/tcpserver",
     "net/tcpclient",
     "time/std",
+    "ring/main",
 ]
 
 # 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
 [workspace.dependencies]
+# 错误与类型转换
+anyhow = "1.0"
+# 序列化
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+# 异步运行时
 tokio = { version = "1.52", features = ["full"] }
-anyhow = "1.0"
+# jwt
+jsonwebtoken = { version = "10", features = ["aws_lc_rs"] }
+# 队列
+crossbeam-queue = "0.3"
+# 加密
+ring = "0.17"

@@ -29,9 +29,6 @@ func TestHttp3Client(t *testing.T) {
 func TestHttpClientGet(t *testing.T) {
 	//http.Get("https://example.com") // 简单的 GET 请求
 
-	// 创建一个新的 HTTP 客户端
-	client := &http.Client{}
-
 	// 创建一个新的 HTTP 请求
 	req, err := http.NewRequest("GET", "https://example.com", http.NoBody)
 	if err != nil {
@@ -43,7 +40,7 @@ func TestHttpClientGet(t *testing.T) {
 	req.Header.Set("Accept", "application/json")
 
 	// 发送请求
-	resp, err := client.Do(req)
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		fmt.Println("Error sending request:", err)
 		return
@@ -68,9 +65,6 @@ func TestHttpClientPost(t *testing.T) {
 	// 或
 	//http.PostForm("https://example.com", data)
 
-	// 创建一个新的HTTP客户端
-	client := &http.Client{}
-
 	jsonData := []byte(`{"age":"18"}`)
 	// 创建一个新的HTTP请求
 	req, err := http.NewRequest("POST", "https://jsonplaceholder.typicode.com/posts", bytes.NewBuffer(jsonData))
@@ -85,7 +79,7 @@ func TestHttpClientPost(t *testing.T) {
 	req.Header.Set("Accept", "application/json")
 
 	// 发送请求
-	resp, err := client.Do(req)
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		fmt.Println("Error sending request:", err)
 		return

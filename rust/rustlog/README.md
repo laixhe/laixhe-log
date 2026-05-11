@@ -1,11 +1,14 @@
 ```
+cargo run -p crossbeam_segqueue
 cargo run -p json
+cargo run -p jwt
 cargo run -p mod_use
 cargo run -p moka_future
 cargo run -p moka_sync
 cargo run -p net_tcpclient
 cargo run -p net_tcpserver
 cargo run -p time_std
+cargo run -p ring_main
 ```
 
 ### 可见性控制
