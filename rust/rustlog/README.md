@@ -9,6 +9,7 @@ cargo run -p net_tcpclient
 cargo run -p net_tcpserver
 cargo run -p time_std
 cargo run -p ring_main
+cargo run -p ringbuf_main
 ```
 
 ### 可见性控制

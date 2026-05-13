@@ -5,4 +5,5 @@ edition = "2024"
 description = "同步内存缓存"
 
 [dependencies]
-moka = { version = "0.12", features = ["sync"] }
+# 引用 Workspace 共享依赖
+moka = { workspace = true, features = ["sync"] }

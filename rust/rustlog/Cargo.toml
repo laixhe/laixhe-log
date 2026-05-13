@@ -18,6 +18,7 @@ members = [
     "net/tcpclient",
     "time/std",
     "ring/main",
+    "ringbuf/main",
 ]
 
 # 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
@@ -29,9 +30,13 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 # 异步运行时
 tokio = { version = "1.52", features = ["full"] }
+# 内存缓存
+moka = "0.12"
 # jwt
 jsonwebtoken = { version = "10", features = ["aws_lc_rs"] }
 # 队列
 crossbeam-queue = "0.3"
 # 加密
 ring = "0.17"
+# 环形缓冲区
+ringbuf = "0.5"
