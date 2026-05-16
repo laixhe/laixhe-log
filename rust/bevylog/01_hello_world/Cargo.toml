@@ -4,4 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+# 只启用 2d 功能集合以优化编译依赖
 bevy = { version = "0.18", default-features = false, features = ['2d'] }

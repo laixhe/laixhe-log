@@ -3,6 +3,25 @@ name = "bevylog"
 version = "0.1.0"
 edition = "2024"
 
+# 在开发配置文件中启用少量优化
+[profile.dev]
+opt-level = 1
+
+# 为依赖项在开发配置文件中启用大量优化
+[profile.dev.package."*"]
+opt-level = 3
+
+# 在发布配置文件中启用更多优化,以增加编译时间为代价
+[profile.release]
+# 最高优化级别
+opt-level = 3
+# 剥离调试符号，减小二进制体积
+strip = true
+# 开启链接时优化（让编译器在链接阶段对整个程序进行全局优化）
+lto = true
+# 使用单个代码生成单元，提升优化效果（会拖慢编译速度，但能让优化器做出更好的决策）
+codegen-units = 1
+
 [workspace]
 # 依赖解析器版本（2024 Edition 默认使用 resolver = "3"，优化了依赖解析逻辑）
 #resolver = "3"
@@ -13,5 +32,11 @@ members = [
 
 # 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
 [workspace.dependencies]
+# 序列化
 #serde = { version = "1.0", features = ["derive"] }
 #serde_json = "1.0"
+# 禁用冗余追踪日志以提升运行时性能
+log = { version = "0.4", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
