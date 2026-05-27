@@ -1,5 +1,6 @@
 ```
 cargo run -p crossbeam_segqueue
+cargo run -p downcast
 cargo run -p json
 cargo run -p jwt
 cargo run -p mod_use

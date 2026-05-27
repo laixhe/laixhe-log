@@ -16,7 +16,7 @@ fn std_char(){
 
 // 数组 Array
 // 数组中的每个元素类型必须相同，且长度固定
-// 数组分配在栈上，而不是堆上
+// 数组在栈上分配，大小在编译时确定
 fn std_array(){
     // 声明一个包含 5 个 i32 类型元素的数组
     let arr: [i32; 5] = [1, 2, 3, 4, 5];
@@ -42,13 +42,11 @@ fn std_array(){
 fn std_tuple(){
     // 定义一个包含整数、浮点数和字符串的元组
     let tup: (i32, f64, &str) = (10, 3.14, "hello");
-
-    // 类型推断：Rust 会自动推断元组类型
-    let another_tup: (bool, char, i32) = (true, 'A', 42);
-
     println!("tup 元素：{}、{}、 {}", tup.0, tup.1, tup.2);
 
-    let (a, b, c) = another_tup; // 解构
+    let another_tup = (true, 'A', 42);
+    // 解构
+    let (a, b, c) = another_tup;
     println!("another_tup 元素：a = {}, b = {}, c = {}", a, b, c);
 }
 

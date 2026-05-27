@@ -9,6 +9,7 @@ resolver = "3"
 # 声明 Workspace 成员（支持通配符，如 "crates/*"）
 members = [
     "crossbeam/segqueue",
+    "downcast",
     "json",
     "jwt",
     "mod_use",
@@ -40,3 +41,5 @@ crossbeam-queue = "0.3"
 ring = "0.17"
 # 环形缓冲区
 ringbuf = "0.5"
+# 实现多态
+downcast-rs = "2.0"
