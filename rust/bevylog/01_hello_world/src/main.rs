@@ -10,6 +10,7 @@ fn main() {
 }
 
 fn setup(
+    // 允许向游戏世界添加内容
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,

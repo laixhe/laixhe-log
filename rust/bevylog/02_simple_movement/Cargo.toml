@@ -1,8 +1,8 @@
 [package]
-name = "hello_world"
+name = "simple_movement"
 version = "0.1.0"
 edition = "2024"
-description = "简单示例"
+description = "简单移动操作"
 
 [dependencies]
 # 只启用 2d 功能集合以优化编译依赖

@@ -27,7 +27,8 @@ codegen-units = 1
 #resolver = "3"
 # 声明 Workspace 成员（支持通配符，如 "crates/*"）
 members = [
-    "01_hello_world"
+    "01_hello_world",
+    "02_simple_movement"
 ]
 
 # 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
