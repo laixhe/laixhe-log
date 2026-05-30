@@ -22,22 +22,28 @@ lto = true
 # 使用单个代码生成单元，提升优化效果（会拖慢编译速度，但能让优化器做出更好的决策）
 codegen-units = 1
 
-[workspace]
-# 依赖解析器版本（2024 Edition 默认使用 resolver = "3"，优化了依赖解析逻辑）
-#resolver = "3"
-# 声明 Workspace 成员（支持通配符，如 "crates/*"）
-members = [
-    "01_hello_world",
-    "02_simple_movement"
-]
-
-# 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
-[workspace.dependencies]
+[dependencies]
+# 只启用 2d 功能集合以优化编译依赖
+#bevy = { version = "0.19.0-rc.2", default-features = false, features = ['2d'] }
+bevy = { version = "0.19.0-rc.2" }
 # 序列化
-#serde = { version = "1.0", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
 #serde_json = "1.0"
-# 禁用冗余追踪日志以提升运行时性能
+ron = "0.12"
+# 追踪日志-禁用冗余以提升运行时性能
 log = { version = "0.4", features = [
     "max_level_debug",
     "release_max_level_warn",
 ] }
+
+[[example]]
+name = "hello_world"
+path = "examples/example_01_hello_world.rs"
+
+[[example]]
+name = "simple_movement"
+path = "examples/example_02_simple_movement.rs"
+
+[[example]]
+name = "simple_sprite"
+path = "examples/example_03_simple_sprite.rs"

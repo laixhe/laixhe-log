@@ -6,6 +6,7 @@ struct Player;
 
 fn main() {
     App::new()
+        .insert_resource(ClearColor(Color::BLACK)) // 设置背景色为黑色
         .add_plugins(DefaultPlugins)
         .add_systems(Startup, setup)
         .add_systems(Update, move_player)
@@ -20,7 +21,7 @@ fn setup(mut commands: Commands) {
         TextFont {
             // asset_server: Res<AssetServer>
             // font: asset_server.load("fonts/xxx.ttf"),
-            font_size: 30.0,
+            font_size: FontSize::Px(30.0),
             ..default()
         },
         TextColor(Color::WHITE),
