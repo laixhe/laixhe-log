@@ -71,5 +71,6 @@ func TestStringHandle(t *testing.T) {
 	appendBuf = fmt.Appendf(appendBuf, "字符串%s处理", "追加") // 零分配（如果 appendBuf 容量充足）
 	fmt.Println(string(appendBuf))                      // 结果：字符串追加处理
 
-	fmt.Println(fmt.Sprintf("%s字符串%d", "拼接", 123)) // 结果：拼接字符串123
+	s := fmt.Sprintf("%s字符串%d", "拼接", 123)
+	fmt.Println(s) // 结果：拼接字符串123
 }

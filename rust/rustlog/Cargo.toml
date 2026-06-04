@@ -43,3 +43,17 @@ ring = "0.17"
 ringbuf = "0.5"
 # 实现多态
 downcast-rs = "2.0"
+# 追踪日志-禁用冗余以提升运行时性能
+log = { version = "0.4", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+tracing = { version = "0.1", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+
+
+#tokio = { git = "https://github.com/tokio-rs/tokio", branch = "main" }
+#tokio = { git = "https://github.com/tokio-rs/tokio", tag = "tokio-1.52.3" }
+#tokio = { git = "https://github.com/tokio-rs/tokio", rev = "778e9d9" }

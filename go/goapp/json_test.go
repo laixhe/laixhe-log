@@ -4,18 +4,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"testing"
+	"time"
 )
 
 // 常用 Tag 参数说明
-// omitempty 将字段值为空值 "" 0 nil false 时，忽略该字段，不参与序列化
-// omitzero  将字段值为零值 "" 0 nil false 与包括自定义类型和嵌套结构体的零值时，忽略该字段，不参与序列化（Go 1.24 新特性）
+// omitempty 将字段值为空值 "" 0 false nil []（空数组） {}（空集合）时，忽略该字段，不参与序列化
+// omitzero  将字段值为零值 "" 0 false nil 与包括自定义类型和嵌套结构体的零值时，忽略该字段，不参与序列化（Go 1.24 新特性）
 // string    将数值类型 int、float、bool 转换为 JSON 字符串类型，反序列化时自动反向转换
 // inline    将嵌套结构体字段时，将嵌套结构体的字段“扁平化”到父结构体 JSON 中
 // -         将忽略该字段，不参与序列化与反序列化
 
 // 使用 omitzero 的场景
 // 处理时间类型：time.Time 的零值处理是 omitzero 最典型的应用场景
-// 区分 nil 和空集合：需要保留空数组 [] 但忽略 nil 时使用
+// 区分 nil 和空集合：需要保留空数组与空集合 [] {} 但忽略 nil 时使用
 // 自定义零值判断：通过 IsZero() 方法实现业务特定的零值逻辑
 //
 // 使用 omitempty 的场景
@@ -25,6 +26,27 @@ import (
 //
 // 需要精确控制零值用 omitzero，常规空值忽略用 omitempty
 
+type TJson struct {
+	Time1  time.Time         `json:"time1,omitempty"`
+	Time2  time.Time         `json:"time2,omitzero"`
+	Array1 []int             `json:"array1,omitempty"`
+	Array2 []int             `json:"array2,omitzero"`
+	Map1   map[string]string `json:"map1,omitempty"`
+	Map2   map[string]string `json:"map2,omitzero"`
+}
+
+func TestJson(t *testing.T) {
+	t1, err := json.Marshal(&TJson{
+		Time1:  time.Time{},
+		Time2:  time.Time{},
+		Array1: []int{},
+		Array2: []int{},
+		Map1:   map[string]string{},
+		Map2:   map[string]string{},
+	})
+	fmt.Println(string(t1), err) // {"time1":"0001-01-01T00:00:00Z","array2":[],"map2":{}}
+}
+
 type Query struct {
 	Path   string  `json:"path,omitempty"`
 	Query  string  `json:"query,omitempty"`
@@ -33,7 +55,7 @@ type Query struct {
 	IsPass bool    `json:"is_pass,string"`
 }
 
-func TestJson(t *testing.T) {
+func TestJsonQuery(t *testing.T) {
 	query := Query{
 		Path:  "/index/index",
 		Query: "name=laixhe&age=18",
