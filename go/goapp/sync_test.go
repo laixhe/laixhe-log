@@ -29,10 +29,10 @@ func TestSyncOnce(t *testing.T) {
 }
 
 func TestSyncWaitGroup(t *testing.T) {
-	// WaitGroup 组等待
+	// sync.WaitGroup 组等待
 	// Add  增加等待计数
 	// Done 减少等待计数
-	// GO   动处理 Add(1) 和内部的 Done()，连闭包变量捕获问题都不用再担心
+	// GO   主动处理 Add(1) 和 Done()，连闭包变量捕获问题都不用再担心
 	// Wait 等待所有任务数都完成
 	//
 	// 当计数为 0 时触发 Wait
