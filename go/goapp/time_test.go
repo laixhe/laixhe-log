@@ -57,6 +57,18 @@ func TestTimeParse(t *testing.T) {
 	fmt.Println(localTime.Unix()) // 结果: 1515226320
 }
 
+// 时间比较
+func TestTimeBeforeAfter(t *testing.T) {
+	t1 := time.Now().Add(-time.Second)
+	t2 := time.Now().Add(time.Hour)
+
+	fmt.Println(t2.Before(t1)) // 结果: false    t2 是否在 t1 之前  =>  t2 < t1
+	fmt.Println(t2.After(t1))  // 结果: true     t2 是否在 t1 之后  =>  t2 > t1
+
+	// 当前时间在范围内  t1 < * > t2
+	fmt.Println(t1.Before(time.Now()) && t2.After(time.Now()))
+}
+
 // 计算耗时或剩余时间
 func TestTimeSinceUntil(t *testing.T) {
 	// 计算耗时
