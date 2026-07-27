@@ -1,0 +1,8 @@
+.idea
+.vscode
+.history
+.vs
+.fleet
+*.exe
+.DS_Store
+__pycache__

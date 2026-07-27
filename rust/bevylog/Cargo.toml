@@ -1,0 +1,78 @@
+[package]
+name = "bevylog"
+version = "0.1.0"
+edition = "2024"
+
+# 在开发配置文件中启用少量优化
+[profile.dev]
+opt-level = 1
+
+# 为依赖项在开发配置文件中启用大量优化
+[profile.dev.package."*"]
+opt-level = 3
+
+# 在发布配置文件中启用更多优化,以增加编译时间为代价
+[profile.release]
+# 最高优化级别
+opt-level = 3
+# 剥离调试符号，减小二进制体积
+strip = true
+# 开启链接时优化（让编译器在链接阶段对整个程序进行全局优化）
+lto = true
+# 使用单个代码生成单元，提升优化效果（会拖慢编译速度，但能让优化器做出更好的决策）
+codegen-units = 1
+
+[profile.wasm-release]
+opt-level = 3
+strip = true
+inherits = "release"
+
+[dependencies]
+# 只启用 2d 功能集合以优化编译依赖
+#bevy = { version = "0.19", default-features = false, features = ['2d'] }
+bevy = { version = "0.19", features = ["dynamic_linking"] }
+bevy_dylib = { version = "0.19" }
+
+# 输入
+bevy_enhanced_input = { version = "0.26" }
+
+# 物理
+avian2d = "0.7"
+avian3d = "0.7"
+
+# 错误
+thiserror = "2.0"
+anyhow = "1.0"
+
+# 时间
+jiff = "0.2"
+
+# 随机数
+rand = "0.10"
+
+# 序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+ron = "0.12"
+
+# 追踪日志-禁用冗余以提升运行时性能
+log = { version = "0.4", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+tracing = { version = "0.1", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+
+[[example]]
+name = "hello_world"
+path = "examples/example_01_hello_world.rs"
+
+[[example]]
+name = "simple_movement"
+path = "examples/example_02_simple_movement.rs"
+
+[[example]]
+name = "simple_sprite"
+path = "examples/example_03_simple_sprite.rs"
