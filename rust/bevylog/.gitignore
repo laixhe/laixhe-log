@@ -1,3 +1,10 @@
 .idea/
 .vscode/
 target/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 调试符号
+*.pdb

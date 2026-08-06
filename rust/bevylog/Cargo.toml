@@ -11,7 +11,8 @@ opt-level = 1
 [profile.dev.package."*"]
 opt-level = 3
 
-# 在发布配置文件中启用更多优化,以增加编译时间为代价
+# 发布配置文件：以下都是发布优化，学习阶段不用改、也不用深究，了解即可。
+# 只有在你要发布 / 分发 exe 时才需要关心这些选项。
 [profile.release]
 # 最高优化级别
 opt-level = 3
@@ -22,57 +23,82 @@ lto = true
 # 使用单个代码生成单元，提升优化效果（会拖慢编译速度，但能让优化器做出更好的决策）
 codegen-units = 1
 
-[profile.wasm-release]
-opt-level = 3
-strip = true
-inherits = "release"
-
 [dependencies]
-# 只启用 2d 功能集合以优化编译依赖
-#bevy = { version = "0.19", default-features = false, features = ['2d'] }
+# bevy 依赖配置说明：
+# - dynamic_linking 是「开发期优化」：把 bevy 编译成动态库（bevy_dylib.dll），
+#   改代码后只需重链你的 crate 不用重编 bevy，大幅加快增量编译。
+# - 副作用：debug 构建出的 exe 运行时依赖 bevy_dylib.dll，不能单独拷到别的机器。
+# - 发布 / 分发 exe 时需改为静态链接：把 features 里的 "dynamic_linking" 去掉即可
+#   （即 bevy = { version = "0.19" }）。Cargo 不支持按 debug/release 自动切换依赖，
+#   所以需要手动切换。学习阶段保留 dynamic_linking 即可。
+#
+# 学习 2d 阶段可以这样替换下面这行：
+#   bevy = { version = "0.19", default-features = false, features = ["2d","ui","audio","x11","wayland","dynamic_linking"] }
 bevy = { version = "0.19", features = ["dynamic_linking"] }
-bevy_dylib = { version = "0.19" }
 
-# 输入
-bevy_enhanced_input = { version = "0.26" }
+# 2D 光照与阴影库（Bevy 没有原生 2D 光照支持）
+# 提供 PointLight2d 点光源 + Occluder2d 阴影遮挡
+bevy_firefly = "0.19"
 
-# 物理
-avian2d = "0.7"
-avian3d = "0.7"
-
-# 错误
-thiserror = "2.0"
-anyhow = "1.0"
-
-# 时间
-jiff = "0.2"
-
-# 随机数
+# 随机数生成库（用于粒子系统的随机角度/颜色/速度/生命）
 rand = "0.10"
 
-# 序列化
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-ron = "0.12"
-
-# 追踪日志-禁用冗余以提升运行时性能
-log = { version = "0.4", features = [
-    "max_level_debug",
-    "release_max_level_warn",
-] }
-tracing = { version = "0.1", features = [
-    "max_level_debug",
-    "release_max_level_warn",
-] }
-
+# 简单精灵移动
 [[example]]
-name = "hello_world"
-path = "examples/example_01_hello_world.rs"
+name = "example_simple_movement"
+path = "examples/example_simple_movement.rs"
 
+# 简单精灵显示
 [[example]]
-name = "simple_movement"
-path = "examples/example_02_simple_movement.rs"
+name = "example_simple_sprite"
+path = "examples/example_simple_sprite.rs"
 
+# 事件系统
 [[example]]
-name = "simple_sprite"
-path = "examples/example_03_simple_sprite.rs"
+name = "example_events"
+path = "examples/example_events.rs"
+
+# UI 系统
+[[example]]
+name = "example_ui"
+path = "examples/example_ui.rs"
+
+# 输入系统
+[[example]]
+name = "example_input"
+path = "examples/example_input.rs"
+
+# 动画系统
+[[example]]
+name = "example_animation"
+path = "examples/example_animation.rs"
+
+# 状态系统
+[[example]]
+name = "example_state"
+path = "examples/example_state.rs"
+
+# 物理碰撞
+[[example]]
+name = "example_collision"
+path = "examples/example_collision.rs"
+
+# 粒子系统
+[[example]]
+name = "example_particles"
+path = "examples/example_particles.rs"
+
+# 光照与阴影3D
+[[example]]
+name = "example_lighting_3d"
+path = "examples/example_lighting_3d.rs"
+
+# 光照与阴影2D
+[[example]]
+name = "example_lighting_2d"
+path = "examples/example_lighting_2d.rs"
+
+# 迷你游戏
+[[example]]
+name = "simple_mini"
+path = "examples/simple_mini/main.rs"
