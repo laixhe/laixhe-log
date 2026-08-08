@@ -17,7 +17,10 @@
 //! - App::add_observer 注册一个全局观察者函数
 //! - Commands::trigger 在系统里触发事件
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 fn main() -> AppExit {
     App::new()
@@ -53,16 +56,16 @@ const MAX_JUMPS: u32 = 5;
 fn setup(mut commands: Commands) {
     // 生成 2D 相机（必须有一个 Camera2d 才能看到画面）
     commands.spawn(Camera2d);
-    // 生成提示文本：告诉用户按空格键跳跃
-    commands.spawn((
-        Text2d::new("按 空格 跳跃（累计 5 次后退出）"),
+    // 生成提示文本：告诉用户按空格键跳跃（spawn_scene + bsn! 宏声明式构建实体）
+    commands.spawn_scene(bsn! {
+        Text2d::new("按 空格 跳跃（累计 5 次后退出）")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::default(),
-    ));
+        }
+        Transform::default()
+    });
 }
 
 // 事件触发系统：监听空格键按下，触发 JumpEvent。

@@ -1,12 +1,16 @@
 //! Bevy 0.19 入门示例：用方向键 / WASD 移动一个带 Player 标签的文本，演示组件、资源、系统查询与帧率无关移动。
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 // 玩家组件：这里给它加上 speed 字段（移动速度），
 // 演示 Bevy 惯用做法——把实体自己的数据挂在组件上，而不是在系统里硬编码。
 // 补充：组件即使没有字段也能用，称为「标记组件」，仅用来给实体打标签方便筛选。
 // #[derive(Component)] 让这个结构体可以被挂到实体上作为组件
-#[derive(Component)]
+// bsn! 宏要求组件实现 Clone + Default（宏内部用模板反射构造实体）
+#[derive(Component, Clone, Default)]
 struct Player {
     // 移动速度，单位：像素/秒
     speed: f32,
@@ -32,26 +36,20 @@ fn setup(mut commands: Commands) {
     commands.spawn(Camera2d);
     // 生成文本作为「玩家」：把文本实体挂上 Player 组件，这样 move_player
     // 就能按 Player 组件过滤找到它并读取它的 speed 字段
-    commands.spawn((
-        Text2d::new("Movement"),
-        // TextFont 是文本样式组件（字号、字体、行高等）。
-        // 这里只显式指定 font_size；其余字段用 ..default() 填充，
-        // 其中 font 字段默认用 Bevy 内置字体。
-        // 要用自定义字体：在 setup 参数加 asset_server: Res<AssetServer>，
-        // 然后在这里显式写 font: asset_server.load("fonts/xxx.ttf") 覆盖默认字体。
-        TextFont {
-            // FontSize::Px(30.0) 表示字号 30 像素
-            font_size: FontSize::Px(30.0),
-            // ..default() 用默认值填充 TextFont 其余字段（如字体、行高等）
-            ..default()
-        },
-        // 文本颜色
-        TextColor(Color::WHITE),
-        // 位置：原点（屏幕中心）
-        Transform::default(),
+    // spawn_scene + bsn! 宏声明式构建实体
+    commands.spawn_scene(bsn! {
         // 玩家组件：初始化速度为 300 像素/秒
-        Player { speed: 300.0 },
-    ));
+        Player { speed: 300.0 }
+        Text2d::new("Movement")
+        TextColor(Color::WHITE)
+        // TextFont：用中文字体渲染，字号 30 像素
+        TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
+            font_size: FontSize::Px(30.0),
+        }
+        // 位置：原点（屏幕中心）
+        Transform::default()
+    });
 }
 
 fn move_player(

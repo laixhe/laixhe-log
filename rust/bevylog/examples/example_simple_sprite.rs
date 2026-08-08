@@ -1,15 +1,15 @@
 //! Bevy 0.19 入门示例：用 AssetServer 加载图片生成 Sprite，演示资源加载与精灵显示。
-//! 如果 assets/bevy_bird_dark.png 不存在，则降级为 100×100 像素的纯色方块。
+//! 如果 assets/images/bevy_bird_dark.png 不存在，则降级为 100×100 像素的纯色方块。
 
 use bevy::prelude::*;
 
 // 两个常量指向同一个文件，但基点不同：
 // - ASSET_REL 给 AssetServer::load 用，它的起始路径是项目根目录下的 assets/ 文件夹，
-//   所以只传 assets/ 内部的相对路径 bevy_bird_dark.png。
+//   所以只传 assets/ 内部的相对路径 images/bevy_bird_dark.png。
 // - ASSET_FS_PATH 给 std::path::Path::exists 用，它从项目根目录（Cargo.toml 所在目录）开始，
 //   所以要带上 assets/ 前缀。
-const ASSET_REL: &str = "bevy_bird_dark.png";
-const ASSET_FS_PATH: &str = "assets/bevy_bird_dark.png";
+const ASSET_REL: &str = "images/bevy_bird_dark.png";
+const ASSET_FS_PATH: &str = "assets/images/bevy_bird_dark.png";
 
 fn main() -> AppExit {
     App::new()

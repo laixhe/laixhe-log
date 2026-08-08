@@ -11,8 +11,11 @@
 //! - 软阴影：FireflyConfig.soft_shadows 让阴影边缘平滑过渡
 //! - 轨道动画：sin / cos 让点光源绕场景旋转，展示动态阴影变化
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
 use bevy_firefly::prelude::*;
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 fn main() -> AppExit {
     App::new()
@@ -117,16 +120,16 @@ fn setup(
         Transform::from_xyz(180.0, 0.0, 0.0),
     ));
 
-    // 底部提示文本
-    commands.spawn((
-        Text2d::new("2D 光照与阴影：空格切换阴影 | 点光源轨道运动"),
+    // 底部提示文本（spawn_scene + bsn! 宏声明式构建实体）
+    commands.spawn_scene(bsn! {
+        Text2d::new("2D 光照与阴影：空格切换阴影 | 点光源轨道运动")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::from_xyz(0.0, -280.0, 0.0),
-    ));
+        }
+        Transform::from_xyz(0.0, -280.0, 0.0)
+    });
 }
 
 // 点光源轨道动画：绕场景中心旋转，展示动态阴影变化。

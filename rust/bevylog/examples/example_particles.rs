@@ -11,12 +11,15 @@
 //! - rand crate 随机数：用 rand::rng() 生成伪随机角度、颜色、速度和生命
 //! - Assets 资源修改：通过 Handle 从 Assets<T> 中获取可变引用，修改材质属性
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
 use bevy::window::PrimaryWindow;
 // rand 0.10 的 trait 结构：random::<T>() / random_range(a..b) 这两个方法
 // 都在 RngExt trait 上（不在 Rng trait 上），所以只 import RngExt。
 // 额外 use rand::Rng 会触发 unused import 警告。
 use rand::RngExt;
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 // 重力加速度（像素/秒²）：正值表示向下加速度。
 // 注意 Bevy 2D 默认坐标系 +Y 朝上，所以"向下"加速度会减小速度的 y 分量，
@@ -64,16 +67,16 @@ fn setup(mut commands: Commands, mut meshes: ResMut<Assets<Mesh>>) {
     let mesh = meshes.add(Circle::new(4.0));
     commands.insert_resource(ParticleMesh(mesh));
 
-    // 底部提示文本
-    commands.spawn((
-        Text2d::new("粒子系统：左键点击放烟花"),
+    // 底部提示文本（spawn_scene + bsn! 宏声明式构建实体）
+    commands.spawn_scene(bsn! {
+        Text2d::new("粒子系统：左键点击放烟花")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::from_xyz(0.0, -300.0, 0.0),
-    ));
+        }
+        Transform::from_xyz(0.0, -300.0, 0.0)
+    });
 }
 
 // 烟花生成系统：鼠标左键点击时在鼠标位置生成一束粒子。

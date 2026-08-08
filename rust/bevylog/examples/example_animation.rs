@@ -9,7 +9,10 @@
 //! - Quat::from_rotation_z 实现 2D 旋转（绕 Z 轴）
 //! - Single 查询获取单个实体（太阳），Query 遍历多个实体（行星）
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 fn main() -> AppExit {
     App::new()
@@ -86,16 +89,16 @@ fn setup(
         ));
     }
 
-    // 底部提示文本
-    commands.spawn((
-        Text2d::new("动画系统：太阳脉冲 + 行星轨道运动 + 自转"),
+    // 底部提示文本（spawn_scene + bsn! 宏声明式构建实体）
+    commands.spawn_scene(bsn! {
+        Text2d::new("动画系统：太阳脉冲 + 行星轨道运动 + 自转")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::from_xyz(0.0, -300.0, 0.0),
-    ));
+        }
+        Transform::from_xyz(0.0, -300.0, 0.0)
+    });
 }
 
 // 行星轨道运动系统：每帧更新行星的 translation（位置）和 rotation（旋转）。

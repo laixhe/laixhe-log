@@ -1,8 +1,16 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
 
 use crate::components::{Bullet, Enemy, Player};
 use crate::messages::BulletFired;
 use crate::resources::Score;
+
+// 中文字体路径（与 simple_mini_breakout 共用同一资产）
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
+
+// 游戏参数常量：集中定义便于调参
+const PLAYER_SPEED: f32 = 300.0;      // 玩家移动速度（像素/秒）
+const BULLET_CLEANUP_Y: f32 = 500.0;  // 子弹清理边界（世界坐标 y，超出则销毁）
+const COLLISION_DISTANCE: f32 = 30.0; // 碰撞判定距离（像素）
 
 // 场景初始化：生成相机、玩家、敌人。
 pub fn setup(mut commands: Commands) {
@@ -10,6 +18,7 @@ pub fn setup(mut commands: Commands) {
     commands.spawn(Camera2d);
 
     // 玩家：蓝色方块（50×50），起始位置屏幕下方
+    // Sprite 实体用 commands.spawn（bsn! 的 SpriteTemplate 不支持 from_color 构造）
     commands.spawn((
         Sprite::from_color(Color::srgb(0.2, 0.6, 1.0), Vec2::new(50.0, 50.0)),
         Transform::from_xyz(0.0, -300.0, 0.0),
@@ -35,16 +44,16 @@ pub fn setup(mut commands: Commands) {
         ));
     }
 
-    // 底部操作提示文本
-    commands.spawn((
-        Text2d::new("WASD 移动 | 空格射击"),
+    // 底部操作提示文本（世界文本 Text2d，用中文字体渲染中文）
+    commands.spawn_scene(bsn! {
+        Text2d::new("WASD 移动 | 空格射击")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::from_xyz(0.0, -340.0, 0.0),
-    ));
+        }
+        Transform::from_xyz(0.0, -340.0, 0.0)
+    });
 }
 
 // 玩家移动：WASD 控制方向，帧率无关的速度（像素/秒 × dt = 本帧位移）。
@@ -55,7 +64,7 @@ pub fn move_player(
     mut player: Single<&mut Transform, With<Player>>,
 ) {
     // 本帧移动步长（像素）= 速度（像素/秒）× 帧时间（秒）
-    let move_step = 300.0 * time.delta_secs();
+    let move_step = PLAYER_SPEED * time.delta_secs();
     if input.pressed(KeyCode::KeyW) {
         player.translation.y += move_step;
     }
@@ -116,13 +125,13 @@ pub fn move_bullet(
 }
 
 // 清理越界子弹：子弹飞出屏幕上方后销毁，避免无用的实体堆积。
-// 500.0 是屏幕上方边界（世界坐标，比默认窗口半高 360 留有余量）。
+// BULLET_CLEANUP_Y 是屏幕上方边界（世界坐标，比默认窗口半高 360 留有余量）。
 pub fn cleanup_bullets(
     bullets: Query<(Entity, &Transform), With<Bullet>>,
     mut commands: Commands,
 ) {
     for (entity, tf) in &bullets {
-        if tf.translation.y > 500.0 {
+        if tf.translation.y > BULLET_CLEANUP_Y {
             commands.entity(entity).despawn();
         }
     }
@@ -139,8 +148,8 @@ pub fn check_collision(
         for (e_entity, e_tf) in &enemies {
             // 计算子弹与敌人的 3D 距离（z=0 时等价于 2D 距离）
             let dist = b_tf.translation.distance(e_tf.translation);
-            // 碰撞阈值 30.0 像素（子弹 10×20、敌人 40×40，30 是折中值）
-            if dist < 30.0 {
+            // 碰撞阈值（子弹 10×20、敌人 40×40，COLLISION_DISTANCE=30 是折中值）
+            if dist < COLLISION_DISTANCE {
                 // 记录加分前的分数，用于日志显示变化
                 let old_score = score.total;
                 commands.entity(b_entity).despawn();

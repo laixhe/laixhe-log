@@ -10,8 +10,11 @@
 //! - .chain() 排序多个系统（保证文本更新在输入处理之后，显示的圆形数量准确）
 
 use bevy::input::mouse::AccumulatedMouseScroll;
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
 use bevy::window::PrimaryWindow;
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 fn main() -> AppExit {
     App::new()
@@ -32,16 +35,16 @@ fn setup(mut commands: Commands) {
     // 生成 2D 相机（必须有一个 Camera2d 才能看到画面）
     commands.spawn(Camera2d);
     // 生成信息文本（底部）：初始为空字符串，由 update_info_text 每帧更新内容
-    commands.spawn((
-        Text2d::new(""),
+    // 位置：屏幕中下方（2D 坐标系原点在屏幕中心，+y 朝上，所以 y = -280 是下方）
+    commands.spawn_scene(bsn! {
+        Text2d::new("")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(20.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        // 位置：屏幕中下方（2D 坐标系原点在屏幕中心，+y 朝上，所以 y = -280 是下方）
-        Transform::from_xyz(0.0, -280.0, 0.0),
-    ));
+        }
+        Transform::from_xyz(0.0, -280.0, 0.0)
+    });
 }
 
 // 处理鼠标点击：左键生成圆形，右键清除所有圆形。

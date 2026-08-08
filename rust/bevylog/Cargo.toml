@@ -98,7 +98,12 @@ path = "examples/example_lighting_3d.rs"
 name = "example_lighting_2d"
 path = "examples/example_lighting_2d.rs"
 
-# 迷你游戏
+# 迷你游戏2D
 [[example]]
 name = "simple_mini"
 path = "examples/simple_mini/main.rs"
+
+#  上下打砖块(有启动画面)2D
+[[example]]
+name = "simple_mini_breakout"
+path = "examples/simple_mini_breakout/main.rs"

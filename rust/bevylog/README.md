@@ -26,7 +26,8 @@ cargo run --example example_collision          # 09 物理碰撞：边界反弹 
 cargo run --example example_particles          # 10 粒子系统：鼠标左键点击在点击位置放烟花爆炸  [核心概念：实体生命周期 lifetime / despawn、重力模拟、共享 Mesh Handle、LCG 简易随机数、Assets<ColorMaterial> 动态修改]
 cargo run --example example_lighting_3d        # 11 光照与阴影：3D 场景 PBR 材质，点光源轨道 + 方向光，空格切换阴影  [核心概念：Camera3d/DirectionalLight/PointLight、shadow_maps_enabled、StandardMaterial PBR、双相机叠加覆盖层]
 cargo run --example example_lighting_2d        # 12 2D 光照与阴影：bevy_firefly 点光源轨道 + Occluder2d 遮挡体，空格切换阴影  [核心概念：FireflyPlugin/FireflyConfig 环境光、PointLight2d、Occluder2d 遮挡体、soft_shadows 软阴影]
-cargo run --example simple_mini                # 13 迷你游戏：玩家移动 + 空格射击 + 碰撞 + 计分（多文件目录 example）  [核心概念：mod 模块组织、Message/MessageWriter/MessageReader 消息系统、游戏循环整合]
+cargo run --example simple_mini                # 13 迷你游戏2D：玩家移动 + 空格射击 + 碰撞 + 计分（多文件目录 example）  [核心概念：mod 模块组织、Message/MessageWriter/MessageReader 消息系统、游戏循环整合]
+cargo run --example simple_mini_breakout       # 14 上下打砖块(有启动画面)2D：启动画面 → 菜单 → 打砖块游戏  [核心概念：分层 States 状态机、EntityEvent+trigger+Observer 即时事件、bsn! 场景语法、BoundingCircle/Aabb2d 碰撞、拍面反弹角度]
 ```
 
 ---
@@ -50,6 +51,7 @@ cargo run --example simple_mini                # 13 迷你游戏：玩家移动 
 | 11 | `example_lighting_3d` | 3D 相机 / 光照 / 阴影 / PBR StandardMaterial / 双相机叠加 |
 | 12 | `example_lighting_2d` | bevy_firefly 第三方库、PointLight2d / Occluder2d / FireflyConfig 环境光 / 软阴影 |
 | 13 | `simple_mini` | 多文件 mod 模块组织、Message/MessageWriter/MessageReader 消息系统、游戏循环整合（移动+射击+碰撞+计分） |
+| 14 | `simple_mini_breakout` | 分层 States 状态机（GlobalGameState + 嵌套 GameState/MenuState）、EntityEvent+trigger+Observer 即时事件、bsn! 场景语法、BoundingCircle/Aabb2d 碰撞、拍面反弹角度、DespawnOnExit 自动清理 |
 
 ---
 

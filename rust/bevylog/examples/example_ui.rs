@@ -9,7 +9,10 @@
 //! - Interaction 由 Bevy 自动更新（Pressed / Hovered / None），用 Changed<Interaction> 过滤只处理变化的实体。
 //! - children! 宏用于声明 UI 父子层级（和 spawn 后手动 add_child 等价但更简洁）。
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 fn main() -> AppExit {
     App::new()
@@ -41,7 +44,8 @@ fn setup(mut commands: Commands) {
 
     // 生成 UI 根节点：一个铺满整个屏幕的容器，负责把按钮居中。
     // UI 的层级是树形结构：根 Node → 子 Button → 子 Text。
-    commands.spawn((
+    // spawn_scene + bsn! 宏声明式构建实体树，Children [...] 声明子节点
+    commands.spawn_scene(bsn! {
         Node {
             // width / height 用 percent(100) 表示占父容器 100%（根节点即占满整个窗口）。
             // percent 和 px 是 Bevy 0.19 的便捷函数，等价于 Val::Percent(100.0) / Val::Px(150.0)
@@ -53,45 +57,45 @@ fn setup(mut commands: Commands) {
             // 若改成 Column（垂直排列），主轴 / 交叉轴会互换。
             align_items: AlignItems::Center,
             justify_content: JustifyContent::Center,
-            ..default()
-        },
-        // children! 宏声明子节点：这里只有一个 Button 子节点
-        children![(
-            // Button 是标记组件，自动 require Node + FocusPolicy::Block + Interaction。
-            // 所以这里不需要显式写 Node 和 Interaction——Button 会自动带上它们。
-            Button,
-            // Node 组件定义按钮自身的布局和样式（虽然 Button 自动 require 了 Node，
-            // 但我们这里显式写 Node 来定制按钮的尺寸和样式）。
-            Node {
-                width: px(150),
-                height: px(65),
-                // 按钮的边框宽度 5 像素（UiRect::all 表示四条边都一样）
-                border: UiRect::all(px(5)),
-                // 让按钮内的文字水平居中
-                justify_content: JustifyContent::Center,
-                // 让按钮内的文字垂直居中
-                align_items: AlignItems::Center,
-                // 圆角半径设为 MAX 让按钮变成完全圆角（胶囊形）
-                border_radius: BorderRadius::MAX,
-                ..default()
-            },
-            // 边框颜色：BorderColor::all 让四条边都是指定颜色
-            BorderColor::all(Color::WHITE),
-            // 背景色：初始用 NORMAL_BUTTON（深灰）
-            BackgroundColor(NORMAL_BUTTON),
-            // 按钮的子节点：一段文本，显示点击次数
-            children![(
-                // Text 是 UI 文本组件（区别于世界中的 Text2d）。
-                // Text 实现了 Deref<Target=String>，所以可以用 **text = "...".to_string() 改文本内容
-                Text::new("点击次数：0"),
-                TextFont {
-                    font_size: FontSize::Px(20.0),
-                    ..default()
-                },
-                TextColor(Color::srgb(0.9, 0.9, 0.9)),
-            )]
-        )],
-    ));
+        }
+        Children [
+            (
+                // Button 是标记组件，自动 require Node + FocusPolicy::Block + Interaction。
+                // 所以这里不需要显式写 Node 和 Interaction——Button 会自动带上它们。
+                Button
+                // Node 组件定义按钮自身的布局和样式（虽然 Button 自动 require 了 Node，
+                // 但我们这里显式写 Node 来定制按钮的尺寸和样式）。
+                Node {
+                    width: px(150),
+                    height: px(65),
+                    // 按钮的边框宽度 5 像素（UiRect::all 表示四条边都一样）
+                    border: UiRect::all(px(5)),
+                    // 让按钮内的文字水平居中
+                    justify_content: JustifyContent::Center,
+                    // 让按钮内的文字垂直居中
+                    align_items: AlignItems::Center,
+                    // 圆角半径设为 MAX 让按钮变成完全圆角（胶囊形）
+                    border_radius: BorderRadius::MAX,
+                }
+                // 边框颜色：BorderColor::all 让四条边都是指定颜色
+                BorderColor::all(Color::WHITE)
+                // 背景色：初始用 NORMAL_BUTTON（深灰）
+                BackgroundColor(NORMAL_BUTTON)
+                // 按钮的子节点：一段文本，显示点击次数
+                Children [
+                    (
+                        // Text 是 UI 文本组件（区别于世界中的 Text2d）。
+                        Text::new("点击次数：0")
+                        TextColor(Color::srgb(0.9, 0.9, 0.9))
+                        TextFont {
+                            font: FontSourceTemplate::Handle(FONT_PATH),
+                            font_size: FontSize::Px(20.0),
+                        }
+                    )
+                ]
+            )
+        ]
+    });
 }
 
 // 按钮交互系统：检测 Interaction 变化并响应。
@@ -131,9 +135,9 @@ fn button_system(
 
         // 更新按钮上的文字：children[0] 是按钮的第一个子节点（即 Text 实体）。
         // text_query.get_mut(children[0]) 拿到 Text 组件的可写引用。
-        // **text 解两次引用（QueryItem 是 Mut<Text>，Text Deref 到 String），然后赋新值。
+        // text.0 访问 Text 内部的 String 字段（Text 是 newtype Text(String)）
         if let Ok(mut text) = text_query.get_mut(children[0]) {
-            **text = format!("点击次数：{}", count.0);
+            text.0 = format!("点击次数：{}", count.0);
         }
     }
     // 注意：Interaction 由 Bevy 的 UI 系统自动更新（基于鼠标位置和点击状态），

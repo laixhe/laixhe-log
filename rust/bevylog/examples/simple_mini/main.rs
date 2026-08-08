@@ -25,7 +25,13 @@ use systems::{
 
 fn main() -> AppExit {
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "简易射击".into(),
+                ..default()
+            }),
+            ..default()
+        }))
         // 深色背景，让彩色玩家/敌人/子弹更醒目（与其他示例风格一致）
         .insert_resource(ClearColor(Color::srgb(0.1, 0.1, 0.12)))
         // 初始化分数资源：Default 自动给 total 赋 0

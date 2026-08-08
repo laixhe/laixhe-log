@@ -10,8 +10,11 @@
 //! - query.iter_combinations_mut() 遍历实体对，处理两两交互
 //! - .chain() 排序多个系统（保证移动 → 边界碰撞 → 球间碰撞的执行顺序）
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
 use bevy::window::PrimaryWindow;
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 fn main() -> AppExit {
     App::new()
@@ -68,16 +71,16 @@ fn setup(
         ));
     }
 
-    // 底部提示文本
-    commands.spawn((
-        Text2d::new("物理碰撞：球碰边界反弹 + 球间弹性碰撞"),
+    // 底部提示文本（spawn_scene + bsn! 宏声明式构建实体）
+    commands.spawn_scene(bsn! {
+        Text2d::new("物理碰撞：球碰边界反弹 + 球间弹性碰撞")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::from_xyz(0.0, -300.0, 0.0),
-    ));
+        }
+        Transform::from_xyz(0.0, -300.0, 0.0)
+    });
 }
 
 // 移动系统：根据速度更新球的位置。

@@ -8,7 +8,10 @@
 //! - commands.set_state 切换状态（等价于设置 NextState 资源，帧结束时由 Bevy 应用）
 //! - 状态切换的完整流程：set_state → 帧结束应用 → OnExit(旧) → OnEnter(新) → 下一帧 Update
 
-use bevy::prelude::*;
+use bevy::{prelude::*, text::FontSourceTemplate};
+
+// 中文字体路径
+const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 // 应用状态：用 enum 定义所有可能的状态。
 // #[derive(States)] 让它成为 Bevy 状态类型（自动实现 FreelyMutableState + FromWorld）。
@@ -23,13 +26,14 @@ enum AppState {
 }
 
 // 标记组件：用于标识不同状态的 UI / 玩家实体，方便 OnExit 时销毁
-#[derive(Component)]
+// bsn! 宏要求组件实现 Clone + Default（宏内部用模板反射构造实体）
+#[derive(Component, Clone, Default)]
 struct MenuUI;
 
-#[derive(Component)]
+#[derive(Component, Clone, Default)]
 struct Player;
 
-#[derive(Component)]
+#[derive(Component, Clone, Default)]
 struct PausedUI;
 
 fn main() -> AppExit {
@@ -71,16 +75,16 @@ fn setup(mut commands: Commands) {
 
 fn setup_menu(mut commands: Commands) {
     // 进入菜单：生成菜单提示文本，带 MenuUI 标记方便离开时销毁
-    commands.spawn((
-        Text2d::new("按 空格 开始游戏"),
+    commands.spawn_scene(bsn! {
+        MenuUI
+        Text2d::new("按 空格 开始游戏")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::default(),
-        MenuUI,
-    ));
+        }
+        Transform::default()
+    });
     info!("[状态] 进入菜单");
 }
 
@@ -106,16 +110,16 @@ fn menu_input(keyboard: Res<ButtonInput<KeyCode>>, mut commands: Commands) {
 
 fn setup_playing(mut commands: Commands) {
     // 进入游戏：生成玩家实体，带 Player 标记
-    commands.spawn((
-        Text2d::new("Movement"),
+    commands.spawn_scene(bsn! {
+        Player
+        Text2d::new("Movement")
+        TextColor(Color::WHITE)
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::WHITE),
-        Transform::default(),
-        Player,
-    ));
+        }
+        Transform::default()
+    });
     info!("[状态] 进入游戏");
 }
 
@@ -169,16 +173,16 @@ fn playing_input(keyboard: Res<ButtonInput<KeyCode>>, mut commands: Commands) {
 
 fn setup_paused(mut commands: Commands) {
     // 进入暂停：生成暂停提示文本，带 PausedUI 标记
-    commands.spawn((
-        Text2d::new("暂停 | P 继续 | ESC 回菜单"),
+    commands.spawn_scene(bsn! {
+        PausedUI
+        Text2d::new("暂停 | P 继续 | ESC 回菜单")
+        TextColor(Color::srgb(1.0, 0.8, 0.2))
         TextFont {
+            font: FontSourceTemplate::Handle(FONT_PATH),
             font_size: FontSize::Px(30.0),
-            ..default()
-        },
-        TextColor(Color::srgb(1.0, 0.8, 0.2)),
-        Transform::from_xyz(0.0, 100.0, 0.0),
-        PausedUI,
-    ));
+        }
+        Transform::from_xyz(0.0, 100.0, 0.0)
+    });
     info!("[状态] 进入暂停");
 }
 
