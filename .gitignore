@@ -1,0 +1,14 @@
+.idea
+.vscode
+.history
+.vs
+.fleet
+
+build/
+node_modules/
+__pycache__/
+
+.DS_Store
+*.cache
+*.log
+*.exe

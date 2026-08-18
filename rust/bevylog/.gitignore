@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+.workbuddy/
+
+target/
+
+.DS_Store
+Thumbs.db
+
+*.pdb

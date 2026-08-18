@@ -1,0 +1,16 @@
+{
+    "name": "laixhe/phplog",
+    "description": "PHP 学习示例（Yaf + Monolog）",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.5",
+        "monolog/monolog": "^3.10"
+    },
+    "autoload": {
+        "files": [
+            "application/common/Response.php",
+            "application/common/Log.php"
+        ]
+    }
+}

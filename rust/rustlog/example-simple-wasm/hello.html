@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Example WASM Demo — Rust → WebAssembly</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 16px;
+      color: #222;
+      line-height: 1.6;
+    }
+    h1 { color: #CE422B; /* Rust 橙 */ }
+    code { background: #f6f8fa; padding: 2px 6px; border-radius: 4px; }
+    .row { display: flex; gap: 8px; margin: 16px 0; }
+    input {
+      flex: 1; padding: 10px 12px; font-size: 15px;
+      border: 1px solid #ccc; border-radius: 6px;
+    }
+    button {
+      padding: 10px 18px; font-size: 15px; font-weight: bold;
+      background: #000; color: #fff; border: 0; border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #333; }
+    .result {
+      margin-top: 10px; padding: 14px 16px;
+      background: #fff8e1; border-left: 4px solid #FFB300;
+      border-radius: 4px;
+      min-height: 1.5em;
+    }
+    pre { background: #272822; color: #f8f8f2; padding: 14px; border-radius: 6px; overflow: auto; }
+  </style>
+</head>
+<body>
+
+<h1>🦀 Rust → WebAssembly Hello World</h1>
+
+<p>这个页面演示如何在浏览器里调用 Rust 编译出来的 WASM 函数：</p>
+<ul>
+  <li>Rust 端：<code>#[wasm_bindgen] pub fn greet(name: &amp;str) -&gt; String</code></li>
+  <li>JS 端：<code>import('./pkg/example_simple_wasm.js').then(m =&gt; m.greet('World'))</code></li>
+</ul>
+
+<h3>试一试：在下面输入你的名字，WASM 会返回一句问候</h3>
+
+<div class="row">
+  <input id="name"  type="text"   placeholder="例如：laixhe" value="Rustacean" />
+  <button id="btn">调用 WASM greet()</button>
+</div>
+
+<div class="result" id="result">(结果会显示在这里)</div>
+
+<hr />
+<h3>📦 构建步骤（你需要先完成才能看到效果）</h3>
+<pre>
+# 1. 添加 wasm32 目标架构（只需一次）
+rustup target add wasm32-unknown-unknown
+
+# 2. 安装 wasm-pack（只需一次）
+cargo install wasm-pack
+
+# 3. 在 example-simple-wasm 目录下构建（生成 pkg/ 目录）
+cd example-simple-wasm
+wasm-pack build --target web --out-dir ./pkg --out-name example_simple_wasm
+
+# 4. 启动一个本地静态服务器（直接 file:// 打开不行，浏览器出于安全限制禁止加载本地 .wasm）
+#    如果你有 Python：
+python -m http.server 8080
+#    然后浏览器打开：
+#    http://localhost:8080/example-simple-wasm/hello.html
+</pre>
+
+<script type="module">
+  // 动态加载 WASM glue code（构建后 pkg/example_simple_wasm.js 才存在）
+  import('./pkg/example_simple_wasm.js')
+    .then(async (m) => {
+      await m.default();           // 初始化 WASM 模块
+      window.__wasm = m;           // 方便你在浏览器控制台调试：__wasm.greet('test')
+      document.querySelector('#btn').onclick = () => {
+        const name   = document.querySelector('#name').value.trim() || 'stranger';
+        const result = m.greet(name);
+        document.querySelector('#result').textContent = '✔ WASM 返回：' + result;
+      };
+    })
+    .catch(err => {
+      document.querySelector('#result').innerHTML =
+        '❌ 加载 WASM 失败：<code>' + err.message + '</code><br/>' +
+        '请先按上文步骤执行 <code>wasm-pack build</code>，并通过本地 HTTP 服务器访问本页面。';
+      console.error(err);
+    });
+</script>
+</body>
+</html>

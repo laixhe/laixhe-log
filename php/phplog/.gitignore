@@ -1,0 +1,6 @@
+# Composer
+/vendor/
+composer.lock
+
+# 运行时
+*.log

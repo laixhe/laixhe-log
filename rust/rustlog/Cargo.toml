@@ -1,0 +1,183 @@
+[package]
+name = "rustlog"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+# 声明 Workspace 成员（支持通配符，如 "crates/*"）
+# Edition 2024 已默认使用 resolver = "3"，无需手动声明
+members = ["example-mod-use", "example-simple-wasm"]
+
+# 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
+[workspace.dependencies]
+wasm-bindgen = "0.2"
+
+# ===== 依赖说明 =====
+# 下面这些第三方库只被 examples/ 使用，因此放在 dev-dependencies 而不是 dependencies：
+#   - `cargo run`（主程序 src/ 只用标准库）不会编译它们，首次构建更快；
+#   - `cargo run --example xxx` 和 `cargo test` 仍然能访问 dev-dependencies。
+[dev-dependencies]
+# 错误
+thiserror = "2.0"
+anyhow = "1.0"
+
+# 序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+ron = "0.12"
+
+# 异步运行时
+tokio = { version = "1.52", features = ["full"] }
+# 并行计算
+rayon = "1.12"
+
+# 时间
+jiff = "0.2"
+# 正则
+regex = "1.13"
+
+# HTTP 客户端
+reqwest = { version = "0.13", features = ["json"] }
+
+# 实现多态
+downcast-rs = "2.0"
+
+# 随机数
+rand = "0.10"
+
+# 加密( SHA256 SHA384 SHA512 )
+ring = "0.17"
+# 密码哈希
+bcrypt = "0.19"
+# 加密哈希( BLAKE3 )
+blake3 = "1.8"
+# 数据编码(二进制转字符串)
+data-encoding = "2.11"
+
+# JWT (jsonwebtoken >= 11 必须显式启用 crypto 后端 feature)
+jsonwebtoken = { version = "11", features = ["rust_crypto"] }
+
+# 内存缓存
+moka = { version = "0.12", features = ["sync", "future"] }
+# 队列
+crossbeam-queue = "0.3"
+# 环形缓冲区
+ringbuf = "0.5"
+
+# 追踪日志-禁用冗余以提升运行时性能
+log = { version = "0.4", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+tracing = { version = "0.1", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+    "attributes",
+] }
+# 日志后端（tracing 输出 + log 桥接）
+tracing-subscriber = "0.3"
+env_logger = "0.11"
+
+# 某个分支
+#tokio = { git = "https://github.com/tokio-rs/tokio", branch = "main" }
+# 某个标签
+#tokio = { git = "https://github.com/tokio-rs/tokio", tag = "tokio-1.52.3" }
+# 某个提交
+#tokio = { git = "https://github.com/tokio-rs/tokio", rev = "778e9d9" }
+# 路径
+#tokio = { path = "../tokio-rs" }
+
+[[example]]
+# 无锁队列
+name = "example_crossbeam_queue_segqueue"
+path = "examples/example_crossbeam_queue_segqueue.rs"
+
+[[example]]
+# 时间
+name = "example_date_time"
+path = "examples/example_date_time.rs"
+
+[[example]]
+# 实现多态
+name = "example_downcast"
+path = "examples/example_downcast.rs"
+
+[[example]]
+# 加密
+name = "example_encrypt"
+path = "examples/example_encrypt.rs"
+
+[[example]]
+# 序列化(json)
+name = "example_json"
+path = "examples/example_json.rs"
+
+[[example]]
+# 序列化(ron)
+name = "example_ron"
+path = "examples/example_ron.rs"
+
+[[example]]
+# 追踪日志
+name = "example_log_tracing"
+path = "examples/example_log_tracing.rs"
+
+[[example]]
+# JWT
+name = "example_jwt"
+path = "examples/example_jwt.rs"
+
+[[example]]
+# 异步内存缓存
+name = "example_moka_future"
+path = "examples/example_moka_future.rs"
+
+[[example]]
+# 同步内存缓存
+name = "example_moka_sync"
+path = "examples/example_moka_sync.rs"
+
+[[example]]
+# 随机数
+name = "example_rand"
+path = "examples/example_rand.rs"
+
+[[example]]
+# 正则
+name = "example_regex"
+path = "examples/example_regex.rs"
+
+[[example]]
+# HTTP 客户端
+name = "example_reqwest"
+path = "examples/example_reqwest.rs"
+
+[[example]]
+# 环形缓冲区
+name = "example_ringbuf"
+path = "examples/example_ringbuf.rs"
+
+[[example]]
+# 错误处理
+name = "example_thiserror_anyhow"
+path = "examples/example_thiserror_anyhow.rs"
+
+[[example]]
+# 异步运行时(tokio)
+name = "example_tokio"
+path = "examples/example_tokio.rs"
+
+[[example]]
+# 并行计算(rayon)
+name = "example_rayon"
+path = "examples/example_rayon.rs"
+
+[[example]]
+# 标准库 TCP 服务器
+name = "example_std_net_tcp_server"
+path = "examples/example_std_net_tcp_server.rs"
+
+[[example]]
+# 标准库 TCP 客户端
+name = "example_std_net_tcp_client"
+path = "examples/example_std_net_tcp_client.rs"

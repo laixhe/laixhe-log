@@ -1,0 +1,883 @@
+[package]
+name = "bevylog"
+version = "0.1.0"
+edition = "2024"
+
+# 在开发配置文件中启用少量优化
+[profile.dev]
+opt-level = 1
+
+# 为依赖项在开发配置文件中启用大量优化
+[profile.dev.package."*"]
+opt-level = 3
+
+# 发布配置文件：以下都是发布优化，学习阶段不用改、也不用深究，了解即可。
+# 只有在你要发布 / 分发 exe 时才需要关心这些选项。
+[profile.release]
+# 最高优化级别
+opt-level = 3
+# 剥离调试符号，减小二进制体积
+strip = true
+# 开启链接时优化（让编译器在链接阶段对整个程序进行全局优化）
+lto = true
+# 使用单个代码生成单元，提升优化效果（会拖慢编译速度，但能让优化器做出更好的决策）
+codegen-units = 1
+
+[dependencies]
+# bevy 依赖配置说明：
+# - dynamic_linking 是「开发期优化」：把 bevy 编译成动态库（bevy_dylib.dll），
+#   改代码后只需重链你的 crate 不用重编 bevy，大幅加快增量编译。
+# - 副作用：debug 构建出的 exe 运行时依赖 bevy_dylib.dll，不能单独拷到别的机器。
+# - 发布 / 分发 exe 时需改为静态链接：把 features 里的 "dynamic_linking" 去掉即可
+#   （即 bevy = { version = "0.19" }）。Cargo 不支持按 debug/release 自动切换依赖，
+#   所以需要手动切换。学习阶段保留 dynamic_linking 即可。
+#
+# 学习 2d 阶段可以这样替换下面这行：
+#   bevy = { version = "0.19", default-features = false, features = ["2d","ui","audio","x11","wayland","dynamic_linking"] }
+# "wav" 特性：启用 WAV 音频解码（用于 example_audio 示例，播放 assets/audio/*.wav）
+# "https" 特性：启用远程 https 资产加载（用于 example_asset_remote 示例）
+bevy = { version = "0.19", features = ["dynamic_linking", "wav", "https"] }
+
+# 2D 光照与阴影库（Bevy 没有原生 2D 光照支持）
+# 提供 PointLight2d 点光源 + Occluder2d 阴影遮挡
+bevy_firefly = "0.19"
+
+# 随机数生成库（用于粒子系统的随机角度/颜色/速度/生命）
+rand = "0.10"
+
+# HTTP 客户端（用于网络请求示例，轻量、无异步运行时）
+ureq = "3"
+
+# 序列化（用于存档示例）
+serde = { version = "1", features = ["derive"] }
+# JSON 序列化
+serde_json = "1"
+# RON 序列化格式（Bevy 场景文件用的就是它）
+ron = "0.12"
+
+# 新手友好优先：放宽会降低可读性的 clippy lint（默认开启，但对教学代码不友好）
+[lints.clippy]
+collapsible_if = "allow"    # 嵌套 if 比 `a && b` 对新手更直观
+type_complexity = "allow"   # Bevy Query 类型天然复杂，加 type 别名反而增加理解负担
+
+# 简单精灵移动
+[[example]]
+name = "example_2d_movement"
+path = "examples/example_2d_movement.rs"
+
+# 简单精灵显示
+[[example]]
+name = "example_2d_sprite"
+path = "examples/example_2d_sprite.rs"
+
+# 事件系统
+[[example]]
+name = "example_ecs_events"
+path = "examples/example_ecs_events.rs"
+
+# UI 系统
+[[example]]
+name = "example_ui"
+path = "examples/example_ui.rs"
+
+# 输入系统
+[[example]]
+name = "example_input"
+path = "examples/example_input.rs"
+
+# 动画系统
+[[example]]
+name = "example_animation"
+path = "examples/example_animation.rs"
+
+# 状态系统
+[[example]]
+name = "example_ecs_state"
+path = "examples/example_ecs_state.rs"
+
+# 物理碰撞
+[[example]]
+name = "example_2d_collision"
+path = "examples/example_2d_collision.rs"
+
+# 粒子系统
+[[example]]
+name = "example_2d_particles"
+path = "examples/example_2d_particles.rs"
+
+# 光照与阴影3D
+[[example]]
+name = "example_3d_lighting"
+path = "examples/example_3d_lighting.rs"
+
+# 光照与阴影2D
+[[example]]
+name = "example_2d_lighting"
+path = "examples/example_2d_lighting.rs"
+
+# 定时器系统
+[[example]]
+name = "example_time_timer"
+path = "examples/example_time_timer.rs"
+
+# 音频系统
+[[example]]
+name = "example_audio"
+path = "examples/example_audio.rs"
+
+# 父子层级
+[[example]]
+name = "example_ecs_hierarchy"
+path = "examples/example_ecs_hierarchy.rs"
+
+# 系统集合
+[[example]]
+name = "example_ecs_system_sets"
+path = "examples/example_ecs_system_sets.rs"
+
+# 调试绘制
+[[example]]
+name = "example_2d_gizmos"
+path = "examples/example_2d_gizmos.rs"
+
+# 固定时间步长
+[[example]]
+name = "example_time_fixed_timestep"
+path = "examples/example_time_fixed_timestep.rs"
+
+# 窗口配置
+[[example]]
+name = "example_window"
+path = "examples/example_window.rs"
+
+# 日志系统
+[[example]]
+name = "example_logging"
+path = "examples/example_logging.rs"
+
+# 相机控制
+[[example]]
+name = "example_camera"
+path = "examples/example_camera.rs"
+
+# 自定义插件
+[[example]]
+name = "example_plugin"
+path = "examples/example_plugin.rs"
+
+# 图集动画
+[[example]]
+name = "example_2d_texture_atlas"
+path = "examples/example_2d_texture_atlas.rs"
+
+# 文本输入
+[[example]]
+name = "example_ui_text_input"
+path = "examples/example_ui_text_input.rs"
+
+# 空间音效
+[[example]]
+name = "example_audio_spatial"
+path = "examples/example_audio_spatial.rs"
+
+# 自定义网格
+[[example]]
+name = "example_3d_custom_mesh"
+path = "examples/example_3d_custom_mesh.rs"
+
+# 3D 变换
+[[example]]
+name = "example_3d_transform"
+path = "examples/example_3d_transform.rs"
+
+# 音频控制
+[[example]]
+name = "example_audio_control"
+path = "examples/example_audio_control.rs"
+
+# 游戏手柄
+[[example]]
+name = "example_input_gamepad"
+path = "examples/example_input_gamepad.rs"
+
+# ECS 性能优化
+[[example]]
+name = "example_ecs_performance"
+path = "examples/example_ecs_performance.rs"
+
+# 资源系统
+[[example]]
+name = "example_ecs_resource"
+path = "examples/example_ecs_resource.rs"
+
+# 查询系统
+[[example]]
+name = "example_ecs_query"
+path = "examples/example_ecs_query.rs"
+
+# 3D 基础场景
+[[example]]
+name = "example_3d_scene"
+path = "examples/example_3d_scene.rs"
+
+# 观察者/触发器
+[[example]]
+name = "example_ecs_observer"
+path = "examples/example_ecs_observer.rs"
+
+# 时间控制
+[[example]]
+name = "example_time_control"
+path = "examples/example_time_control.rs"
+
+# 运行条件
+[[example]]
+name = "example_ecs_run_condition"
+path = "examples/example_ecs_run_condition.rs"
+
+# 自定义系统参数
+[[example]]
+name = "example_ecs_system_param"
+path = "examples/example_ecs_system_param.rs"
+
+# 消息系统
+[[example]]
+name = "example_ecs_message"
+path = "examples/example_ecs_message.rs"
+
+# 反射
+[[example]]
+name = "example_ecs_reflect"
+path = "examples/example_ecs_reflect.rs"
+
+# 延迟操作
+[[example]]
+name = "example_ecs_deferred"
+path = "examples/example_ecs_deferred.rs"
+
+# UI 网格布局
+[[example]]
+name = "example_ui_grid"
+path = "examples/example_ui_grid.rs"
+
+# 2D 动画（AnimationClip）
+[[example]]
+name = "example_animation_clip"
+path = "examples/example_animation_clip.rs"
+
+# 场景系统
+[[example]]
+name = "example_scene"
+path = "examples/example_scene.rs"
+
+# 资产热重载
+[[example]]
+name = "example_asset_hot_reload"
+path = "examples/example_asset_hot_reload.rs"
+
+# 系统参数集合
+[[example]]
+name = "example_ecs_param_set"
+path = "examples/example_ecs_param_set.rs"
+
+# 渲染层
+[[example]]
+name = "example_render_layers"
+path = "examples/example_render_layers.rs"
+
+# 排他系统
+[[example]]
+name = "example_ecs_exclusive_system"
+path = "examples/example_ecs_exclusive_system.rs"
+
+# 窗口事件
+[[example]]
+name = "example_window_events"
+path = "examples/example_window_events.rs"
+
+# 自定义材质
+[[example]]
+name = "example_2d_custom_material"
+path = "examples/example_2d_custom_material.rs"
+
+# 工具：生成骨骼 gltf 模型
+[[example]]
+name = "generate_skeletal_gltf"
+path = "examples/generate_skeletal_gltf.rs"
+
+# 3D 骨骼动画
+[[example]]
+name = "example_animation_skeletal"
+path = "examples/example_animation_skeletal.rs"
+
+# 工具：生成多关节人形 gltf 模型
+[[example]]
+name = "generate_humanoid_gltf"
+path = "examples/generate_humanoid_gltf.rs"
+
+# 3D 多关节人形骨骼动画
+[[example]]
+name = "example_animation_humanoid"
+path = "examples/example_animation_humanoid.rs"
+
+# Query 高级过滤器
+[[example]]
+name = "example_ecs_query_filter"
+path = "examples/example_ecs_query_filter.rs"
+
+# 层级遍历
+[[example]]
+name = "example_ecs_hierarchy_query"
+path = "examples/example_ecs_hierarchy_query.rs"
+
+# 鼠标光标
+[[example]]
+name = "example_input_cursor"
+path = "examples/example_input_cursor.rs"
+
+# 3D 程序化网格
+[[example]]
+name = "example_3d_procedural_mesh"
+path = "examples/example_3d_procedural_mesh.rs"
+
+# Sprite 高级属性
+[[example]]
+name = "example_2d_sprite_properties"
+path = "examples/example_2d_sprite_properties.rs"
+
+# UI 焦点导航
+[[example]]
+name = "example_ui_focus"
+path = "examples/example_ui_focus.rs"
+
+# 自定义关系组件
+[[example]]
+name = "example_ecs_relationship"
+path = "examples/example_ecs_relationship.rs"
+
+# 异步任务
+[[example]]
+name = "example_async_task"
+path = "examples/example_async_task.rs"
+
+# 多窗口
+[[example]]
+name = "example_window_multi"
+path = "examples/example_window_multi.rs"
+
+# 3D Gizmos
+[[example]]
+name = "example_3d_gizmos"
+path = "examples/example_3d_gizmos.rs"
+
+# UI 组件（Checkbox/Slider）
+[[example]]
+name = "example_ui_widgets"
+path = "examples/example_ui_widgets.rs"
+
+# Toggle 开关 / ProgressBar 进度条
+[[example]]
+name = "example_ui_toggle_progress"
+path = "examples/example_ui_toggle_progress.rs"
+
+# ScrollArea 滚动区域
+[[example]]
+name = "example_ui_scroll_area"
+path = "examples/example_ui_scroll_area.rs"
+
+# RadioGroup 单选组
+[[example]]
+name = "example_ui_radio_group"
+path = "examples/example_ui_radio_group.rs"
+
+# ListBox 列表框
+[[example]]
+name = "example_ui_list_box"
+path = "examples/example_ui_list_box.rs"
+
+# Menu 弹出菜单
+[[example]]
+name = "example_ui_menu"
+path = "examples/example_ui_menu.rs"
+
+# UI 布局单位与盒模型
+[[example]]
+name = "example_ui_layout"
+path = "examples/example_ui_layout.rs"
+
+# UI 渐变背景
+[[example]]
+name = "example_ui_gradient"
+path = "examples/example_ui_gradient.rs"
+
+# UI 叠放层级
+[[example]]
+name = "example_ui_zindex"
+path = "examples/example_ui_zindex.rs"
+
+# UI 变换
+[[example]]
+name = "example_ui_transform"
+path = "examples/example_ui_transform.rs"
+
+# UI 图片节点
+[[example]]
+name = "example_ui_image"
+path = "examples/example_ui_image.rs"
+
+# UI 阴影/描边
+[[example]]
+name = "example_ui_shadow"
+path = "examples/example_ui_shadow.rs"
+
+# UI 视口（小地图）
+[[example]]
+name = "example_ui_viewport"
+path = "examples/example_ui_viewport.rs"
+
+# UI 相对光标位置
+[[example]]
+name = "example_ui_cursor_position"
+path = "examples/example_ui_cursor_position.rs"
+
+# UI 缩放
+[[example]]
+name = "example_ui_scale"
+path = "examples/example_ui_scale.rs"
+
+# UI 文本样式
+[[example]]
+name = "example_ui_text_style"
+path = "examples/example_ui_text_style.rs"
+
+# UI 富文本
+[[example]]
+name = "example_ui_span"
+path = "examples/example_ui_span.rs"
+
+# UI 交互穿透
+[[example]]
+name = "example_ui_focus_policy"
+path = "examples/example_ui_focus_policy.rs"
+
+# UI 溢出裁剪
+[[example]]
+name = "example_ui_overflow"
+path = "examples/example_ui_overflow.rs"
+
+# UI 文本边界与换行
+[[example]]
+name = "example_ui_text_bounds"
+path = "examples/example_ui_text_bounds.rs"
+
+# UI 指定相机渲染
+[[example]]
+name = "example_ui_target_camera"
+path = "examples/example_ui_target_camera.rs"
+
+# UI 交互状态
+[[example]]
+name = "example_ui_interaction"
+path = "examples/example_ui_interaction.rs"
+
+# 2D 图元集合
+[[example]]
+name = "example_2d_primitives"
+path = "examples/example_2d_primitives.rs"
+
+# 2D 世界空间文本
+[[example]]
+name = "example_2d_text"
+path = "examples/example_2d_text.rs"
+
+# 2D 自定义网格
+[[example]]
+name = "example_2d_mesh"
+path = "examples/example_2d_mesh.rs"
+
+# 2D 拾取
+[[example]]
+name = "example_2d_picking"
+path = "examples/example_2d_picking.rs"
+
+# 2D 拖拽
+[[example]]
+name = "example_2d_drag"
+path = "examples/example_2d_drag.rs"
+
+# 2D 相机平滑跟随
+[[example]]
+name = "example_2d_camera_follow"
+path = "examples/example_2d_camera_follow.rs"
+
+# 2D 精灵淡入淡出
+[[example]]
+name = "example_2d_sprite_fade"
+path = "examples/example_2d_sprite_fade.rs"
+
+# 2D 视差滚动
+[[example]]
+name = "example_2d_parallax"
+path = "examples/example_2d_parallax.rs"
+
+# 2D 重力模拟
+[[example]]
+name = "example_2d_gravity"
+path = "examples/example_2d_gravity.rs"
+
+# 2D 朝向鼠标
+[[example]]
+name = "example_2d_rotate_to_mouse"
+path = "examples/example_2d_rotate_to_mouse.rs"
+
+# 2D 弹跳球
+[[example]]
+name = "example_2d_bounce"
+path = "examples/example_2d_bounce.rs"
+
+# 2D 屏幕环绕
+[[example]]
+name = "example_2d_wrap"
+path = "examples/example_2d_wrap.rs"
+
+# 2D 缩放脉冲
+[[example]]
+name = "example_2d_scale_pulse"
+path = "examples/example_2d_scale_pulse.rs"
+
+# 2D 定时生成物体
+[[example]]
+name = "example_2d_spawner"
+path = "examples/example_2d_spawner.rs"
+
+# 2D 颜色循环
+[[example]]
+name = "example_2d_color_cycle"
+path = "examples/example_2d_color_cycle.rs"
+
+# 2D 网格布局
+[[example]]
+name = "example_2d_grid"
+path = "examples/example_2d_grid.rs"
+
+# 动画：多字段动画
+[[example]]
+name = "example_animation_multi_curve"
+path = "examples/example_animation_multi_curve.rs"
+
+# 动画：播放控制
+[[example]]
+name = "example_animation_playback"
+path = "examples/example_animation_playback.rs"
+
+# 动画：动画事件
+[[example]]
+name = "example_animation_event"
+path = "examples/example_animation_event.rs"
+
+# 动画：缓动动画
+[[example]]
+name = "example_animation_easing"
+path = "examples/example_animation_easing.rs"
+
+# 相机：屏幕震动
+[[example]]
+name = "example_camera_shake"
+path = "examples/example_camera_shake.rs"
+
+# 相机：边界限制
+[[example]]
+name = "example_camera_bounds"
+path = "examples/example_camera_bounds.rs"
+
+# 相机：缩放跟随鼠标
+[[example]]
+name = "example_camera_zoom_to_cursor"
+path = "examples/example_camera_zoom_to_cursor.rs"
+
+# 相机：3D 轨道相机
+[[example]]
+name = "example_camera_orbit_3d"
+path = "examples/example_camera_orbit_3d.rs"
+
+# 相机：正交投影缩放模式
+[[example]]
+name = "example_camera_scaling_modes"
+path = "examples/example_camera_scaling_modes.rs"
+
+# 相机：2D 相机旋转
+[[example]]
+name = "example_camera_rotation_2d"
+path = "examples/example_camera_rotation_2d.rs"
+
+# 相机：3D 第一人称
+[[example]]
+name = "example_camera_first_person_3d"
+path = "examples/example_camera_first_person_3d.rs"
+
+# 相机：3D 第三人称跟随
+[[example]]
+name = "example_camera_third_person_3d"
+path = "examples/example_camera_third_person_3d.rs"
+
+# 3D 图元集合
+[[example]]
+name = "example_3d_primitives"
+path = "examples/example_3d_primitives.rs"
+
+# 3D 父子层级
+[[example]]
+name = "example_3d_hierarchy"
+path = "examples/example_3d_hierarchy.rs"
+
+# 3D 拾取
+[[example]]
+name = "example_3d_picking"
+path = "examples/example_3d_picking.rs"
+
+# 3D 材质属性
+[[example]]
+name = "example_3d_material"
+path = "examples/example_3d_material.rs"
+
+# 3D 重力与地面碰撞
+[[example]]
+name = "example_3d_gravity"
+path = "examples/example_3d_gravity.rs"
+
+# 3D 球体弹性碰撞
+[[example]]
+name = "example_3d_collision"
+path = "examples/example_3d_collision.rs"
+
+# 3D 抛体运动
+[[example]]
+name = "example_3d_projectile"
+path = "examples/example_3d_projectile.rs"
+
+# 场景：层级
+[[example]]
+name = "example_scene_hierarchy"
+path = "examples/example_scene_hierarchy.rs"
+
+# 场景：补丁覆盖
+[[example]]
+name = "example_scene_patch"
+path = "examples/example_scene_patch.rs"
+
+# 场景：列表
+[[example]]
+name = "example_scene_list"
+path = "examples/example_scene_list.rs"
+
+# 场景：作为系统
+[[example]]
+name = "example_scene_system"
+path = "examples/example_scene_system.rs"
+
+# ECS 组件存储类型
+[[example]]
+name = "example_ecs_storage"
+path = "examples/example_ecs_storage.rs"
+
+# ECS SparseSet 实战
+[[example]]
+name = "example_ecs_sparse_set"
+path = "examples/example_ecs_sparse_set.rs"
+
+# ECS 存储迭代性能对比
+[[example]]
+name = "example_ecs_storage_benchmark"
+path = "examples/example_ecs_storage_benchmark.rs"
+
+# 资源：基础加载与句柄
+[[example]]
+name = "example_asset_basics"
+path = "examples/example_asset_basics.rs"
+
+# 资源：加载状态
+[[example]]
+name = "example_asset_load_state"
+path = "examples/example_asset_load_state.rs"
+
+# 资源：自定义 Asset + Loader
+[[example]]
+name = "example_asset_custom"
+path = "examples/example_asset_custom.rs"
+
+# 3D 纹理贴图
+[[example]]
+name = "example_3d_texture"
+path = "examples/example_3d_texture.rs"
+
+# 3D 雾效
+[[example]]
+name = "example_3d_fog"
+path = "examples/example_3d_fog.rs"
+
+# 3D 泛光后处理
+[[example]]
+name = "example_3d_bloom"
+path = "examples/example_3d_bloom.rs"
+
+# 状态：子状态
+[[example]]
+name = "example_ecs_substate"
+path = "examples/example_ecs_substate.rs"
+
+# 状态：计算状态
+[[example]]
+name = "example_ecs_computed_state"
+path = "examples/example_ecs_computed_state.rs"
+
+# 状态：转换事件与游戏流程
+[[example]]
+name = "example_ecs_state_transition_event"
+path = "examples/example_ecs_state_transition_event.rs"
+
+# 诊断：FPS 统计
+[[example]]
+name = "example_diagnostics"
+path = "examples/example_diagnostics.rs"
+
+# 诊断：自定义指标
+[[example]]
+name = "example_diagnostics_custom"
+path = "examples/example_diagnostics_custom.rs"
+
+# 音频：全局音量
+[[example]]
+name = "example_audio_global_volume"
+path = "examples/example_audio_global_volume.rs"
+
+# 音频：多音源混合
+[[example]]
+name = "example_audio_multi"
+path = "examples/example_audio_multi.rs"
+
+# 音频：播放控制
+[[example]]
+name = "example_audio_playback"
+path = "examples/example_audio_playback.rs"
+
+# 窗口：全屏切换
+[[example]]
+name = "example_window_fullscreen"
+path = "examples/example_window_fullscreen.rs"
+
+# 2D 粒子尾迹
+[[example]]
+name = "example_2d_particle_trail"
+path = "examples/example_2d_particle_trail.rs"
+
+# 输入：键盘进阶（按键状态/组合键/修饰键）
+[[example]]
+name = "example_input_keyboard"
+path = "examples/example_input_keyboard.rs"
+
+# 输入：鼠标移动与拖拽检测
+[[example]]
+name = "example_input_mouse_motion"
+path = "examples/example_input_mouse_motion.rs"
+
+# 时间：秒表（Stopwatch）
+[[example]]
+name = "example_time_stopwatch"
+path = "examples/example_time_stopwatch.rs"
+
+# 窗口：光标捕获与可见性
+[[example]]
+name = "example_window_cursor"
+path = "examples/example_window_cursor.rs"
+
+# ECS：检测组件被移除（RemovedComponents）
+[[example]]
+name = "example_ecs_removed_components"
+path = "examples/example_ecs_removed_components.rs"
+
+# 随机数生成（rand crate）
+[[example]]
+name = "example_random"
+path = "examples/example_random.rs"
+
+# 实体可见性（Visibility / InheritedVisibility）
+[[example]]
+name = "example_visibility"
+path = "examples/example_visibility.rs"
+
+# 异步 I/O 任务池（模拟网络下载）
+[[example]]
+name = "example_async_io"
+path = "examples/example_async_io.rs"
+
+# 真实网络请求（ureq）
+[[example]]
+name = "example_network_request"
+path = "examples/example_network_request.rs"
+
+# 远程资产加载（AssetServer + https）
+[[example]]
+name = "example_asset_remote"
+path = "examples/example_asset_remote.rs"
+
+# ECS：关系查询进阶（related / relationship_sources / root_ancestor）
+[[example]]
+name = "example_ecs_related_query"
+path = "examples/example_ecs_related_query.rs"
+
+# 序列化存档（serde + ron）
+[[example]]
+name = "example_serialization"
+path = "examples/example_serialization.rs"
+
+# 动画混合（AnimationTransitions）
+[[example]]
+name = "example_animation_blend"
+path = "examples/example_animation_blend.rs"
+
+# 3D 自定义材质（Material + WGSL）
+[[example]]
+name = "example_3d_custom_material"
+path = "examples/example_3d_custom_material.rs"
+
+#===================================================
+
+# 迷你游戏2D
+[[example]]
+name = "simple_mini"
+path = "examples/simple_mini/main.rs"
+
+#  上下打砖块(有启动画面)2D
+[[example]]
+name = "simple_mini_breakout"
+path = "examples/simple_mini_breakout/main.rs"
+
+# 贪吃蛇2D
+[[example]]
+name = "simple_mini_snake"
+path = "examples/simple_mini_snake/main.rs"
+
+# 2D 综合：星空收集（相机跟随+视差+粒子+图集动画+碰撞+音频）
+[[example]]
+name = "simple_mini_2d_star"
+path = "examples/simple_mini_2d_star/main.rs"
+
+# 3D 综合：收集金币（3D 场景+光照+PBR+重力跳跃+第三人称相机+碰撞）
+[[example]]
+name = "simple_mini_3d_coin"
+path = "examples/simple_mini_3d_coin/main.rs"
+
+# UI 综合：待办清单（控件+布局+状态机+序列化存档）
+[[example]]
+name = "simple_mini_ui_todo"
+path = "examples/simple_mini_ui_todo/main.rs"
+
+# 3D 综合：低多边形树模拟经营（程序化地形+建造+采集+居民+导航）
+[[example]]
+name = "simple_mini_3d_tree_low_poly"
+path = "examples/simple_mini_3d_tree_low_poly/main.rs"
+
+# 3D 综合：程序员求职生存模拟（场景切换+日程+求职管线+NPC 对话+多结局）
+[[example]]
+name = "simple_mini_3d_programmer_life"
+path = "examples/simple_mini_3d_programmer_life/main.rs"

@@ -1,0 +1,13 @@
+[package]
+name = "example-simple-wasm"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+# cdylib 编译成动态库（wasm 用）
+# rlib   Rust crate 库（单元测试用）
+
+# 共享依赖（推荐）：统一管理依赖版本，成员 crate 可直接引用
+[dependencies]
+wasm-bindgen = { workspace = true }

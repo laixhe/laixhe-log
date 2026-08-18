@@ -1,0 +1,33 @@
+[project]
+name = "pylog"
+version = "0.1.0"
+description = "Python 学习示例项目：基础语法按主题拆分模块，可 uv run 直接运行"
+readme = "README.md"
+authors = [
+    { name = "laixhe", email = "laixhe@laixhe.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+pylog = "pylog:main"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.0",
+    "pytest>=9.1.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
