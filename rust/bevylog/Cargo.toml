@@ -36,11 +36,43 @@ codegen-units = 1
 #   bevy = { version = "0.19", default-features = false, features = ["2d","ui","audio","x11","wayland","dynamic_linking"] }
 # "wav" 特性：启用 WAV 音频解码（用于 example_audio 示例，播放 assets/audio/*.wav）
 # "https" 特性：启用远程 https 资产加载（用于 example_asset_remote 示例）
-bevy = { version = "0.19", features = ["dynamic_linking", "wav", "https"] }
+#
+# 注释：刻意不开 dynamic_linking（动态链接）
+bevy = { version = "0.19", features = ["wav", "https"] }
+# 中文字体换行用它做复杂脚本分段；不开 `logging` 特性时，缺 CJK 字典数据会走
+# `eprintln` 直接刷 stderr（debug 下无数条 "ICU4X data error ..."）。打开后改走
+# `log` crate，可在 main.rs 的 LogPlugin filter 里精确静默。
+icu_provider = { version = "2", features = ["logging"] }
 
+# 3D 物理引擎库
+avian3d = "0.7"
+# 2D 物理引擎库
+avian2d = "0.7"
+# UI库（复杂的 UI 可以使用这个库，简单使用原生 bevy ui）
+bevy_egui = "0.42"
+# 输入管理器库
+bevy_enhanced_input = "0.26"
+# 加载资源库
+bevy_asset_loader = "0.27"
+# 资源嵌入二进制库
+bevy_embedded_assets = "0.16"
+# 过渡(补间)动画库
+bevy_tween = "0.13"
+# 粒子系统库
+bevy_firework = "0.10"
+# 用于数学计算、插值运算以及几何处理的功能工具库（动态插值、弹簧插值等）
+bevy_utilitarian = "0.10"
+# 简单类型安全解决方案库(类型化实体的基础层)
+moonshine-kind = "0.5"
+# 实用工具集合
+moonshine-util = "0.5"
+# 状态机库
+moonshine-behavior = "0.5"
 # 2D 光照与阴影库（Bevy 没有原生 2D 光照支持）
 # 提供 PointLight2d 点光源 + Occluder2d 阴影遮挡
 bevy_firefly = "0.19"
+# 虚拟摇杆库
+virtual_joystick = "2.8"
 
 # 随机数生成库（用于粒子系统的随机角度/颜色/速度/生命）
 rand = "0.10"
@@ -75,10 +107,15 @@ path = "examples/example_2d_sprite.rs"
 name = "example_ecs_events"
 path = "examples/example_ecs_events.rs"
 
-# UI 系统
+# UI 系统 - 2D 场景
 [[example]]
-name = "example_ui"
-path = "examples/example_ui.rs"
+name = "example_ui_2d"
+path = "examples/example_ui_2d.rs"
+
+# UI 系统 - 3D 场景
+[[example]]
+name = "example_ui_3d"
+path = "examples/example_ui_3d.rs"
 
 # 输入系统
 [[example]]
@@ -839,6 +876,96 @@ path = "examples/example_animation_blend.rs"
 [[example]]
 name = "example_3d_custom_material"
 path = "examples/example_3d_custom_material.rs"
+
+# egui 即时模式 UI - 2D 场景（bevy_egui 库）
+[[example]]
+name = "example_egui_2d"
+path = "examples/example_egui_2d.rs"
+
+# egui 即时模式 UI - 3D 场景（bevy_egui 库）
+[[example]]
+name = "example_egui_3d"
+path = "examples/example_egui_3d.rs"
+
+# 增强输入（bevy_enhanced_input 库）
+[[example]]
+name = "example_enhanced_input"
+path = "examples/example_enhanced_input.rs"
+
+# 集中式资源加载（bevy_asset_loader 库）
+[[example]]
+name = "example_asset_loader"
+path = "examples/example_asset_loader.rs"
+
+# 资源嵌入二进制（bevy_embedded_assets 库）
+[[example]]
+name = "example_embedded_assets"
+path = "examples/example_embedded_assets.rs"
+
+# 补间动画（bevy_tween 库）
+[[example]]
+name = "example_tween"
+path = "examples/example_tween.rs"
+
+# moonshine 系列：状态机 + 类型化实体 + 工具（moonshine-behavior / kind / util）
+[[example]]
+name = "example_moonshine_behavior"
+path = "examples/example_moonshine_behavior.rs"
+
+# 虚拟摇杆（virtual_joystick 库，移动端触屏 / 鼠标模拟）
+[[example]]
+name = "example_virtual_joystick"
+path = "examples/example_virtual_joystick.rs"
+
+# 粒子系统（bevy_firework 库）2D 场景
+[[example]]
+name = "example_firework_2d"
+path = "examples/example_firework_2d.rs"
+
+# 粒子系统（bevy_firework 库）3D 场景
+[[example]]
+name = "example_firework_3d"
+path = "examples/example_firework_3d.rs"
+
+# 2D 物理引擎（avian2d 库）：基础（刚体/碰撞/反弹/摩擦/力/事件）
+[[example]]
+name = "example_avian2d_basics"
+path = "examples/example_avian2d_basics.rs"
+
+# 2D 物理引擎（avian2d 库）：关节（摆锤/绳链/滑轨）
+[[example]]
+name = "example_avian2d_joints"
+path = "examples/example_avian2d_joints.rs"
+
+# 3D 物理引擎（avian3d 库）：基础（堆叠/碰撞/发射/事件）
+[[example]]
+name = "example_avian3d_basics"
+path = "examples/example_avian3d_basics.rs"
+
+# 3D 物理引擎（avian3d 库）：射线检测 + 传感器
+[[example]]
+name = "example_avian3d_raycast"
+path = "examples/example_avian3d_raycast.rs"
+
+# 2D 物理引擎（avian2d 库）：角色控制器（MoveAndSlide）
+[[example]]
+name = "example_avian2d_character_controller"
+path = "examples/example_avian2d_character_controller.rs"
+
+# 3D 物理引擎（avian3d 库）：角色控制器（MoveAndSlide）
+[[example]]
+name = "example_avian3d_character_controller"
+path = "examples/example_avian3d_character_controller.rs"
+
+# 2D 物理引擎（avian2d 库）：马达（角马达/线马达）
+[[example]]
+name = "example_avian2d_motor"
+path = "examples/example_avian2d_motor.rs"
+
+# 3D 物理引擎（avian3d 库）：马达（角马达/线马达）
+[[example]]
+name = "example_avian3d_motor"
+path = "examples/example_avian3d_motor.rs"
 
 #===================================================
 

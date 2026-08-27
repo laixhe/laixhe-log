@@ -1,4 +1,4 @@
-//! Bevy 0.19 入门示例：演示 UI 系统（Node / Button / Interaction / Text）。
+//! Bevy 0.19 入门示例：演示 Bevy 原生 UI 在 2D 环境中的用法（Node / Button / Interaction / Text）。
 //! 屏幕中央一个按钮，点击计数 +1，按钮颜色随悬停 / 按下状态变化。
 //!
 //! 学习重点：
@@ -8,15 +8,21 @@
 //!   所以 spawn(Button) 就能得到一个可交互的按钮。
 //! - Interaction 由 Bevy 自动更新（Pressed / Hovered / None），用 Changed<Interaction> 过滤只处理变化的实体。
 //! - children! 宏用于声明 UI 父子层级（和 spawn 后手动 add_child 等价但更简洁）。
+//!
+//! 3D 环境版本见 example_ui_3d.rs。
 
-use bevy::{prelude::*, text::FontSourceTemplate};
+use bevy::{log::LogPlugin, prelude::*, text::FontSourceTemplate};
 
 // 中文字体路径
 const FONT_PATH: &str = "fonts/Yozai-Regular.ttf";
 
 fn main() -> AppExit {
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(LogPlugin {
+            // 静默 icu_provider 缺 CJK 字典数据的警告（保留默认的 wgpu/naga 过滤）
+            filter: "wgpu=error,naga=warn,icu_provider=off".to_string(),
+            ..default()
+        }))
         // 插入资源：ClickCount 记录按钮被点击的次数。
         // 「资源」是全局共享的数据，UI 系统和计数逻辑都通过 ResMut 读写它。
         .insert_resource(ClickCount(0))
